@@ -17,27 +17,25 @@ top_n = 8
 
 # List of state/territory abbreviations.
 states = [
-	'AK', 'AL', 'AR', 'AZ',
+	'AK', 'AL', 'AR', 'AS', 'AZ',
 	'CA', 'CO', 'CT',
 	'DC', 'DE',
 	'FL',
-	'GA',
+	'GA', 'GU',
 	'HI',
 	'IA', 'ID', 'IL', 'IN',
 	'KS', 'KY',
 	'LA',
-	'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT',
+	'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MP', 'MS', 'MT',
 	'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
 	'OH', 'OK', 'OR',
-	'PA',
+	'PA', 'PR',
 	'RI',
 	'SC', 'SD',
 	'TN', 'TX',
 	'UT',
-	'VA', 'VT',
+	'VA', 'VI', 'VT',
 	'WA', 'WI', 'WV', 'WY',
-	# Territories
-	'AS', 'GU', 'MP', 'PR', 'VI',
 ]
 
 # US state/territory population - Est. 1 July 2019
@@ -121,8 +119,10 @@ line_colors = {
 	'black': '#000000',
 	'blue': '#396ab1',
 	'brown': '#922428',
+	'dk_gray': '#101010',
 	'gray': '#535154',
 	'green': '#3e9651',
+	'lt_gray': '#d0d0d0',
 	'orange': '#da7c30',
 	'olive': '#948b3d',
 	'purple': '#6b4c9a',
@@ -185,7 +185,8 @@ class CovidData:
 		us_cases = 0
 		with open('data/states-daily.csv') as fp:
 			for line in fp:
-				(date,state,positive,negative,pending,death,total,timestamp) = line.strip().split(',')
+				# Hospitalized field added on 21 Mar 2020.
+				(date,state,positive,negative,pending,hospitalized,death,total,timestamp) = line.strip().split(',')
 				if date == 'date':
 					continue
 
@@ -211,8 +212,12 @@ class CovidData:
 					curr_date = date
 					self.dates.insert(0, date)
 
-				self.data[state].insert(0, int(positive))
-				us_cases += int(positive)
+				if positive == '':
+					pos = 0
+				else:
+					pos = int(positive)
+				self.data[state].insert(0, pos)
+				us_cases += pos
 
 				# Keep track of which states have data for this date.
 				state_has_data[state] = True
@@ -268,6 +273,7 @@ class CovidData:
 			['20200318', 35713],
 			['20200319', 41035],
 			['20200320', 47021],
+			['20200321', 53578],
 		]
 
 		# Add extra Italy data depending on the date being processed.
@@ -331,7 +337,16 @@ class CovidCases:
 				new_data.append(c)
 		return new_data
 
+	# Generate main graphs for |plot_date|.
 	def generate(self):
+		print 'Processing data for', self.date_str
+		self.generate_top_n_cases()
+		
+		print 'Generating state graphs'
+		self.generate_state()
+
+	# Generate graphs for a previous date (used for animations).
+	def generate_anim(self):
 		print 'Processing data for', self.date_str
 		self.generate_top_n_cases()
 
@@ -371,22 +386,25 @@ class CovidCases:
 		options.title = 'COVID-19 US reported positive cases \n(Since first day with 10 cases/million. Top %d states. Linear scale)' % top_n
 		self.generate_cases_plot(options)
 
+	def format_axes(self, ax, log):
+		if log:
+			ax.set_yscale('log')
+		for axis in [ax.xaxis, ax.yaxis]:
+			formatter = FuncFormatter(lambda y, _: '{:.16g}'.format(y))
+			axis.set_major_formatter(formatter)
+		#formatter = LogFormatter(labelOnlyBase=False, minor_thresholds=(2, 0.4))
+		#ax.yaxis.set_minor_formatter(formatter)
+
 	def generate_cases_plot(self, options):
 		if not os.path.exists(options.output_dir):
 			os.makedirs(options.output_dir)
 
-		self.fig, self.ax = plt.subplots()
-		self.ax.axis([0, options.max_days, options.y_min, options.y_max])
-		if options.use_log_scale:
-			self.ax.set_yscale('log')
-		for axis in [self.ax.xaxis, self.ax.yaxis]:
-			formatter = FuncFormatter(lambda y, _: '{:.16g}'.format(y))
-			axis.set_major_formatter(formatter)
-		formatter = LogFormatter(labelOnlyBase=False, minor_thresholds=(2, 0.4))
-		self.ax.yaxis.set_minor_formatter(formatter)
-		self.ax.grid(True)
-		self.ax.set_xlabel(options.x_label)
-		self.ax.set_ylabel(options.y_label)
+		self.fig, ax = plt.subplots()
+		ax.axis([0, options.max_days, options.y_min, options.y_max])
+		self.format_axes(ax, options.use_log_scale)
+		ax.grid(True)
+		ax.set_xlabel(options.x_label)
+		ax.set_ylabel(options.y_label)
 		plt.title(options.title)
 
 		plt.annotate('US data from https://covidtracking.com', (0,0), (-40, -40),
@@ -399,12 +417,12 @@ class CovidCases:
 		# Plot the top |top_n| states.
 		for i in xrange(top_n):
 			state = options.ranking[i];
-			self.plot_data(self.cdata.get_state_cases(state), color_order[i],
-					state_pop[state], state, options.processor)
+			self.plot_data(ax, self.cdata.get_state_cases(state), color_order[i],
+					state_pop[state], state, False, options.processor)
 
-		self.plot_data(self.cdata.get_italy_cases(), 'black', italy_pop, 'Italy',
+		self.plot_data(ax, self.cdata.get_italy_cases(), 'black', italy_pop, 'Italy', True,
 				options.processor)
-		self.plot_data(self.cdata.get_us_cases(), 'black', us_pop, 'US',
+		self.plot_data(ax, self.cdata.get_us_cases(), 'black', us_pop, 'US', True,
 				options.processor)
 
 		plt.legend(loc="lower right")
@@ -419,7 +437,34 @@ class CovidCases:
 		filename = '%s/cases-%s-%s.png' % (outdir, logname, self.date)
 		plt.savefig(filename, bbox_inches='tight')
 
-	def plot_data(self, raw_data, color, pop, label, processor):
+	def generate_state(self):
+		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
+		#fig.suptitle('States')
+
+		# Build a dictionary of state -> ax
+		state_ax = {}
+		s = 0
+		for ax in axs.flat:
+			state = states[s]
+			state_ax[state] = ax
+			s += 1
+
+		for s in states:
+			ax = state_ax[s]
+			#ax.set_title(s)
+			ax.axis([0, 25, 10, 1000])
+			self.format_axes(ax, True)
+			# Plot data for all the states in light gray for reference.
+			for s2 in states:
+				self.plot_data(ax, self.cdata.get_state_cases(s2), 'lt_gray',
+						state_pop[s2], '', False, self.process_normalize_and_filter10)	
+			self.plot_data(ax, self.cdata.get_state_cases(s), 'dk_gray',
+					state_pop[s], s, True, self.process_normalize_and_filter10)
+
+		fig.set_size_inches(8, 16)
+		plt.savefig('out-cases-norm/states.png', dpi=150, bbox_inches='tight')
+
+	def plot_data(self, ax, raw_data, color, pop, label, always_label, processor):
 		# Default to thick, solid line.
 		linewidth = 2
 		linestyle = '-'
@@ -435,20 +480,25 @@ class CovidCases:
 		# Always plot the data (even if empty) so that it gets added to the Legend.
 		# Otherwise the legend will jump when the images are stitched together for the
 		# animation.
-		self.ax.plot(processed_data, color=line_colors[color], linewidth = linewidth,
+		ax.plot(processed_data, color=line_colors[color], linewidth = linewidth,
 				linestyle = linestyle, label = label)
-		if len(processed_data) > 0:	
+		if always_label or len(processed_data) > 0:
 			# Label each line at its last data point.
-			label_x = len(processed_data) - 1
-			label_y = processed_data[-1]
-			text_bg = self.ax.text(label_x, label_y, label, size=12)
+			if len(processed_data) > 0:
+				label_x = len(processed_data) - 1
+				label_y = processed_data[-1]
+			else:
+				label_x = 0
+				label_y = 10
+				color = 'lt_gray'
+			text_bg = ax.text(label_x, label_y, label, size=12)
 			text_bg.set_path_effects([
 					PathEffects.Stroke(linewidth=3, foreground='white'),
 					PathEffects.Normal()])
-			text = self.ax.text(label_x, label_y, label, size=12, color=line_colors[color])
+			text = ax.text(label_x, label_y, label, size=12, color=line_colors[color])
 			text.set_path_effects([PathEffects.Normal()])
 
-	def export_anim_gif(self):
+	def export_anim(self):
 		print 'Exporting animations'
 		cmd = 'convert'
 		args_base = ['-delay', '30' ,'-loop', '0']
@@ -497,8 +547,8 @@ def main(argv):
 		# Process previous day data using top-8 from current day.	
 		while int(covid_data.get_date()) > int('20200316'):
 			cases.remove_last_day()
-			cases.generate()
-		cases.export_anim_gif()
+			cases.generate_anim()
+		cases.export_anim()
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
