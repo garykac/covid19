@@ -4,6 +4,8 @@ import getopt
 import matplotlib.patheffects as PathEffects
 import matplotlib.pyplot as plt
 import operator
+import os
+import shutil
 import subprocess
 import sys
 from matplotlib.ticker import FuncFormatter
@@ -281,7 +283,11 @@ class CovidCases:
 			print 'ERROR - Missing date'
 			sys.exit(2)
 		self.set_date(date)
-		self.most_recent_date = self.date
+		
+		# The |plot_date| is the latest date that we're plotting data for. This can differ
+		# from the |date| because we plot previous days based on the top-n states
+		# on the |plot_date|.
+		self.plot_date = self.date
 		
 	def remove_last_day(self):
 		self.cdata.remove_last_day()
@@ -366,6 +372,9 @@ class CovidCases:
 		self.generate_cases_plot(options)
 
 	def generate_cases_plot(self, options):
+		if not os.path.exists(options.output_dir):
+			os.makedirs(options.output_dir)
+
 		self.fig, self.ax = plt.subplots()
 		self.ax.axis([0, options.max_days, options.y_min, options.y_max])
 		if options.use_log_scale:
@@ -399,10 +408,15 @@ class CovidCases:
 				options.processor)
 
 		plt.legend(loc="lower right")
+
+		outdir = '%s/%s' % (options.output_dir, self.plot_date)
+		if not os.path.exists(outdir):
+			os.makedirs(outdir)
+
 		logname = 'lin'
 		if options.use_log_scale:
 			logname = 'log'
-		filename = '%s/cases-%s-%s.png' % (options.output_dir, logname, self.date)
+		filename = '%s/cases-%s-%s.png' % (outdir, logname, self.date)
 		plt.savefig(filename, bbox_inches='tight')
 
 	def plot_data(self, raw_data, color, pop, label, processor):
@@ -440,15 +454,19 @@ class CovidCases:
 		args_base = ['-delay', '30' ,'-loop', '0']
 		
 		for dir in ['out-cases', 'out-cases-norm']:
+			outdir = '%s/%s' % (dir, self.plot_date)
 			for f in ['cases-log', 'cases-lin']:
 				args = args_base[:]
-				args.append('%s/%s-2020*.png' % (dir, f))
-				# Add delay before last frame.
+				args.append('%s/%s-2020*.png' % (outdir, f))
+				# Hold the last frame for a longer time.
 				args.extend(['-delay', '120'])
-				args.append('%s/%s-%s.png' % (dir, f, self.most_recent_date))
+				args.append('%s/%s-%s.png' % (outdir, f, self.plot_date))
 				# Output file.
-				args.append('%s/%s.gif' % (dir, f))
+				out_gif = '%s/%s.gif' % (outdir, f)
+				args.append(out_gif)
 				subprocess.call([cmd] + args)
+				# Make a copy in the top level dir.
+				shutil.copy(out_gif, dir)
 		
 def main(argv):
 	try:
@@ -479,7 +497,7 @@ def main(argv):
 		# Process previous day data using top-8 from current day.	
 		while int(covid_data.get_date()) > int('20200316'):
 			cases.remove_last_day()
-			cases.process()
+			cases.generate()
 		cases.export_anim_gif()
 
 if __name__ == "__main__":
