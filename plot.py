@@ -48,7 +48,6 @@ state_pop = {
 	'CA': 39512223,
 	'CO':  5758736,
 	'CT':  3565287,
-	'DC':   705749,
 	'DE':   973764,
 	'FL': 21477737,
 	'GA': 10617423,
@@ -94,6 +93,7 @@ state_pop = {
 	'WY':   578759,
 
 	'AS':    55641,
+	'DC':   705749,
 	'GU':   165718,
 	'MP':    55194,
 	'PR':  3193694,
@@ -249,7 +249,7 @@ class CovidData:
 		# Italy cases
 		# From 'totale_casi' in https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json
 		self.italy_cases = [
-			# Hypothetical data back to roughly 100 cases
+			# Hypothetical data back to roughly 100 cases (for alignment).
 			120, 180,
 			# 24-29 Feb 2020
 			229, 322, 400, 650, 888, 1128,
@@ -257,7 +257,7 @@ class CovidData:
 			1694, 2036, 2502, 3089, 3858, 4636, 5883, 7375, 9172, 10149, 12462, 15113, 17660
 		]
 
-		# Extra Italy data (from same source as above)
+		# Extra Italy data (from same source as above).
 		italy_extra_data = [
 			['20200314', 21157],
 			['20200315', 24747],
@@ -272,7 +272,6 @@ class CovidData:
 		for d in italy_extra_data:
 			if int(d[0]) <= int(self.date):
 				self.italy_cases.append(d[1])
-
 
 class CovidCases:
 	def __init__(self, covid_data):
@@ -326,9 +325,11 @@ class CovidCases:
 				new_data.append(c)
 		return new_data
 
-	def process(self):
+	def generate(self):
 		print 'Processing data for', self.date_str
+		self.generate_top_n_cases()
 
+	def generate_top_n_cases(self):
 		# Filtered for 100 cases, log-scale
 		options = lambda: None  # An object that we can attach attributes to
 		options.use_log_scale = True
@@ -341,11 +342,11 @@ class CovidCases:
 		options.y_label = 'Cumulative reported positive cases'
 		options.processor = self.process_filter100
 		options.ranking = self.cdata.get_case_rank()
-		self.process_cases(options)
+		self.generate_cases_plot(options)
 		# Filtered for 100 cases, linear-scale
 		options.use_log_scale = False
 		options.title = 'COVID-19 US reported positive cases\n(Since first day with 100 cases. Top %d states. Linear scale)' % top_n
-		self.process_cases(options)
+		self.generate_cases_plot(options)
 
 		# Normalized for population, filtered for 10 cases/million, log
 		options.use_log_scale = True
@@ -358,13 +359,13 @@ class CovidCases:
 		options.y_label = 'Cumulative reported positive cases per million people'
 		options.processor = self.process_normalize_and_filter10
 		options.ranking = self.cdata.get_case_rank_norm()
-		self.process_cases(options)
+		self.generate_cases_plot(options)
 		# Normalized for population, filtered for 10 cases/million, linear
 		options.use_log_scale = False
 		options.title = 'COVID-19 US reported positive cases \n(Since first day with 10 cases/million. Top %d states. Linear scale)' % top_n
-		self.process_cases(options)
+		self.generate_cases_plot(options)
 
-	def process_cases(self, options):
+	def generate_cases_plot(self, options):
 		self.fig, self.ax = plt.subplots()
 		self.ax.axis([0, options.max_days, options.y_min, options.y_max])
 		if options.use_log_scale:
@@ -472,7 +473,7 @@ def main(argv):
 	covid_data.load_data()
 	
 	cases = CovidCases(covid_data)
-	cases.process()
+	cases.generate()
 
 	if animated:
 		# Process previous day data using top-8 from current day.	
