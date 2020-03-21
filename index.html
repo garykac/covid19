@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Source+Sans+Pro:wght@700&display=swap" rel="stylesheet">
+<style>
+
+font-family: "Source Sans Pro","Helvetica Neue",Arial,sans-serif;
+
+font-family: "Libre Baskerville",Georgia,serif;
+
+body {
+	background-color: white;
+}
+h1 {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;
+	font-size: 40pt;
+}
+h2 {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 28pt;
+}
+p {
+	font-size: 18px;
+	font-family: 'Libre Baskerville', Georgia, serif;
+}
+.container {
+	margin: 5%;
+}
+.graphbox {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	padding: 2em;
+}
+.graph {
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>SARS-CoV-2 (COVID19) Tracking</h1>
+
+<p>
+This site contains alternate visualizations of the data from the
+<a href="https://covidtracking.com/">COVID Tracking Project</a>. For reference,
+Italian <a href="https://github.com/pcm-dpc/COVID-19">data</a> from the
+<i>Presidenza del Consiglio dei Ministri - Dipartimento della Protezione Civile</i>
+is also included.
+</p>
+<p>
+The approach taken here is similar to the approach taken by the
+<a href="https://www.ft.com/content/a26fbf7e-48f8-11ea-aeb3-955839e06441">Financial Times</a>
+where the data for each country is overlaid on the same graph, aligned so that the
+x-axis origin is the day the country first reported 100 positive cases ("day 0").
+</p>
+<p>
+However, rather than comparing countries, these graphs compare different states (and territories)
+in the US.
+</p>
+
+<p>
+<b>Caveat</b>: The US has been seriously undertesting so far during this outbreak.
+Because of this, these graph will likely underreport the actual situation until the
+testing can be performed at a large scale. As states catch up on their testing, their
+graphs will include large jumps. As testing coverage improves, the data presented here
+will more accurately reflect the actual situation.
+</p>
+
+<h2>Reported Cases in US</h2>
+
+<p>
+These 2 graphs plot the same data: the number of positive cases reported each day for the
+8 states that reported the largest number of cases.
+The origin for each state is the day it first reported 100 positive cases.
+</p>
+<p>
+The left is a linear scale, while the right is a log scale.
+An aggretate total for the entire US and the data for Italy are also include for
+reference.
+</p>
+
+<div class="graphbox">
+<div class="graph"><img src="out-cases/cases-lin.gif" /></div>
+<div class="graph"><img src="out-cases/cases-log.gif" /></div>
+</div><!-- graphbox -->
+
+<p>
+One issue with the above graphs is that they don't take into account the state population:
+1000 cases in a low-population state is more significant than the same number of cases
+in a high-population state.
+</p>
+
+<h2>Reported Cases in US (Normalized)</h2>
+
+<p>
+To account for the population variation, the next graphs take the same data as above,
+but normalize the data for each state based on its population. The normalized data is
+re-ranked to find the top 8 states. The "day 0" is based on when the state first
+reported 10 positive cases per million residents.
+</p>
+
+<div class="graphbox">
+<div class="graph"><img src="out-cases-norm/cases-lin.gif" /></div>
+<div class="graph"><img src="out-cases-norm/cases-log.gif" /></div>
+</div><!-- graphbox -->
+
+</div><!-- container -->
+
+</body>
+</html>
