@@ -24,6 +24,12 @@ h2 {
 p {
 	font-size: 18px;
 	font-family: 'Libre Baskerville', Georgia, serif;
+	line-height: 1.4em;
+}
+li {
+	font-size: 18px;
+	font-family: 'Libre Baskerville', Georgia, serif;
+	line-height: 1.5em;
 }
 .container {
 	margin: 5%;
@@ -52,22 +58,29 @@ Italian <a href="https://github.com/pcm-dpc/COVID-19">data</a> from the
 is also included.
 </p>
 <p>
-The approach taken here is similar to the one taken by the
+The approach taken here is similar to the one taken by
+<a href="https://twitter.com/jburnmurdoch/status/1240373707224363014">John Burn-Murdoch</a>'s
+group at the
 <a href="https://www.ft.com/content/a26fbf7e-48f8-11ea-aeb3-955839e06441">Financial Times</a>
 where the data for each country is overlaid on the same graph, aligned so that the
 x-axis origin is the day the country first achieved some reporting milestone ("day 0").
+Others, like
+<a href="https://www.reddit.com/r/dataisbeautiful/comments/fm0jvl/oc_update_chart_continuing_the_comparison_of/">dev_thetromboneguy</a>
+on Reddit and
+<a href="https://twitter.com/kendrickhang/status/1241110084597374977">Kendrick Hang</a>
+on Twitter used a similar approach to create aligned tables comparing the US total and Italy.
 </p>
 <p>
-However, rather than comparing countries, these graphs compare different states (and territories)
-in the US.
+However, rather than comparing entire countries, the graphs on this site compare and rank
+different states (and territories) in the US.
 </p>
 
 <p>
 <b>Caveat</b>: The US has been seriously undertesting so far during this outbreak.
-Because of this, these graph will likely underreport the actual situation until the
+Because of this, these graphs will underreport the actual situation until the
 testing can be performed at a large scale. As states catch up on their testing, their
-graphs will include large jumps. As testing coverage improves, the data presented here
-will more accurately reflect the actual situation.
+graphs will likely include large "correcting" jumps. As testing coverage improves, the
+data presented here will more accurately reflect the actual situation.
 </p>
 
 <h2>Reported Cases in US</h2>
@@ -107,6 +120,23 @@ reported 10 positive cases per million residents.
 <div class="graph"><img src="out-cases-norm/cases-lin.gif" /></div>
 <div class="graph"><img src="out-cases-norm/cases-log.gif" /></div>
 </div><!-- graphbox -->
+
+<h2>Links and Further Reading</h2>
+
+<ul>
+<li>
+	Tomas Pueyo's analysis in
+	<a href="https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca">Coronavirus: Why You Must Act Now</a>
+	<ul><li>
+		Key takeaway:
+		<ul><li>
+			0.5% - 0.9% fatality rate for regions that are prepared and act early
+		</li><li>
+			3% - 5% fatality rate for regions that are overwhelmed (because of acting late or not being prepared)
+		</li></ul>
+	</li></ul>
+</li>
+</ul>
 
 </div><!-- container -->
 
