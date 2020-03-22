@@ -274,6 +274,7 @@ class CovidData:
 			['20200319', 41035],
 			['20200320', 47021],
 			['20200321', 53578],
+			['20200322', 59138],
 		]
 
 		# Add extra Italy data depending on the date being processed.
@@ -356,7 +357,7 @@ class CovidCases:
 		options.use_log_scale = True
 		options.output_dir = 'out-cases'
 		options.y_min = 100
-		options.y_max = 100000
+		options.y_max = 200000
 		options.max_days = 30
 		options.title = 'COVID-19 US reported positive cases\n(Since first day with 100 cases. Top %d states. Log scale)' % top_n
 		options.x_label = 'Days since 100th reported positive cases'
@@ -373,8 +374,8 @@ class CovidCases:
 		options.use_log_scale = True
 		options.output_dir = 'out-cases-norm'
 		options.y_min = 10
-		options.y_max = 1000
-		options.max_days = 25
+		options.y_max = 2000
+		options.max_days = 30
 		options.title = 'COVID-19 US reported positive cases \n(Since first day with 10 cases/million. Top %d states. Log scale)' % top_n
 		options.x_label = 'Days since 10 reported positive cases per million people'
 		options.y_label = 'Cumulative reported positive cases per million people'
@@ -399,6 +400,7 @@ class CovidCases:
 		if not os.path.exists(options.output_dir):
 			os.makedirs(options.output_dir)
 
+		plt.close('all')
 		self.fig, ax = plt.subplots()
 		ax.axis([0, options.max_days, options.y_min, options.y_max])
 		self.format_axes(ax, options.use_log_scale)
@@ -438,8 +440,26 @@ class CovidCases:
 		plt.savefig(filename, bbox_inches='tight')
 
 	def generate_state(self):
+		plt.close('all')
 		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
+
 		#fig.suptitle('States')
+		axs[0,1].annotate('COVID-19 US Reported Positive Cases (per state)',
+				xy=(1,1), xycoords='axes fraction',
+				xytext=(0, 44), textcoords='offset points',
+				size=16, ha='center', va='top')
+		axs[0,1].annotate('Since first day with 10 positive cases/million',
+				xy=(1,1), xycoords='axes fraction',
+				xytext=(0, 22), textcoords='offset points',
+				size=10, ha='center', va='top')
+		axs[13,0].annotate('Data from https://covidtracking.com',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-20, -40), textcoords='offset points',
+				size=8, ha='left', va='bottom')
+		axs[13,3].annotate(self.date_str,
+				xy=(1,0), xycoords='axes fraction',
+				xytext=(0, -40), textcoords='offset points',
+				size=14, ha='right', va='bottom')
 
 		# Build a dictionary of state -> ax
 		state_ax = {}
@@ -452,7 +472,7 @@ class CovidCases:
 		for s in states:
 			ax = state_ax[s]
 			#ax.set_title(s)
-			ax.axis([0, 25, 10, 1000])
+			ax.axis([0, 30, 10, 2000])
 			self.format_axes(ax, True)
 			# Plot data for all the states in light gray for reference.
 			for s2 in states:
