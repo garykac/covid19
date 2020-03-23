@@ -15,7 +15,7 @@ from matplotlib.ticker import LogFormatter
 # Number of states to include in plot
 top_n = 8
 
-_num_days_for_cases = 30
+_num_days_for_cases = 35
 _num_days_for_cases_norm = 30
 
 _y_min_for_cases = 100
@@ -253,8 +253,11 @@ class CovidData:
 		self.ranking_case = []
 		for d in sorted(ranking_case, key=ranking_case.get, reverse=True):
 			self.ranking_case.append(d)
+
+		print 'Ranking (normalized)'
 		self.ranking_case_norm = []
 		for d in sorted(ranking_case_norm, key=ranking_case_norm.get, reverse=True):
+			print ' ', d, ranking_case_norm[d] * 1000000
 			self.ranking_case_norm.append(d)
 
 	def load_italy_data(self):
@@ -280,13 +283,14 @@ class CovidData:
 			['20200320', 47021],
 			['20200321', 53578],
 			['20200322', 59138],
-			#['20200323', 63927],
+			['20200323', 63927],
 		]
 
 		# Add extra Italy data depending on the date being processed.
 		for d in italy_extra_data:
 			if int(d[0]) <= int(self.date):
 				self.italy_cases.append(d[1])
+		print 'Italy (Norm)', (self.italy_cases[-1] * 1000000)/ italy_pop
 
 class CovidCases:
 	def __init__(self, covid_data):
