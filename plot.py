@@ -15,6 +15,14 @@ from matplotlib.ticker import LogFormatter
 # Number of states to include in plot
 top_n = 8
 
+_num_days_for_cases = 30
+_num_days_for_cases_norm = 30
+
+_y_min_for_cases = 100
+_y_max_for_cases = 200000
+_y_min_for_cases_norm = 10
+_y_max_for_cases_norm = 2000
+
 # List of state/territory abbreviations.
 states = [
 	'AK', 'AL', 'AR', 'AS', 'AZ',
@@ -272,6 +280,7 @@ class CovidData:
 			['20200320', 47021],
 			['20200321', 53578],
 			['20200322', 59138],
+			#['20200323', 63927],
 		]
 
 		# Add extra Italy data depending on the date being processed.
@@ -357,9 +366,9 @@ class CovidCases:
 		title = 'COVID-19 US reported positive cases\n(Since first day with 100 cases. Top %d states. %s scale)'
 		options.use_log_scale = True
 		options.output_dir = 'cases'
-		options.y_min = 100
-		options.y_max = 200000
-		options.max_days = 30
+		options.y_min = _y_min_for_cases
+		options.y_max = _y_max_for_cases
+		options.max_days = _num_days_for_cases
 		options.title = title % (top_n, 'Log')
 		options.x_label = 'Days since 100th reported positive cases'
 		options.y_label = 'Cumulative reported positive cases'
@@ -375,9 +384,9 @@ class CovidCases:
 		title = 'COVID-19 US reported positive cases per million\n(Since first day with 10 cases/million. Top %d states. %s scale)'
 		options.use_log_scale = True
 		options.output_dir = 'cases-norm'
-		options.y_min = 10
-		options.y_max = 2000
-		options.max_days = 30
+		options.y_min = _y_min_for_cases_norm
+		options.y_max = _y_max_for_cases_norm
+		options.max_days = _num_days_for_cases_norm
 		options.title = title % (top_n, 'Log')
 		options.x_label = 'Days since 10 reported positive cases per million people'
 		options.y_label = 'Cumulative reported positive cases per million people'
@@ -482,7 +491,7 @@ class CovidCases:
 		for s in states:
 			ax = state_ax[s]
 			#ax.set_title(s)
-			ax.axis([0, 30, 10, 2000])
+			ax.axis([0, _num_days_for_cases_norm, _y_min_for_cases_norm, _y_max_for_cases_norm])
 			self.format_axes(ax, True)
 			# Plot data for all the states in light gray for reference.
 			for s2 in states:
@@ -491,16 +500,16 @@ class CovidCases:
 			self.plot_data(ax, self.cdata.get_state_cases(s), 'dk_gray',
 					state_pop[s], s, True, self.process_normalize_and_filter10)
 
-		fig.set_size_inches(8, 16)
+		fig.set_size_inches(8, 18)
 		plt.savefig('cases-norm/states.png', dpi=150, bbox_inches='tight')
 
 	def generate_states_individual(self):
 		options = lambda: None  # An object that we can attach attributes to
 
 		options.use_log_scale = True
-		options.y_min = 10
-		options.y_max = 2000
-		options.max_days = 30
+		options.y_min = _y_min_for_cases_norm
+		options.y_max = _y_max_for_cases_norm
+		options.max_days = _num_days_for_cases_norm
 		options.x_label = 'Days since 10 reported positive cases per million people'
 		options.y_label = 'Cumulative reported positive cases per million people'
 		options.processor = self.process_normalize_and_filter10
@@ -577,7 +586,7 @@ class CovidCases:
 				label_y = processed_data[-1]
 			else:
 				label_x = 0
-				label_y = 10
+				label_y = _y_min_for_cases_norm
 			text_bg = ax.text(label_x, label_y, label, size=12)
 			text_bg.set_path_effects([
 					PathEffects.Stroke(linewidth=3, foreground='white'),

@@ -1,4 +1,4 @@
-# SARS-CoV-2 (COVID19) Tracking
+# COVID19 Tracking for US State
 
 This site contains alternate visualizations of the data from the
 [COVID Tracking Project](https://covidtracking.com/). For reference,
@@ -22,4 +22,4 @@ will more accurately reflect the actual situation.
 
 [See the full set of visualizations](https://garykac.github.io/covid19/)
 
-<img src="out-cases-norm/cases-log.gif" />
+<img src="cases-norm/cases-log.gif" />
