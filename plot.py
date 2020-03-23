@@ -119,6 +119,7 @@ line_colors = {
 	'black': '#000000',
 	'blue': '#396ab1',
 	'brown': '#922428',
+	'dk_blue': '#0050ff',
 	'dk_gray': '#101010',
 	'gray': '#535154',
 	'green': '#3e9651',
@@ -536,8 +537,10 @@ class CovidCases:
 			self.plot_data(ax, self.cdata.get_state_cases(s2), 'lt_gray',
 					state_pop[s2], '', False, self.process_normalize_and_filter10)	
 
-		self.plot_data(ax, self.cdata.get_state_cases(state), 'dk_gray',
+		self.plot_data(ax, self.cdata.get_state_cases(state), 'dk_blue',
 				state_pop[state], state, True, self.process_normalize_and_filter10)
+		self.plot_data(ax, self.cdata.get_us_cases(), 'black', us_pop, 'US', True,
+				options.processor)
 		self.plot_data(ax, self.cdata.get_italy_cases(), 'black', italy_pop, 'Italy', True,
 				options.processor)
 
@@ -575,7 +578,6 @@ class CovidCases:
 			else:
 				label_x = 0
 				label_y = 10
-				color = 'lt_gray'
 			text_bg = ax.text(label_x, label_y, label, size=12)
 			text_bg.set_path_effects([
 					PathEffects.Stroke(linewidth=3, foreground='white'),

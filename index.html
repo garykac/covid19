@@ -48,6 +48,24 @@ li {
 	padding: 2em;
 }
 .graph {
+	margin: 0 auto;
+}
+.table {
+	display: flex;
+	margin: 0 auto;
+	max-width: 800px;
+	flex-flow: row wrap;
+	align-content: center;
+	justify-content: space-around;
+}
+.tcell {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 12pt;
+	padding: 0.25em 1em;
+	flex-grow: 1;
+	flex-basis: 20%;
+	align-content: center;
 }
 </style>
 </head>
@@ -135,16 +153,75 @@ reported 10 positive cases per million residents.
 <p>
 The following graphs shows the normalized data (log-scale) for each state individually.
 Just like the normalized graphs above, "day 0" is when the state first reported 10 positive cases per million residents.
-Each graph contains the data for the states plotted in the background for reference.
-</p>
-<p>
-A few regions (American Samoa, Northern Mariana Islands, Puerto Rico and West Virginia)
-have not yet reached the '10 positive cases per million residents' threshold. The title
-is grayed out for these graphs.
+Each graph contains the data for all states plotted in the background for reference.
 </p>
 
+<div class="table">
+	<div class="tcell"><a href="state/AK/cases-norm.png">Alabama (AL)</a></div>
+	<div class="tcell"><a href="state/AK/cases-norm.png">Alaska (AK)</a></div>
+	<div class="tcell"><a href="state/AS/cases-norm.png">American Samoa (AS)</a></div>
+	<div class="tcell"><a href="state/AZ/cases-norm.png">Arizona (AZ)</a></div>
+	<div class="tcell"><a href="state/AR/cases-norm.png">Arkansas (AR)</a></div>
+	<div class="tcell"><a href="state/CA/cases-norm.png">California (CA)</a></div>
+	<div class="tcell"><a href="state/CO/cases-norm.png">Colorado (CO)</a></div>
+	<div class="tcell"><a href="state/CT/cases-norm.png">Connecticut (CT)</a></div>
+	<div class="tcell"><a href="state/DE/cases-norm.png">Delaware (DE)</a></div>
+	<div class="tcell"><a href="state/DC/cases-norm.png">District of Columbia (DC)</a></div>
+
+	<div class="tcell"><a href="state/FL/cases-norm.png">Florida (FL)</a></div>
+	<div class="tcell"><a href="state/GA/cases-norm.png">Georgia (GA)</a></div>
+	<div class="tcell"><a href="state/GU/cases-norm.png">Guam (GU)</a></div>
+	<div class="tcell"><a href="state/HI/cases-norm.png">Hawaii (HI)</a></div>
+	<div class="tcell"><a href="state/ID/cases-norm.png">Idaho (ID)</a></div>
+	<div class="tcell"><a href="state/IL/cases-norm.png">Illinois (IL)</a></div>
+	<div class="tcell"><a href="state/IN/cases-norm.png">Indiana (IN)</a></div>
+	<div class="tcell"><a href="state/IA/cases-norm.png">Iowa (IA)</a></div>
+	<div class="tcell"><a href="state/KS/cases-norm.png">Kansas (KS)</a></div>
+	<div class="tcell"><a href="state/KY/cases-norm.png">Kentucky (KY)</a></div>
+
+	<div class="tcell"><a href="state/LA/cases-norm.png">Louisiana (LA)</a></div>
+	<div class="tcell"><a href="state/ME/cases-norm.png">Maine (ME)</a></div>
+	<div class="tcell"><a href="state/MD/cases-norm.png">Maryland (MD)</a></div>
+	<div class="tcell"><a href="state/MA/cases-norm.png">Massachusetts (MA)</a></div>
+	<div class="tcell"><a href="state/MI/cases-norm.png">Michigan (MI)</a></div>
+	<div class="tcell"><a href="state/MN/cases-norm.png">Minnesota (MN)</a></div>
+	<div class="tcell"><a href="state/MS/cases-norm.png">Mississippi (MS)</a></div>
+	<div class="tcell"><a href="state/MO/cases-norm.png">Missouri (MO)</a></div>
+	<div class="tcell"><a href="state/MT/cases-norm.png">Montana (MT)</a></div>
+	<div class="tcell"><a href="state/NE/cases-norm.png">Nebraska (NE)</a></div>
+
+	<div class="tcell"><a href="state/NV/cases-norm.png">Nevada (NV)</a></div>
+	<div class="tcell"><a href="state/NH/cases-norm.png">New Hampshire (NH)</a></div>
+	<div class="tcell"><a href="state/NJ/cases-norm.png">New Jersey (NJ)</a></div>
+	<div class="tcell"><a href="state/NM/cases-norm.png">New Mexico (NM)</a></div>
+	<div class="tcell"><a href="state/NY/cases-norm.png">New York (NY)</a></div>
+	<div class="tcell"><a href="state/NC/cases-norm.png">North Carolina (NC)</a></div>
+	<div class="tcell"><a href="state/ND/cases-norm.png">North Dakota (ND)</a></div>
+	<div class="tcell"><a href="state/MP/cases-norm.png">Northern Mariana Islands (MP)</a></div>
+	<div class="tcell"><a href="state/OH/cases-norm.png">Ohio (OH)</a></div>
+	<div class="tcell"><a href="state/OK/cases-norm.png">Oklahoma (OK)</a></div>
+
+	<div class="tcell"><a href="state/OR/cases-norm.png">Oregon (OR)</a></div>
+	<div class="tcell"><a href="state/PA/cases-norm.png">Pennsylvania (PA)</a></div>
+	<div class="tcell"><a href="state/PR/cases-norm.png">Puerto Rico (PR)</a></div>
+	<div class="tcell"><a href="state/RI/cases-norm.png">Rhode Island (RI)</a></div>
+	<div class="tcell"><a href="state/SC/cases-norm.png">South Carolina(SC)</a></div>
+	<div class="tcell"><a href="state/SD/cases-norm.png">South Dakota (SD)</a></div>
+	<div class="tcell"><a href="state/TN/cases-norm.png">Tennessee (TN)</a></div>
+	<div class="tcell"><a href="state/TX/cases-norm.png">Texas (TX)</a></div>
+	<div class="tcell"><a href="state/UT/cases-norm.png">Utah (UT)</a></div>
+	<div class="tcell"><a href="state/VT/cases-norm.png">Vermont (VT)</a></div>
+
+	<div class="tcell"><a href="state/VA/cases-norm.png">Virginia (VA)</a></div>
+	<div class="tcell"><a href="state/VI/cases-norm.png">Virgin Islands, U.S. (VI)</a></div>
+	<div class="tcell"><a href="state/WA/cases-norm.png">Washington (WA)</a></div>
+	<div class="tcell"><a href="state/WV/cases-norm.png">West Virginia (WV)</a></div>
+	<div class="tcell"><a href="state/WI/cases-norm.png">Wisconsin (WI)</a></div>
+	<div class="tcell"><a href="state/WY/cases-norm.png">Wyoming (WY)</a></div>
+</div><!-- table -->
+
 <div class="graphbox">
-<div class="graph"><img src="cases-norm/states.png" /></div>
+<div class="graph"><a href="cases-norm/states.png"><img src="cases-norm/states.png" width='600px'/></a></div>
 </div><!-- graphbox -->
 
 <h2>Links and Further Reading</h2>
