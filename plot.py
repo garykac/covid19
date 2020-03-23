@@ -131,10 +131,6 @@ line_colors = {
 
 # Notes on data
 # Changes in 20200319 dataset:
-#  AL 17Mar positives changed from 26 -> 36
-#     Typo fix since otherwise cases drop from 28 on 16Mar
-#  NV 18Mar positives changes from 65 -> 55
-#     The 18Mar data is now the same as the 17Mar data
 # Other notes:
 #  NV positives goes from 1 on 9Mar -> 0 on 10Mar -> 5 on 11Mar
 class CovidData:
@@ -344,7 +340,9 @@ class CovidCases:
 		self.generate_top_n_cases()
 		
 		print 'Generating state graphs'
-		self.generate_state()
+		self.generate_states_combined()
+
+		self.generate_states_individual()
 
 	# Generate graphs for a previous date (used for animations).
 	def generate_anim(self):
@@ -352,14 +350,16 @@ class CovidCases:
 		self.generate_top_n_cases()
 
 	def generate_top_n_cases(self):
-		# Filtered for 100 cases, log-scale
 		options = lambda: None  # An object that we can attach attributes to
+
+		# Filtered for 100 cases, log-scale
+		title = 'COVID-19 US reported positive cases\n(Since first day with 100 cases. Top %d states. %s scale)'
 		options.use_log_scale = True
-		options.output_dir = 'out-cases'
+		options.output_dir = 'cases'
 		options.y_min = 100
 		options.y_max = 200000
 		options.max_days = 30
-		options.title = 'COVID-19 US reported positive cases\n(Since first day with 100 cases. Top %d states. Log scale)' % top_n
+		options.title = title % (top_n, 'Log')
 		options.x_label = 'Days since 100th reported positive cases'
 		options.y_label = 'Cumulative reported positive cases'
 		options.processor = self.process_filter100
@@ -367,16 +367,17 @@ class CovidCases:
 		self.generate_cases_plot(options)
 		# Filtered for 100 cases, linear-scale
 		options.use_log_scale = False
-		options.title = 'COVID-19 US reported positive cases\n(Since first day with 100 cases. Top %d states. Linear scale)' % top_n
+		options.title = title % (top_n, 'Linear')
 		self.generate_cases_plot(options)
 
 		# Normalized for population, filtered for 10 cases/million, log
+		title = 'COVID-19 US reported positive cases per million\n(Since first day with 10 cases/million. Top %d states. %s scale)'
 		options.use_log_scale = True
-		options.output_dir = 'out-cases-norm'
+		options.output_dir = 'cases-norm'
 		options.y_min = 10
 		options.y_max = 2000
 		options.max_days = 30
-		options.title = 'COVID-19 US reported positive cases \n(Since first day with 10 cases/million. Top %d states. Log scale)' % top_n
+		options.title = title % (top_n, 'Log')
 		options.x_label = 'Days since 10 reported positive cases per million people'
 		options.y_label = 'Cumulative reported positive cases per million people'
 		options.processor = self.process_normalize_and_filter10
@@ -384,7 +385,7 @@ class CovidCases:
 		self.generate_cases_plot(options)
 		# Normalized for population, filtered for 10 cases/million, linear
 		options.use_log_scale = False
-		options.title = 'COVID-19 US reported positive cases \n(Since first day with 10 cases/million. Top %d states. Linear scale)' % top_n
+		options.title = title % (top_n, 'Linear')
 		self.generate_cases_plot(options)
 
 	def format_axes(self, ax, log):
@@ -409,13 +410,19 @@ class CovidCases:
 		ax.set_ylabel(options.y_label)
 		plt.title(options.title)
 
-		plt.annotate('US data from https://covidtracking.com', (0,0), (-40, -40),
-				size=8, xycoords='axes fraction', textcoords='offset points', va='top')
-		plt.annotate('Italy data from https://github.com/pcm-dpc/COVID-19', (0,0), (-40, -50),
-				size=8, xycoords='axes fraction', textcoords='offset points', va='top')
-		plt.annotate(self.date_str, (0,0), (310, -50),
-				size=8, xycoords='axes fraction', textcoords='offset points', va='top')
-	
+		plt.annotate('US data from https://covidtracking.com',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-40, -40), textcoords='offset points',
+				size=8, ha='left', va='top')
+		plt.annotate('Italy data from https://github.com/pcm-dpc/COVID-19',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-40, -50), textcoords='offset points',
+				size=8, ha='left', va='top')
+		plt.annotate(self.date_str,
+				xy=(1,0), xycoords='axes fraction',
+				xytext=(0, -40), textcoords='offset points',
+				size=14, ha='right', va='top')
+
 		# Plot the top |top_n| states.
 		for i in xrange(top_n):
 			state = options.ranking[i];
@@ -427,8 +434,6 @@ class CovidCases:
 		self.plot_data(ax, self.cdata.get_us_cases(), 'black', us_pop, 'US', True,
 				options.processor)
 
-		plt.legend(loc="lower right")
-
 		outdir = '%s/%s' % (options.output_dir, self.plot_date)
 		if not os.path.exists(outdir):
 			os.makedirs(outdir)
@@ -436,15 +441,19 @@ class CovidCases:
 		logname = 'lin'
 		if options.use_log_scale:
 			logname = 'log'
+			plt.legend(loc="lower right")
+		else:
+			plt.legend(loc="upper left")
+		
 		filename = '%s/cases-%s-%s.png' % (outdir, logname, self.date)
 		plt.savefig(filename, bbox_inches='tight')
 
-	def generate_state(self):
+	def generate_states_combined(self):
 		plt.close('all')
 		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
 
 		#fig.suptitle('States')
-		axs[0,1].annotate('COVID-19 US Reported Positive Cases (per state)',
+		axs[0,1].annotate('COVID-19 US States Reported Positive Cases per Million',
 				xy=(1,1), xycoords='axes fraction',
 				xytext=(0, 44), textcoords='offset points',
 				size=16, ha='center', va='top')
@@ -482,7 +491,63 @@ class CovidCases:
 					state_pop[s], s, True, self.process_normalize_and_filter10)
 
 		fig.set_size_inches(8, 16)
-		plt.savefig('out-cases-norm/states.png', dpi=150, bbox_inches='tight')
+		plt.savefig('cases-norm/states.png', dpi=150, bbox_inches='tight')
+
+	def generate_states_individual(self):
+		options = lambda: None  # An object that we can attach attributes to
+
+		options.use_log_scale = True
+		options.y_min = 10
+		options.y_max = 2000
+		options.max_days = 30
+		options.x_label = 'Days since 10 reported positive cases per million people'
+		options.y_label = 'Cumulative reported positive cases per million people'
+		options.processor = self.process_normalize_and_filter10
+		for state in states:
+			options.output_dir = 'state/%s' % state
+			options.title = 'COVID-19 %s reported positive cases per million\n(Since first day with 10 cases/million. Log scale)' % state
+			self.generate_state(state, options)
+	
+	def generate_state(self, state, options):
+		plt.close('all')
+		self.fig, ax = plt.subplots()
+		ax.axis([0, options.max_days, options.y_min, options.y_max])
+		self.format_axes(ax, options.use_log_scale)
+		ax.grid(True)
+		ax.set_xlabel(options.x_label)
+		ax.set_ylabel(options.y_label)
+		plt.title(options.title)
+
+		plt.annotate('US data from https://covidtracking.com',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-40, -40), textcoords='offset points',
+				size=8, ha='left', va='top')
+		plt.annotate('Italy data from https://github.com/pcm-dpc/COVID-19',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-40, -50), textcoords='offset points',
+				size=8, ha='left', va='top')
+		plt.annotate(self.date_str,
+				xy=(1,0), xycoords='axes fraction',
+				xytext=(0, -40), textcoords='offset points',
+				size=14, ha='right', va='top')
+	
+		# Plot data for all the states in light gray for reference.
+		for s2 in states:
+			self.plot_data(ax, self.cdata.get_state_cases(s2), 'lt_gray',
+					state_pop[s2], '', False, self.process_normalize_and_filter10)	
+
+		self.plot_data(ax, self.cdata.get_state_cases(state), 'dk_gray',
+				state_pop[state], state, True, self.process_normalize_and_filter10)
+		self.plot_data(ax, self.cdata.get_italy_cases(), 'black', italy_pop, 'Italy', True,
+				options.processor)
+
+		plt.legend(loc="lower right")
+
+		if not os.path.exists(options.output_dir):
+			os.makedirs(options.output_dir)
+
+		filename_date = '%s/cases-norm.png' % options.output_dir
+		plt.savefig(filename_date, bbox_inches='tight')
 
 	def plot_data(self, ax, raw_data, color, pop, label, always_label, processor):
 		# Default to thick, solid line.
@@ -523,7 +588,7 @@ class CovidCases:
 		cmd = 'convert'
 		args_base = ['-delay', '30' ,'-loop', '0']
 		
-		for dir in ['out-cases', 'out-cases-norm']:
+		for dir in ['cases', 'cases-norm']:
 			outdir = '%s/%s' % (dir, self.plot_date)
 			for f in ['cases-log', 'cases-lin']:
 				args = args_base[:]
