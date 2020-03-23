@@ -20,6 +20,14 @@ h2 {
 	text-align: center;	
 	font-size: 28pt;
 }
+.h2subheading {
+	margin-top: -1em;
+	margin-bottom: 1em;
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 18pt;
+	font-style: italic;
+}
 p {
 	font-size: 18px;
 	font-family: 'Libre Baskerville', Georgia, serif;
@@ -96,8 +104,8 @@ reference.
 </p>
 
 <div class="graphbox">
-<div class="graph"><img src="out-cases/cases-lin.gif" /></div>
-<div class="graph"><img src="out-cases/cases-log.gif" /></div>
+<div class="graph"><img src="cases/cases-lin.gif" /></div>
+<div class="graph"><img src="cases/cases-log.gif" /></div>
 </div><!-- graphbox -->
 
 <p>
@@ -106,7 +114,8 @@ One issue with the above graphs is that they don't take into account the state p
 in a high-population state.
 </p>
 
-<h2>Positive Cases Reported in US (Normalized)</h2>
+<h2>Positive Cases Reported in US - Normalized</h2>
+<div class="h2subheading">Normalized per million residents</div>
 
 <p>
 To account for the population variation, the next graphs take the same data as above,
@@ -116,11 +125,12 @@ reported 10 positive cases per million residents.
 </p>
 
 <div class="graphbox">
-<div class="graph"><img src="out-cases-norm/cases-lin.gif" /></div>
-<div class="graph"><img src="out-cases-norm/cases-log.gif" /></div>
+<div class="graph"><img src="cases-norm/cases-lin.gif" /></div>
+<div class="graph"><img src="cases-norm/cases-log.gif" /></div>
 </div><!-- graphbox -->
 
-<h2>Positive Cases for Individual States (Normalized)</h2>
+<h2>Positive Cases for Individual States - Normalized</h2>
+<div class="h2subheading">Normalized per million residents</div>
 
 <p>
 The following graphs shows the normalized data (log-scale) for each state individually.
@@ -134,7 +144,7 @@ is grayed out for these graphs.
 </p>
 
 <div class="graphbox">
-<div class="graph"><img src="out-cases-norm/states.png" /></div>
+<div class="graph"><img src="cases-norm/states.png" /></div>
 </div><!-- graphbox -->
 
 <h2>Links and Further Reading</h2>
