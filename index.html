@@ -41,6 +41,24 @@ li {
 .container {
 	margin: 5%;
 }
+.toc-container {
+	padding: 1em 1em 1.5em 1em;
+	border: 1px solid black;
+	margin: 0 auto;
+	max-width: 50%;
+	background-color: #f0f0f0;
+}
+.toc-h1 {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 16pt;
+	text-align: center;
+	margin: 0.5em auto;
+}
+.toc-link {
+	font-size: 12pt;
+	text-align: center;
+	margin: 0 auto;
+}
 .graphcontainer {
 	display: flex;
 	flex-flow: row wrap;
@@ -55,7 +73,7 @@ li {
 }
 .graph {
 	font-size: 12pt;
-	textalign: center;
+	text-align: center;
 	margin: 0 auto;
 }
 .table {
@@ -90,6 +108,20 @@ Italian <a href="https://github.com/pcm-dpc/COVID-19">data</a> from the
 <i>Presidenza del Consiglio dei Ministri - Dipartimento della Protezione Civile</i>
 is also included.
 </p>
+
+<div class="toc-container">
+	<div class="toc-h1">Positive Cases Reported in US</div>
+		<div class="toc-link"><a href="#cases-direct">Direct Comparison</a></div>
+		<div class="toc-link"><a href="#cases-normalized">Normalized for Population</a></div>
+		<div class="toc-link"><a href="#cases-states-normalized">Individual States - Normalized for Population</a></div>
+
+	<div class="toc-h1">Deaths Reported in US</div>
+		<div class="toc-link"><a href="#deaths-direct">Direct Comparison</a></div>
+		<div class="toc-link"><a href="#deaths-normalized">Normalized for Population</a></div>
+</div><!-- toc-container -->
+
+<h2>Introduction</h2>
+
 <p>
 The approach taken here is similar to the one taken by
 <a href="https://twitter.com/jburnmurdoch/status/1240373707224363014">John Burn-Murdoch</a>'s
@@ -116,7 +148,7 @@ graphs will likely include large "correcting" jumps. As testing coverage improve
 data presented here will more accurately reflect the actual situation.
 </p>
 
-<h2>Positive Cases Reported in US</h2>
+<h2 id="cases-direct">Positive Cases Reported in US</h2>
 
 <p>
 These 2 graphs plot the same data: the number of positive cases reported each day for the
@@ -146,7 +178,7 @@ One issue with the above graphs is that they don't take into account the state p
 in a high-population state.
 </p>
 
-<h2>Positive Cases Reported in US - Normalized</h2>
+<h2 id="cases-normalized">Positive Cases Reported in US - Normalized</h2>
 <div class="h2subheading">Normalized per million residents</div>
 
 <p>
@@ -167,7 +199,7 @@ reported 10 positive cases per million residents.
 </div>
 </div><!-- graphcontainer -->
 
-<h2>Positive Cases for Individual States - Normalized</h2>
+<h2 id="cases-states-normalized">Positive Cases for Individual States - Normalized</h2>
 <div class="h2subheading">Normalized per million residents</div>
 
 <p>
@@ -243,7 +275,34 @@ Each graph contains the data for all states plotted in the background for refere
 <div class="graphcontainer">
 <div class="graphbox">
 	<div class="graph"><a href="cases-norm/states.png"></div>
-	<div class="graph"><img src="cases-norm/states.png" width='600px'/></a></div>
+	<div class="graph"><img src="cases-norm/states.png" width='700px'/></a></div>
+</div>
+</div><!-- graphcontainer -->
+
+<h2 id="deaths-direct">Deaths Reported in US</h2>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><img src="deaths/deaths-lin.gif" /></div>
+	<div class="graph"><a href="deaths/deaths-lin.png">static image</a></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><img src="deaths/deaths-log.gif" /></div>
+	<div class="graph"><a href="deaths/deaths-log.png">static image</a></div>
+</div>
+</div><!-- graphcontainer -->
+
+<h2 id="deaths-normalized">Deaths Reported in US - Normalized</h2>
+<div class="h2subheading">Normalized per million residents</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><img src="deaths-norm/deaths-lin.gif" /></div>
+	<div class="graph"><a href="deaths-norm/deaths-lin.png">static image</a></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><img src="deaths-norm/deaths-log.gif" /></div>
+	<div class="graph"><a href="deaths-norm/deaths-log.png">static image</a></div>
 </div>
 </div><!-- graphcontainer -->
 
