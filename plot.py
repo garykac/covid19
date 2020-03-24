@@ -601,7 +601,7 @@ class CovidCases:
 	def export_anim(self):
 		print 'Exporting animations'
 		cmd = 'convert'
-		args_base = ['-delay', '30' ,'-loop', '0']
+		args_base = ['-delay', '20' ,'-loop', '0']
 		
 		for dir in ['cases', 'cases-norm']:
 			outdir = '%s/%s' % (dir, self.plot_date)
@@ -609,7 +609,7 @@ class CovidCases:
 				args = args_base[:]
 				args.append('%s/%s-2020*.png' % (outdir, f))
 				# Hold the last frame for a longer time.
-				args.extend(['-delay', '120'])
+				args.extend(['-delay', '240'])
 				args.append('%s/%s-%s.png' % (outdir, f, self.plot_date))
 				# Output file.
 				out_gif = '%s/%s.gif' % (outdir, f)
