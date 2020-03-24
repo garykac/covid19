@@ -610,13 +610,16 @@ class CovidCases:
 				args.append('%s/%s-2020*.png' % (outdir, f))
 				# Hold the last frame for a longer time.
 				args.extend(['-delay', '240'])
-				args.append('%s/%s-%s.png' % (outdir, f, self.plot_date))
+				last_frame = '%s/%s-%s.png' % (outdir, f, self.plot_date)
+				args.append(last_frame)
 				# Output file.
 				out_gif = '%s/%s.gif' % (outdir, f)
 				args.append(out_gif)
 				subprocess.call([cmd] + args)
-				# Make a copy in the top level dir.
+
+				# Make copies of the latest version in the top level dir.
 				shutil.copy(out_gif, dir)
+				shutil.copy(last_frame, '%s/%s.png' % (dir, f))
 		
 def main(argv):
 	try:
