@@ -261,36 +261,36 @@ class CovidData:
 			self.ranking_case_norm.append(d)
 
 	def load_italy_data(self):
-		# Italy cases
-		# From 'totale_casi' in https://github.com/pcm-dpc/COVID-19/blob/master/dati-json/dpc-covid19-ita-andamento-nazionale.json
-		self.italy_cases = [
-			# Hypothetical data back to roughly 100 cases (for alignment).
-			120, 180,
-			# 24-29 Feb 2020
-			229, 322, 400, 650, 888, 1128,
-			# 1-13 Mar 2020
-			1694, 2036, 2502, 3089, 3858, 4636, 5883, 7375, 9172, 10149, 12462, 15113, 17660
-		]
+		self.italy_cases = []
 
-		# Extra Italy data (from same source as above).
-		italy_extra_data = [
-			['20200314', 21157],
-			['20200315', 24747],
-			['20200316', 27980],
-			['20200317', 31506],
-			['20200318', 35713],
-			['20200319', 41035],
-			['20200320', 47021],
-			['20200321', 53578],
-			['20200322', 59138],
-			['20200323', 63927],
-		]
+		# Hypothetical data back to roughly 100 total cases (for alignment).
+		self.italy_cases.append(120)
+		self.italy_cases.append(180)
 
-		# Add extra Italy data depending on the date being processed.
-		for d in italy_extra_data:
-			if int(d[0]) <= int(self.date):
-				self.italy_cases.append(d[1])
-		print 'Italy (Norm)', (self.italy_cases[-1] * 1000000)/ italy_pop
+		with open('data/dpc-covid19-ita-andamento-nazionale.csv') as fp:
+			for line in fp:
+				# data = date and time: yyyy-mm-dd hh:mm:ss
+				# stato = state (always ITA)
+				# ricoverati_con_sintomi = hospitalized with symptoms
+				# terapia_intensiva = intensive care
+				# totale_ospedalizzati = total hospitalized
+				# isolamento_domiciliare = home isolation
+				# totale_attualmente_positivi = total currently positive
+				# nuovi_attualmente_positivi = new currently positive
+				# dimessi_guariti = discharged healed
+				# deceduti = deceased
+				# totale_casi = total cases
+				# tamponi = swabs
+				(datetime,state,hos,ic,hos_total,home,curr_pos,new_pos,discharged,deaths,total,swabs) = line.strip().split(',')
+				if datetime == 'data':
+					continue
+				
+				date = datetime[0:4] + datetime[5:7] + datetime[8:10]
+				print date, total
+				self.italy_cases.append(int(total))
+								
+		print 'Italy (Norm)', (int(total) * 1000000)/ italy_pop
+
 
 class CovidCases:
 	def __init__(self, covid_data):
