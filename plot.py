@@ -584,7 +584,7 @@ class CovidCases:
 		options.y_max = _y_max_for_deaths_norm
 		options.max_days = _num_days_for_deaths_norm
 		options.title = title % (top_n, 'Log')
-		options.x_label = 'Days since 1 reported deaths per million people'
+		options.x_label = 'Days since 1 reported death per million people'
 		options.y_label = 'Cumulative reported deaths per million people'
 		options.processor = self.process_normalize_and_filter
 		options.threshold = 1
