@@ -118,6 +118,10 @@ is also included.
 	<div class="toc-h1">Deaths Reported in US</div>
 		<div class="toc-link"><a href="#deaths-direct">Direct Comparison</a></div>
 		<div class="toc-link"><a href="#deaths-normalized">Normalized for Population</a></div>
+
+	<div class="toc-h1">Tests Reported in US</div>
+		<div class="toc-link"><a href="#tests-direct">Direct Comparison</a></div>
+		<div class="toc-link"><a href="#tests-normalized">Normalized for Population</a></div>
 </div><!-- toc-container -->
 
 <h2>Introduction</h2>
@@ -137,7 +141,8 @@ on Twitter used a similar approach to create aligned tables comparing the US tot
 </p>
 <p>
 However, rather than comparing entire countries, the graphs on this site compare and rank
-different states (and territories) in the US.
+different states (and territories) in the US. Both normalized (i.e., adjust for population)
+and raw data are shown.
 </p>
 
 <p>
@@ -149,6 +154,7 @@ data presented here will more accurately reflect the actual situation.
 </p>
 
 <h2 id="cases-direct">Positive Cases Reported in US</h2>
+<div class="h2subheading">Top 8 States/Territories</div>
 
 <p>
 These 2 graphs plot the same data: the number of positive cases reported each day for the
@@ -183,6 +189,7 @@ in a high-population state.
 
 <h2 id="cases-normalized">Positive Cases Reported in US - Normalized</h2>
 <div class="h2subheading">Normalized per million residents</div>
+<div class="h2subheading">Top 8 States/Territories</div>
 
 <p>
 To account for the population variation, the next graphs take the same data as above,
@@ -287,6 +294,7 @@ Each graph contains the data for all states plotted in the background for refere
 </div><!-- graphcontainer -->
 
 <h2 id="deaths-direct">Deaths Reported in US</h2>
+<div class="h2subheading">Top 8 States/Territories</div>
 
 <div class="graphcontainer">
 <div class="graphbox">
@@ -305,6 +313,7 @@ Reported deaths, ranking data for all states: <a href="deaths/deaths-data.txt">.
 
 <h2 id="deaths-normalized">Deaths Reported in US - Normalized</h2>
 <div class="h2subheading">Normalized per million residents</div>
+<div class="h2subheading">Top 8 States/Territories</div>
 
 <div class="graphcontainer">
 <div class="graphbox">
@@ -319,6 +328,43 @@ Reported deaths, ranking data for all states: <a href="deaths/deaths-data.txt">.
 
 <p>
 Normalized reported deaths, ranking data for all states: <a href="deaths-norm/deaths-norm-data.txt">.txt</a>, <a href="deaths-norm/deaths-norm-data.csv">.csv</a>
+</p>
+
+<h2 id="tests-direct">Tests Reported in US</h2>
+<div class="h2subheading">Top 8 States/Territories</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><img src="tests/tests-lin.gif" /></div>
+	<div class="graph"><a href="tests/tests-lin.png">static image</a></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><img src="tests/tests-log.gif" /></div>
+	<div class="graph"><a href="tests/tests-log.png">static image</a></div>
+</div>
+</div><!-- graphcontainer -->
+
+<p>
+Reported tests, ranking data for all states: <a href="tests/tests-data.txt">.txt</a>, <a href="tests/tests-data.csv">.csv</a>
+</p>
+
+<h2 id="tests-normalized">Tests Reported in US - Normalized</h2>
+<div class="h2subheading">Normalized per million residents</div>
+<div class="h2subheading">Top 8 States/Territories</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><img src="tests-norm/tests-lin.gif" /></div>
+	<div class="graph"><a href="tests-norm/tests-lin.png">static image</a></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><img src="tests-norm/tests-log.gif" /></div>
+	<div class="graph"><a href="tests-norm/tests-log.png">static image</a></div>
+</div>
+</div><!-- graphcontainer -->
+
+<p>
+Normalized reported tests, ranking data for all states: <a href="tests-norm/tests-norm-data.txt">.txt</a>, <a href="deaths-norm/deaths-norm-data.csv">.csv</a>
 </p>
 
 <h2>Links and Further Reading</h2>

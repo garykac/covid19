@@ -15,6 +15,15 @@ from matplotlib.ticker import LogFormatter
 # Number of states to include in plot
 top_n = 8
 
+# Graph parameters for Reported Tests
+_num_days_for_tests = 35
+_num_days_for_tests_norm = 30
+
+_y_min_for_tests = 100
+_y_max_for_tests = 1000000
+_y_min_for_tests_norm = 10
+_y_max_for_tests_norm = 10000
+
 # Graph parameters for Reported Positive Cases
 _num_days_for_cases = 35
 _num_days_for_cases_norm = 30
@@ -211,11 +220,14 @@ class CovidData:
 		self.dates.pop()
 		self.date = self.dates[-1]
 		
+		self.us_tests.pop()
 		self.us_cases.pop()
 		self.us_deaths.pop()
+		self.italy_tests.pop()
 		self.italy_cases.pop()
 		self.italy_deaths.pop()
 		for s in states:
+			self.state_tests[s].pop()
 			self.state_cases[s].pop()
 			self.state_deaths[s].pop()
 	
@@ -487,12 +499,14 @@ class CovidCases:
 		#ax.yaxis.set_minor_formatter(formatter)
 
 	# Generate main graphs for |plot_date|.
-	def generate(self):
+	def generate_top_n(self):
 		print 'Processing data for', self.date_str
+		self.generate_top_n_tests()
 		self.generate_top_n_cases()
 		self.generate_top_n_deaths()
-		
-		print 'Generating state graphs'
+	
+	def generate_combined(self):
+		print 'Generating combined state graphs'
 		self.generate_states_combined()
 
 		self.generate_states_individual()
@@ -500,8 +514,55 @@ class CovidCases:
 	# Generate graphs for a previous date (used for animations).
 	def generate_anim_data(self):
 		print 'Processing data for', self.date_str
+		self.generate_top_n_tests()
 		self.generate_top_n_cases()
 		self.generate_top_n_deaths()
+
+	def generate_top_n_tests(self):
+		options = lambda: None  # An object that we can attach attributes to
+		options.state_data = self.cdata.get_state_tests
+		options.us_data = self.cdata.get_us_tests
+		options.italy_data = self.cdata.get_italy_tests
+		
+		# Filtered for 100 cases, log-scale
+		title = 'COVID-19 US reported tests\n(Since first day with 100 tests. Top %d states. %s scale)'
+		options.use_log_scale = True
+		options.output_dir = 'tests'
+		options.output_filebase = 'tests'
+		options.y_min = _y_min_for_tests
+		options.y_max = _y_max_for_tests
+		options.max_days = _num_days_for_tests
+		options.title = title % (top_n, 'Log')
+		options.x_label = 'Days since 100th reported test'
+		options.y_label = 'Cumulative reported tests'
+		options.processor = self.process_filter
+		options.threshold = 100
+		options.ranking = self.cdata.get_test_rank()
+		self.generate_plot(options)
+		# Filtered for 100 tests, linear-scale
+		options.use_log_scale = False
+		options.title = title % (top_n, 'Linear')
+		self.generate_plot(options)
+
+		# Normalized for population, filtered for 10 cases/million, log
+		title = 'COVID-19 US reported tests per million\n(Since first day with 10 tests/million. Top %d states. %s scale)'
+		options.use_log_scale = True
+		options.output_dir = 'tests-norm'
+		options.output_filebase = 'tests'
+		options.y_min = _y_min_for_tests_norm
+		options.y_max = _y_max_for_tests_norm
+		options.max_days = _num_days_for_tests_norm
+		options.title = title % (top_n, 'Log')
+		options.x_label = 'Days since 10 reported tests per million people'
+		options.y_label = 'Cumulative reported tests per million people'
+		options.processor = self.process_normalize_and_filter
+		options.threshold = 10
+		options.ranking = self.cdata.get_test_rank_norm()
+		self.generate_plot(options)
+		# Normalized for population, filtered for 10 cases/million, linear
+		options.use_log_scale = False
+		options.title = title % (top_n, 'Linear')
+		self.generate_plot(options)
 
 	def generate_top_n_cases(self):
 		options = lambda: None  # An object that we can attach attributes to
@@ -790,6 +851,10 @@ class CovidCases:
 		args_base = ['-delay', '20' ,'-loop', '0']
 
 		templates = []
+		for dir in ['tests', 'tests-norm']:
+			for f in ['tests-log', 'tests-lin']:
+				base_template = '%s%%s/%s' % (dir, f)
+				templates.append(base_template)
 		for dir in ['cases', 'cases-norm']:
 			for f in ['cases-log', 'cases-lin']:
 				base_template = '%s%%s/%s' % (dir, f)
@@ -818,22 +883,34 @@ class CovidCases:
 			shutil.copy(out_gif, '%s.gif' % (filebase))
 			shutil.copy(last_frame, '%s.png' % (filebase))
 		
+def usage():
+	print 'plot.py [options]'
+	print 'where options are:'
+	print '  --all Generate all plots'
+	print '  --anim Generate animated plots'
+	print '  --combined Generate combined state plots'
+	print '  --date <yyyymmdd> Only plot data up to date'
+	sys.exit(1)
+
 def main(argv):
 	try:
-		opts, args = getopt.getopt(argv,"?had:",["?", "help", "anim", "date="])
+		opts, args = getopt.getopt(argv,"?hancd:",["?", "help", "all", "anim", "combined", "date="])
 	except getopt.GetoptError:
-		print 'test.py --date <yyyymmdd>'
-		sys.exit(2)
+		usage()
 
 	date = None
 	animated = False
+	combined = False
 	for opt, arg in opts:
 		if opt in ("-?", "-h", "--?", "--help"):
-			print 'plot.py [options]'
-			print 'where options are:'
-			print '  -d <yyyymmdd> Only plot data up to date'
-		if opt in ("-a", "--anim"):
+			usage()
+		if opt in ("-a", "--all"):
 			animated = True
+			combined = True
+		if opt in ("-n", "--anim"):
+			animated = True
+		if opt in ("-c", "--combined"):
+			combined = True
 		if opt in ("-d", "--date"):
 			date = arg
 
@@ -841,8 +918,11 @@ def main(argv):
 	covid_data.load_data()
 	
 	cases = CovidCases(covid_data)
-	cases.generate()
-
+	cases.generate_top_n()
+	
+	if combined:
+		cases.generate_combined()
+	
 	if animated:
 		# Process previous day data using top-8 from current day.	
 		while int(covid_data.get_date()) > int('20200316'):
