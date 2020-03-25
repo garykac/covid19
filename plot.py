@@ -15,6 +15,7 @@ from matplotlib.ticker import LogFormatter
 # Number of states to include in plot
 top_n = 8
 
+# Graph parameters for Reported Positive Cases
 _num_days_for_cases = 35
 _num_days_for_cases_norm = 30
 
@@ -23,6 +24,7 @@ _y_max_for_cases = 200000
 _y_min_for_cases_norm = 10
 _y_max_for_cases_norm = 2000
 
+# Graph parameters for Reported Deaths
 _num_days_for_deaths = 30
 _num_days_for_deaths_norm = 25
 
@@ -153,27 +155,43 @@ line_colors = {
 class CovidData:
 	def __init__(self, date):
 		self.date = date
+		self.state_tests = {}
 		self.state_cases = {}
 		self.state_deaths = {}
 
+	def get_us_tests(self):
+		return self.us_tests
+	
 	def get_us_cases(self):
 		return self.us_cases
 	
 	def get_us_deaths(self):
 		return self.us_deaths
-	
+
+	def get_state_tests(self, state):
+		return self.state_tests[state]
+		
 	def get_state_cases(self, state):
 		return self.state_cases[state]
 	
 	def get_state_deaths(self, state):
 		return self.state_deaths[state]
 	
+	def get_italy_tests(self):
+		return self.italy_tests
+
 	def get_italy_cases(self):
 		return self.italy_cases
 
 	def get_italy_deaths(self):
 		return self.italy_deaths
 
+	def get_test_rank(self):
+		return self.ranking_test
+
+	def get_test_rank_norm(self):
+		return self.ranking_test_norm
+	
 	def get_case_rank(self):
 		return self.ranking_case
 
@@ -206,17 +224,21 @@ class CovidData:
 		self.load_italy_data()
 	
 	def load_us_data(self):
+		self.state_tests = {}
 		self.state_cases = {}
 		self.state_deaths = {}
 		for state in states:
+			self.state_tests[state] = []
 			self.state_cases[state] = []
 			self.state_deaths[state] = []
+		self.us_tests = []
 		self.us_cases = []
 		self.us_deaths = []
 
 		curr_date = None
 		self.dates = []
 		state_has_data = {}
+		us_tests = 0
 		us_cases = 0
 		us_deaths = 0
 		with open('data/states-daily.csv') as fp:
@@ -234,6 +256,7 @@ class CovidData:
 					curr_date = date
 					self.dates.insert(0, date)
 				if self.date == None:
+					# Assumes that most recent date is first in file.
 					self.date = date
 
 				# If new date, then make sure we close out the current date,
@@ -241,17 +264,24 @@ class CovidData:
 				if curr_date != date:
 					for s in states:
 						if not state_has_data.has_key(s):
+							self.state_tests[s].insert(0, None)
 							self.state_cases[s].insert(0, None)
 							self.state_deaths[s].insert(0, None)
-					# Record total US cases for current date.
+					# Record total US infos for current date.
+					self.us_tests.insert(0, us_tests)
 					self.us_cases.insert(0, us_cases)
 					self.us_deaths.insert(0, us_deaths)
+					us_tests = 0
 					us_cases = 0
 					us_deaths = 0
 					state_has_data = {}
 					curr_date = date
 					self.dates.insert(0, date)
 
+				num_tests = int(total)
+				self.state_tests[state].insert(0, num_tests)
+				us_tests += num_tests
+				
 				if positive == '':
 					pos = 0
 				else:
@@ -268,74 +298,96 @@ class CovidData:
 
 				# Keep track of which states have data for this date.
 				state_has_data[state] = True
-
+		
 		# Fill in missing data for final date.
 		for s in states:
 			if not state_has_data.has_key(s):
+				self.state_tests[s].insert(0, None)
 				self.state_cases[s].insert(0, None)
 				self.state_deaths[s].insert(0, None)
+		self.us_tests.insert(0, us_tests)
 		self.us_cases.insert(0, us_cases)
 		self.us_deaths.insert(0, us_deaths)
 
 		self.rank_states()
 	
 	def rank_states(self):
+		self.rank_states_tests()
 		self.rank_states_cases()
 		self.rank_states_deaths()
+
+	def rank_states_tests(self):
+		options = lambda: None  # An object that we can attach attributes to
+		options.state_data = self.state_tests
+		options.type = 'tests'
+
+		self.ranking_test, self.ranking_test_norm = self.rank_states_data(options)
 	
-	# Calculate states ranking based on number of reported positive cases.
 	def rank_states_cases(self):
-		ranking_case = {}
-		ranking_case_norm = {}
-		for s in states:
-			data = self.state_cases[s]
-			if len(data) > 0:
-				last = data[-1]
-				if last == None:
-					print 'ERROR ranking cases', s, data
-				ranking_case[s] = last
-				pop = state_pop[s]
-				ranking_case_norm[s] = last / pop
+		options = lambda: None  # An object that we can attach attributes to
+		options.state_data = self.state_cases
+		options.type = 'cases'
 
-		self.ranking_case = []
-		for d in sorted(ranking_case, key=ranking_case.get, reverse=True):
-			self.ranking_case.append(d)
-
-		#print 'Ranking cases (normalized)'
-		self.ranking_case_norm = []
-		for d in sorted(ranking_case_norm, key=ranking_case_norm.get, reverse=True):
-			#print ' ', d, ranking_case_norm[d] * 1000000
-			self.ranking_case_norm.append(d)
-
-	# Calculate states ranking based on number of reported deaths.
+		self.ranking_case, self.ranking_case_norm = self.rank_states_data(options)
+	
 	def rank_states_deaths(self):
-		ranking_death = {}
-		ranking_death_norm = {}
+		options = lambda: None  # An object that we can attach attributes to
+		options.state_data = self.state_deaths
+		options.type = 'deaths'
+
+		self.ranking_death, self.ranking_death_norm = self.rank_states_data(options)
+	
+	def rank_states_data(self, options):
+		ranking_data = {}
+		ranking_norm_data = {}
 		for s in states:
-			data = self.state_deaths[s]
+			data = options.state_data[s]
 			if len(data) > 0:
 				last = data[-1]
 				if last == None:
-					print 'ERROR ranking deaths', s, data
-				ranking_death[s] = last
+					print 'ERROR ranking', options.type, s, data
+				ranking_data[s] = last
 				pop = state_pop[s]
-				ranking_death_norm[s] = last / pop
+				ranking_norm_data[s] = (last * 1000000) / pop
 
-		self.ranking_death = []
-		for d in sorted(ranking_death, key=ranking_death.get, reverse=True):
-			self.ranking_death.append(d)
+		out_ranking = []
+		for d in sorted(ranking_data, key=ranking_data.get, reverse=True):
+			out_ranking.append(d)
 
-		#print 'Ranking deaths (normalized)'
-		self.ranking_death_norm = []
-		for d in sorted(ranking_death_norm, key=ranking_death_norm.get, reverse=True):
-			#print ' ', d, ranking_death_norm[d] * 1000000
-			self.ranking_death_norm.append(d)
+		out_ranking_norm = []
+		for d in sorted(ranking_norm_data, key=ranking_norm_data.get, reverse=True):
+			out_ranking_norm.append(d)
+		
+		self.rank_states_data_export(ranking_data, out_ranking, options.type, 'int')
+		self.rank_states_data_export(ranking_norm_data, out_ranking_norm, '%s-norm' % options.type, 'float')
+
+		return out_ranking, out_ranking_norm
+	
+	def rank_states_data_export(self, data, ranking, type, format):
+		outdir_date = '%s/%s' % (type, self.date)
+		if not os.path.exists(outdir_date):
+			os.makedirs(outdir_date)
+
+		file_csv = '%s/%s-data.csv' % (type, type)
+		# Export ranking.
+		with open(file_csv, 'w') as fp:
+			fp.write('state,%s\n' % type)
+			for state in ranking:
+				if format == 'float':
+					fp.write('{:s},{:.2f}\n'.format(state, data[state]))
+				else:
+					fp.write('{:s},{:d}\n'.format(state, data[state]))
+		shutil.copy(file_csv, '%s/%s-data.csv' % (outdir_date, type))
+		shutil.copy(file_csv, '%s/%s-data.txt' % (type, type))
 
 	def load_italy_data(self):
+		self.italy_tests = []
 		self.italy_cases = []
 		self.italy_deaths = []
 
 		# Hypothetical data back to roughly 100 total cases (for alignment).
+		self.italy_tests.append(0)
+		self.italy_tests.append(0)
 		self.italy_cases.append(120)
 		self.italy_cases.append(180)
 		self.italy_deaths.append(0)
@@ -360,6 +412,7 @@ class CovidData:
 					continue
 				
 				date = datetime[0:4] + datetime[5:7] + datetime[8:10]
+				self.italy_tests.append(int(swabs))
 				self.italy_cases.append(int(total))
 				self.italy_deaths.append(int(deaths))
 	
@@ -367,8 +420,6 @@ class CovidData:
 		if not date == self.date:
 			print 'ERROR - US and Italy data not consistent:', date, 'vs', self.date
 			exit(1)
-		print 'Italy Cases (Norm)', (int(total) * 1000000)/ italy_pop
-
 
 class CovidCases:
 	def __init__(self, covid_data):
