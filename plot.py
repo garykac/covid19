@@ -26,7 +26,7 @@ _y_max_for_tests_norm = 10000
 
 # Graph parameters for Reported Positive Cases
 _num_days_for_cases = 35
-_num_days_for_cases_norm = 30
+_num_days_for_cases_norm = 35
 
 _y_min_for_cases = 100
 _y_max_for_cases = 200000
@@ -759,7 +759,13 @@ class CovidCases:
 		plt.savefig('cases-norm/states.png', dpi=150, bbox_inches='tight')
 
 	def generate_states_individual(self):
+		self.generate_states_individual_cases()
+	
+	def generate_states_individual_cases(self):
 		options = lambda: None  # An object that we can attach attributes to
+		options.state_data = self.cdata.get_state_cases
+		options.us_data = self.cdata.get_us_cases
+		options.italy_data = self.cdata.get_italy_cases
 
 		options.use_log_scale = True
 		options.y_min = _y_min_for_cases_norm
@@ -799,14 +805,14 @@ class CovidCases:
 	
 		# Plot data for all the states in light gray for reference.
 		for s2 in states:
-			self.plot_data(ax, self.cdata.get_state_cases(s2), 'lt_gray',
+			self.plot_data(ax, options.state_data(s2), 'lt_gray',
 					state_pop[s2], '', False, options.processor, options.threshold)
 
-		self.plot_data(ax, self.cdata.get_state_cases(state), 'dk_blue',
+		self.plot_data(ax, options.state_data(state), 'dk_blue',
 				state_pop[state], state, True, options.processor, options.threshold)
-		self.plot_data(ax, self.cdata.get_us_cases(), 'black', us_pop, 'US', True,
+		self.plot_data(ax, options.us_data(), 'black', us_pop, 'US', True,
 				options.processor, options.threshold)
-		self.plot_data(ax, self.cdata.get_italy_cases(), 'black', italy_pop, 'Italy', True,
+		self.plot_data(ax, options.italy_data(), 'black', italy_pop, 'Italy', True,
 				options.processor, options.threshold)
 
 		plt.legend(loc="lower right")
