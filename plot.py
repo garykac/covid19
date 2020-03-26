@@ -27,7 +27,8 @@ class C19Tests:
 	y_max = 1000000
 
 class C19TestsNorm:
-	num_days = 30
+	num_days = 35
+	num_days_combined = 25
 	y_min = 10
 	y_max = 10000
 
@@ -39,6 +40,7 @@ class C19Cases:
 
 class C19CasesNorm:
 	num_days = 35
+	num_days_combined = 25
 	y_min = 10
 	y_max = 2000
 
@@ -47,12 +49,13 @@ class C19CasesNorm:
 
 # Graph parameters for Reported Deaths
 class C19Deaths:
-	num_days = 30
+	num_days = 35
 	y_min = 10
 	y_max = 10000
 
 class C19DeathsNorm:
 	num_days = 25
+	num_days_combined = 20
 	y_min = 1
 	y_max = 150
 
@@ -384,6 +387,7 @@ class CovidCases:
 				size=14, ha='right', va='bottom')
 	
 	def generate_states_combined_tests(self):
+		print '  combined tests'
 		plt.close('all')
 		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
 
@@ -407,7 +411,7 @@ class CovidCases:
 
 		for s in USInfo.states:
 			ax = state_ax[s]
-			ax.axis([0, C19TestsNorm.num_days, C19TestsNorm.y_min, C19TestsNorm.y_max])
+			ax.axis([0, C19TestsNorm.num_days_combined, C19TestsNorm.y_min, C19TestsNorm.y_max])
 			self.format_axes(ax, True)
 			ax.set_yticks([10,100,1000,10000])
 			
@@ -422,6 +426,7 @@ class CovidCases:
 		plt.savefig('tests-norm/states.png', dpi=150, bbox_inches='tight')
 
 	def generate_states_combined_cases(self):
+		print '  combined cases'
 		plt.close('all')
 		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
 
@@ -443,7 +448,7 @@ class CovidCases:
 		for s in USInfo.states:
 			ax = state_ax[s]
 			#ax.set_title(s)
-			ax.axis([0, C19CasesNorm.num_days, C19CasesNorm.y_min, C19CasesNorm.y_max])
+			ax.axis([0, C19CasesNorm.num_days_combined, C19CasesNorm.y_min, C19CasesNorm.y_max])
 			self.format_axes(ax, True)
 			# Plot data for all the states in light gray for reference.
 			for s2 in USInfo.states:
@@ -456,6 +461,7 @@ class CovidCases:
 		plt.savefig('cases-norm/states.png', dpi=150, bbox_inches='tight')
 
 	def generate_states_combined_deaths(self):
+		print '  combined deaths'
 		plt.close('all')
 		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
 
@@ -477,7 +483,7 @@ class CovidCases:
 		for s in USInfo.states:
 			ax = state_ax[s]
 			#ax.set_title(s)
-			ax.axis([0, C19DeathsNorm.num_days, C19DeathsNorm.y_min, C19DeathsNorm.y_max])
+			ax.axis([0, C19DeathsNorm.num_days_combined, C19DeathsNorm.y_min, C19DeathsNorm.y_max])
 			self.format_axes(ax, True)
 			# Plot data for all the states in light gray for reference.
 			for s2 in USInfo.states:
