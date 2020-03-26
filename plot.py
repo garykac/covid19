@@ -255,8 +255,10 @@ class CovidData:
 		us_deaths = 0
 		with open('data/states-daily.csv') as fp:
 			for line in fp:
-				# Hospitalized field added on 21 Mar 2020.
-				(date,state,positive,negative,pending,hospitalized,death,total,timestamp) = line.strip().split(',')
+				# date,state,positive,negative,pending,hospitalized,death,total,dateChecked,totalTestResults,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
+				# 21Mar2020: New field: ospitalized
+				# 25Mar2020: New fields: totalTestResults,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
+				(date,state,positive,negative,pending,hospitalized,death,total,timestamp,ttr,di,hi,ni,pi,ttri) = line.strip().split(',')
 				if date == 'date':
 					continue
 
@@ -407,6 +409,7 @@ class CovidData:
 
 		with open('data/dpc-covid19-ita-andamento-nazionale.csv') as fp:
 			for line in fp:
+				# data,stato,ricoverati_con_sintomi,terapia_intensiva,totale_ospedalizzati,isolamento_domiciliare,totale_attualmente_positivi,nuovi_attualmente_positivi,dimessi_guariti,deceduti,totale_casi,tamponi,note_it,note_en
 				# data = date and time: yyyy-mm-dd hh:mm:ss
 				# stato = state (always ITA)
 				# ricoverati_con_sintomi = hospitalized with symptoms
@@ -419,7 +422,9 @@ class CovidData:
 				# deceduti = deceased
 				# totale_casi = total cases
 				# tamponi = swabs
-				(datetime,state,hos,ic,hos_total,home,curr_pos,new_pos,discharged,deaths,total,swabs) = line.strip().split(',')
+				# note_it = note italian
+				# note_en = note english
+				(datetime,state,hos,ic,hos_total,home,curr_pos,new_pos,discharged,deaths,total,swabs,nita,neng) = line.strip().split(',')
 				if datetime == 'data':
 					continue
 				
