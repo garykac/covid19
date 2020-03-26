@@ -15,10 +15,10 @@ from matplotlib.ticker import LogFormatter
 from usinfo import USInfo
 from covid_data import CovidData
 
-italy_pop = 60549600  # 2020 from https://en.wikipedia.org/wiki/Demographics_of_Italy
+_italy_pop = 60549600  # 2020 from https://en.wikipedia.org/wiki/Demographics_of_Italy
 
 # Number of states to include in plot
-top_n = 8
+_top_n = 8
 
 # Graph parameters for Reported Tests
 class C19Tests:
@@ -150,19 +150,13 @@ class CovidCases:
 
 	# Generate main graphs for |plot_date|.
 	def generate_top_n(self):
-		print 'Processing data for', self.date_str
+		print 'Generating Top-n graphs'
 		self.generate_top_n_tests()
 		self.generate_top_n_cases()
 		self.generate_top_n_deaths()
 	
-	def generate_combined(self):
-		print 'Generating combined state graphs'
-		self.generate_states_combined()
-
-		self.generate_states_individual()
-
 	# Generate graphs for a previous date (used for animations).
-	def generate_anim_data(self):
+	def generate_top_n_anim_data(self):
 		print 'Processing data for', self.date_str
 		self.generate_top_n_tests()
 		self.generate_top_n_cases()
@@ -182,7 +176,7 @@ class CovidCases:
 		options.y_min = C19Tests.y_min
 		options.y_max = C19Tests.y_max
 		options.max_days = C19Tests.num_days
-		options.title = title % (top_n, 'Log')
+		options.title = title % (_top_n, 'Log')
 		options.x_label = 'Days since 100th reported test'
 		options.y_label = 'Cumulative reported tests'
 		options.processor = self.process_filter
@@ -191,7 +185,7 @@ class CovidCases:
 		self.generate_plot(options)
 		# Filtered for 100 tests, linear-scale
 		options.use_log_scale = False
-		options.title = title % (top_n, 'Linear')
+		options.title = title % (_top_n, 'Linear')
 		self.generate_plot(options)
 
 		# Normalized for population, filtered for 10 cases/million, log
@@ -202,7 +196,7 @@ class CovidCases:
 		options.y_min = C19TestsNorm.y_min
 		options.y_max = C19TestsNorm.y_max
 		options.max_days = C19TestsNorm.num_days
-		options.title = title % (top_n, 'Log')
+		options.title = title % (_top_n, 'Log')
 		options.x_label = 'Days since 10 reported tests per million people'
 		options.y_label = 'Cumulative reported tests per million people'
 		options.processor = self.process_normalize_and_filter
@@ -211,7 +205,7 @@ class CovidCases:
 		self.generate_plot(options)
 		# Normalized for population, filtered for 10 cases/million, linear
 		options.use_log_scale = False
-		options.title = title % (top_n, 'Linear')
+		options.title = title % (_top_n, 'Linear')
 		self.generate_plot(options)
 
 	def generate_top_n_cases(self):
@@ -228,7 +222,7 @@ class CovidCases:
 		options.y_min = C19Cases.y_min
 		options.y_max = C19Cases.y_max
 		options.max_days = C19Cases.num_days
-		options.title = title % (top_n, 'Log')
+		options.title = title % (_top_n, 'Log')
 		options.x_label = 'Days since 100th reported positive case'
 		options.y_label = 'Cumulative reported positive cases'
 		options.processor = self.process_filter
@@ -237,7 +231,7 @@ class CovidCases:
 		self.generate_plot(options)
 		# Filtered for 100 cases, linear-scale
 		options.use_log_scale = False
-		options.title = title % (top_n, 'Linear')
+		options.title = title % (_top_n, 'Linear')
 		self.generate_plot(options)
 
 		# Normalized for population, filtered for 10 cases/million, log
@@ -248,7 +242,7 @@ class CovidCases:
 		options.y_min = C19CasesNorm.y_min
 		options.y_max = C19CasesNorm.y_max
 		options.max_days = C19CasesNorm.num_days
-		options.title = title % (top_n, 'Log')
+		options.title = title % (_top_n, 'Log')
 		options.x_label = 'Days since 10 reported positive cases per million people'
 		options.y_label = 'Cumulative reported positive cases per million people'
 		options.processor = self.process_normalize_and_filter
@@ -257,7 +251,7 @@ class CovidCases:
 		self.generate_plot(options)
 		# Normalized for population, filtered for 10 cases/million, linear
 		options.use_log_scale = False
-		options.title = title % (top_n, 'Linear')
+		options.title = title % (_top_n, 'Linear')
 		self.generate_plot(options)
 
 	def generate_top_n_deaths(self):
@@ -274,7 +268,7 @@ class CovidCases:
 		options.y_min = C19Deaths.y_min
 		options.y_max = C19Deaths.y_max
 		options.max_days = C19Deaths.num_days
-		options.title = title % (top_n, 'Log')
+		options.title = title % (_top_n, 'Log')
 		options.x_label = 'Days since 10th reported death'
 		options.y_label = 'Cumulative reported deaths'
 		options.processor = self.process_filter
@@ -283,7 +277,7 @@ class CovidCases:
 		self.generate_plot(options)
 		# Filtered for 100 cases, linear-scale
 		options.use_log_scale = False
-		options.title = title % (top_n, 'Linear')
+		options.title = title % (_top_n, 'Linear')
 		self.generate_plot(options)
 
 		# Normalized for population, filtered for 1 cases/million, log
@@ -294,7 +288,7 @@ class CovidCases:
 		options.y_min = C19DeathsNorm.y_min
 		options.y_max = C19DeathsNorm.y_max
 		options.max_days = C19DeathsNorm.num_days
-		options.title = title % (top_n, 'Log')
+		options.title = title % (_top_n, 'Log')
 		options.x_label = 'Days since 1 reported death per million people'
 		options.y_label = 'Cumulative reported deaths per million people'
 		options.processor = self.process_normalize_and_filter
@@ -303,7 +297,7 @@ class CovidCases:
 		self.generate_plot(options)
 		# Normalized for population, filtered for 10 cases/million, linear
 		options.use_log_scale = False
-		options.title = title % (top_n, 'Linear')
+		options.title = title % (_top_n, 'Linear')
 		self.generate_plot(options)
 
 	def generate_plot(self, options):
@@ -332,14 +326,14 @@ class CovidCases:
 				xytext=(0, -40), textcoords='offset points',
 				size=14, ha='right', va='top')
 
-		# Plot the top |top_n| states.
-		for i in xrange(top_n):
+		# Plot the top |_top_n| states.
+		for i in xrange(_top_n):
 			state = options.ranking[i];
 			self.plot_data(ax, options.state_data(state), color_order[i],
 					USInfo.state_pop[state], state, False,
 					options.processor, options.threshold)
 
-		self.plot_data(ax, options.italy_data(), 'black', italy_pop, 'Italy', True,
+		self.plot_data(ax, options.italy_data(), 'black', _italy_pop, 'Italy', True,
 				options.processor, options.threshold)
 		self.plot_data(ax, options.us_data(), 'black', USInfo.us_pop, 'US', True,
 				options.processor, options.threshold)
@@ -359,6 +353,69 @@ class CovidCases:
 		plt.savefig(filename, bbox_inches='tight')
 
 	def generate_states_combined(self):
+		print 'Generating combined state graphs'
+		self.generate_states_combined_tests()
+		self.generate_states_combined_cases()
+	
+	def generate_states_combined_tests(self):
+		plt.close('all')
+		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
+
+		axs[0,1].annotate('COVID-19 US States Reported Tests per Million',
+				xy=(1,1), xycoords='axes fraction',
+				xytext=(0, 44), textcoords='offset points',
+				size=16, ha='center', va='top')
+		axs[0,1].annotate('Since first day with 10 tests/million',
+				xy=(1,1), xycoords='axes fraction',
+				xytext=(0, 22), textcoords='offset points',
+				size=10, ha='center', va='top')
+		axs[13,0].annotate('Each US state compared with all other states',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-20, -36), textcoords='offset points',
+				size=8, ha='left', va='bottom')
+		axs[13,0].annotate('Data is cumulative but some reporting is inconsistent',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-20, -48), textcoords='offset points',
+				size=8, ha='left', va='bottom')
+		axs[13,0].annotate('Note: y=10000 is 1% of the state\'s population',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-20, -60), textcoords='offset points',
+				size=8, ha='left', va='bottom')
+		axs[13,0].annotate('Data from https://covidtracking.com',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-20, -72), textcoords='offset points',
+				size=8, ha='left', va='bottom')
+		axs[13,3].annotate(self.date_str,
+				xy=(1,0), xycoords='axes fraction',
+				xytext=(0, -72), textcoords='offset points',
+				size=14, ha='right', va='bottom')
+
+		# Build a dictionary of state -> ax
+		state_ax = {}
+		s = 0
+		for ax in axs.flat:
+			state = USInfo.states[s]
+			state_ax[state] = ax
+			s += 1
+
+		for s in USInfo.states:
+			ax = state_ax[s]
+			#ax.set_title(s)
+			ax.axis([0, C19TestsNorm.num_days, C19TestsNorm.y_min, C19TestsNorm.y_max])
+			self.format_axes(ax, True)
+			ax.set_yticks([10,100,1000,10000], minor=False)
+			
+			# Plot data for all the states in light gray for reference.
+			for s2 in USInfo.states:
+				self.plot_data(ax, self.cdata.get_state_tests(s2), 'lt_gray',
+						USInfo.state_pop[s2], '', False, self.process_normalize_and_filter, 10)	
+			self.plot_data(ax, self.cdata.get_state_tests(s), 'dk_gray',
+					USInfo.state_pop[s], s, True, self.process_normalize_and_filter, 10)
+
+		fig.set_size_inches(8, 18)
+		plt.savefig('tests-norm/states.png', dpi=150, bbox_inches='tight')
+
+	def generate_states_combined_cases(self):
 		plt.close('all')
 		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
 
@@ -457,7 +514,7 @@ class CovidCases:
 				USInfo.state_pop[state], state, True, options.processor, options.threshold)
 		self.plot_data(ax, options.us_data(), 'black', USInfo.us_pop, 'US', True,
 				options.processor, options.threshold)
-		self.plot_data(ax, options.italy_data(), 'black', italy_pop, 'Italy', True,
+		self.plot_data(ax, options.italy_data(), 'black', _italy_pop, 'Italy', True,
 				options.processor, options.threshold)
 
 		plt.legend(loc="lower right")
@@ -543,48 +600,67 @@ def usage():
 	print 'plot.py [options]'
 	print 'where options are:'
 	print '  --all Generate all plots'
-	print '  --anim Generate animated plots'
+	print '  --anim Generate animated plots for top-N (implies --top)'
 	print '  --combined Generate combined state plots'
 	print '  --date <yyyymmdd> Only plot data up to date'
+	print '  --individual Generate individual state plots'
+	print '  --top Generate top-N plots'
 	sys.exit(1)
 
 def main(argv):
 	try:
-		opts, args = getopt.getopt(argv,"?hancd:",["?", "help", "all", "anim", "combined", "date="])
+		opts, args = getopt.getopt(argv,
+				"?hancid:t",
+				["?", "help", "all", "anim", "combined", "individual", "date=", "top"])
 	except getopt.GetoptError:
 		usage()
 
 	date = None
-	animated = False
-	combined = False
+	gen_animated = False
+	gen_combined = False
+	gen_individual = False
+	gen_top_n = False
 	for opt, arg in opts:
 		if opt in ("-?", "-h", "--?", "--help"):
 			usage()
 		if opt in ("-a", "--all"):
-			animated = True
-			combined = True
+			gen_animated = True
+			gen_combined = True
+			gen_individual = True
+			gen_top_n = True
 		if opt in ("-n", "--anim"):
-			animated = True
+			gen_animated = True
+			gen_top_n = True  # --anim requires --top_n
 		if opt in ("-c", "--combined"):
-			combined = True
+			gen_combined = True
 		if opt in ("-d", "--date"):
 			date = arg
+		if opt in ("-i", "--individual"):
+			gen_individual = True
+		if opt in ("-t", "--top"):
+			gen_top_n = True
 
 	covid_data = CovidData(date)
 	covid_data.load_data()
 	
 	cases = CovidCases(covid_data)
-	cases.generate_top_n()
-	
-	if combined:
-		cases.generate_combined()
-	
-	if animated:
-		# Process previous day data using top-8 from current day.	
-		while int(covid_data.get_date()) > int('20200316'):
-			cases.remove_last_day()
-			cases.generate_anim_data()
-		cases.export_anim()
+	print 'Processing data for', cases.date_str
 
+	if gen_top_n:
+		cases.generate_top_n()
+	
+		if gen_animated:
+			# Process previous day data using top-N from current day.
+			while int(covid_data.get_date()) > int('20200316'):
+				cases.remove_last_day()
+				cases.generate_top_n_anim_data()
+			cases.export_anim()
+
+	if gen_combined:
+		cases.generate_states_combined()
+
+	if gen_individual:
+		cases.generate_states_individual();
+		
 if __name__ == "__main__":
 	main(sys.argv[1:])
