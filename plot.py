@@ -12,6 +12,10 @@ from matplotlib.ticker import FuncFormatter
 from matplotlib.ticker import ScalarFormatter
 from matplotlib.ticker import LogFormatter
 
+from usinfo import USInfo
+
+italy_pop = 60549600  # 2020 from https://en.wikipedia.org/wiki/Demographics_of_Italy
+
 # Number of states to include in plot
 top_n = 8
 
@@ -50,94 +54,6 @@ class C19DeathsNorm:
 	num_days = 25
 	y_min = 1
 	y_max = 150
-
-# List of state/territory abbreviations.
-states = [
-	'AK', 'AL', 'AR', 'AS', 'AZ',
-	'CA', 'CO', 'CT',
-	'DC', 'DE',
-	'FL',
-	'GA', 'GU',
-	'HI',
-	'IA', 'ID', 'IL', 'IN',
-	'KS', 'KY',
-	'LA',
-	'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MP', 'MS', 'MT',
-	'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY',
-	'OH', 'OK', 'OR',
-	'PA', 'PR',
-	'RI',
-	'SC', 'SD',
-	'TN', 'TX',
-	'UT',
-	'VA', 'VI', 'VT',
-	'WA', 'WI', 'WV', 'WY',
-]
-
-# US state/territory population - Est. 1 July 2019
-# From https://en.wikipedia.org/wiki/List_of_states_and_territories_of_the_United_States_by_population
-state_pop = {
-	'AK':   731545,
-	'AL':  4903185,
-	'AR':  3017825,
-	'AZ':  7278717,
-	'CA': 39512223,
-	'CO':  5758736,
-	'CT':  3565287,
-	'DE':   973764,
-	'FL': 21477737,
-	'GA': 10617423,
-	'HI':  1415872,
-	'IA':  3155070,
-	'ID':  1787147,
-	'IL': 12671821,
-	'IN':  6732219,
-	'KS':  2913314,
-	'KY':  4467673,
-	'LA':  4648794,
-	'MA':  6949503,
-	'MD':  6045680,
-	'ME':  1344212,
-	'MI':  9986857,
-	'MN':  5639632,
-	'MO':  6137428,
-	'MS':  2976149,
-	'MT':  1068778,
-	'NC': 10488084,
-	'ND':   762062,
-	'NE':  1934408,
-	'NH':  1359711,
-	'NJ':  8882190,
-	'NM':  2096829,
-	'NV':  3080156,
-	'NY': 19453561,
-	'OH': 11689100,
-	'OK':  3956971,
-	'OR':  4217737,
-	'PA': 12801989,
-	'RI':  1059361,
-	'SC':  5148714,
-	'SD':   884659,
-	'TN':  6833174,
-	'TX': 28995881,
-	'UT':  3205958,
-	'VA':  8535519,
-	'VT':   623989,
-	'WA':  7614893,
-	'WI':  5822434,
-	'WV':  1792065,
-	'WY':   578759,
-
-	'AS':    55641,
-	'DC':   705749,
-	'GU':   165718,
-	'MP':    55194,
-	'PR':  3193694,
-	'VI':   104914,
-}
-
-us_pop = 331875705  # Total US population summed from state data.
-italy_pop = 60549600  # 2020 from https://en.wikipedia.org/wiki/Demographics_of_Italy
 
 # The order in which colors are assigned to plot lines.
 color_order = [
@@ -235,7 +151,7 @@ class CovidData:
 		self.italy_tests.pop()
 		self.italy_cases.pop()
 		self.italy_deaths.pop()
-		for s in states:
+		for s in USInfo.states:
 			self.state_tests[s].pop()
 			self.state_cases[s].pop()
 			self.state_deaths[s].pop()
@@ -248,7 +164,7 @@ class CovidData:
 		self.state_tests = {}
 		self.state_cases = {}
 		self.state_deaths = {}
-		for state in states:
+		for state in USInfo.states:
 			self.state_tests[state] = []
 			self.state_cases[state] = []
 			self.state_deaths[state] = []
@@ -285,7 +201,7 @@ class CovidData:
 				# If new date, then make sure we close out the current date,
 				# filling out missing state data with '0's.
 				if curr_date != date:
-					for s in states:
+					for s in USInfo.states:
 						if not state_has_data.has_key(s):
 							self.state_tests[s].insert(0, None)
 							self.state_cases[s].insert(0, None)
@@ -323,7 +239,7 @@ class CovidData:
 				state_has_data[state] = True
 		
 		# Fill in missing data for final date.
-		for s in states:
+		for s in USInfo.states:
 			if not state_has_data.has_key(s):
 				self.state_tests[s].insert(0, None)
 				self.state_cases[s].insert(0, None)
@@ -363,14 +279,14 @@ class CovidData:
 	def rank_states_data(self, options):
 		ranking_data = {}
 		ranking_norm_data = {}
-		for s in states:
+		for s in USInfo.states:
 			data = options.state_data[s]
 			if len(data) > 0:
 				last = data[-1]
 				if last == None:
 					print 'ERROR ranking', options.type, s, data
 				ranking_data[s] = last
-				pop = state_pop[s]
+				pop = USInfo.state_pop[s]
 				ranking_norm_data[s] = (last * 1000000) / pop
 
 		out_ranking = []
@@ -700,12 +616,12 @@ class CovidCases:
 		for i in xrange(top_n):
 			state = options.ranking[i];
 			self.plot_data(ax, options.state_data(state), color_order[i],
-					state_pop[state], state, False,
+					USInfo.state_pop[state], state, False,
 					options.processor, options.threshold)
 
 		self.plot_data(ax, options.italy_data(), 'black', italy_pop, 'Italy', True,
 				options.processor, options.threshold)
-		self.plot_data(ax, options.us_data(), 'black', us_pop, 'US', True,
+		self.plot_data(ax, options.us_data(), 'black', USInfo.us_pop, 'US', True,
 				options.processor, options.threshold)
 
 		outdir = '%s/%s' % (options.output_dir, self.plot_date)
@@ -748,21 +664,21 @@ class CovidCases:
 		state_ax = {}
 		s = 0
 		for ax in axs.flat:
-			state = states[s]
+			state = USInfo.states[s]
 			state_ax[state] = ax
 			s += 1
 
-		for s in states:
+		for s in USInfo.states:
 			ax = state_ax[s]
 			#ax.set_title(s)
 			ax.axis([0, C19CasesNorm.num_days, C19CasesNorm.y_min, C19CasesNorm.y_max])
 			self.format_axes(ax, True)
 			# Plot data for all the states in light gray for reference.
-			for s2 in states:
+			for s2 in USInfo.states:
 				self.plot_data(ax, self.cdata.get_state_cases(s2), 'lt_gray',
-						state_pop[s2], '', False, self.process_normalize_and_filter, 10)	
+						USInfo.state_pop[s2], '', False, self.process_normalize_and_filter, 10)	
 			self.plot_data(ax, self.cdata.get_state_cases(s), 'dk_gray',
-					state_pop[s], s, True, self.process_normalize_and_filter, 10)
+					USInfo.state_pop[s], s, True, self.process_normalize_and_filter, 10)
 
 		fig.set_size_inches(8, 18)
 		plt.savefig('cases-norm/states.png', dpi=150, bbox_inches='tight')
@@ -784,7 +700,7 @@ class CovidCases:
 		options.y_label = 'Cumulative reported positive cases per million people'
 		options.processor = self.process_normalize_and_filter
 		options.threshold = 10
-		for state in states:
+		for state in USInfo.states:
 			options.output_dir = 'state/%s' % state
 			options.title = 'COVID-19 %s reported positive cases per million\n(Since first day with 10 cases/million. Log scale)' % state
 			self.generate_state(state, options)
@@ -813,13 +729,13 @@ class CovidCases:
 				size=14, ha='right', va='top')
 	
 		# Plot data for all the states in light gray for reference.
-		for s2 in states:
+		for s2 in USInfo.states:
 			self.plot_data(ax, options.state_data(s2), 'lt_gray',
-					state_pop[s2], '', False, options.processor, options.threshold)
+					USInfo.state_pop[s2], '', False, options.processor, options.threshold)
 
 		self.plot_data(ax, options.state_data(state), 'dk_blue',
-				state_pop[state], state, True, options.processor, options.threshold)
-		self.plot_data(ax, options.us_data(), 'black', us_pop, 'US', True,
+				USInfo.state_pop[state], state, True, options.processor, options.threshold)
+		self.plot_data(ax, options.us_data(), 'black', USInfo.us_pop, 'US', True,
 				options.processor, options.threshold)
 		self.plot_data(ax, options.italy_data(), 'black', italy_pop, 'Italy', True,
 				options.processor, options.threshold)
