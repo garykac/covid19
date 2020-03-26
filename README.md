@@ -1,4 +1,4 @@
-# COVID19 Tracking for US State
+# COVID19 Tracking for US States
 
 This site contains alternate visualizations of the data from the
 [COVID Tracking Project](https://covidtracking.com/). For reference,
