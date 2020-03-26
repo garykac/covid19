@@ -16,31 +16,40 @@ from matplotlib.ticker import LogFormatter
 top_n = 8
 
 # Graph parameters for Reported Tests
-_num_days_for_tests = 35
-_num_days_for_tests_norm = 30
+class C19Tests:
+	num_days = 35
+	y_min = 100
+	y_max = 1000000
 
-_y_min_for_tests = 100
-_y_max_for_tests = 1000000
-_y_min_for_tests_norm = 10
-_y_max_for_tests_norm = 10000
+class C19TestsNorm:
+	num_days = 30
+	y_min = 10
+	y_max = 10000
 
 # Graph parameters for Reported Positive Cases
-_num_days_for_cases = 35
-_num_days_for_cases_norm = 35
+class C19Cases:
+	num_days = 35
+	y_min = 100
+	y_max = 200000
 
-_y_min_for_cases = 100
-_y_max_for_cases = 200000
-_y_min_for_cases_norm = 10
-_y_max_for_cases_norm = 2000
+class C19CasesNorm:
+	num_days = 35
+	y_min = 10
+	y_max = 2000
+
+	x_label = 'Days since 10 reported positive cases per million people'
+	y_label = 'Cumulative reported positive cases per million people'
 
 # Graph parameters for Reported Deaths
-_num_days_for_deaths = 30
-_num_days_for_deaths_norm = 25
+class C19Deaths:
+	num_days = 30
+	y_min = 10
+	y_max = 10000
 
-_y_min_for_deaths = 10
-_y_max_for_deaths = 10000
-_y_min_for_deaths_norm = 1
-_y_max_for_deaths_norm = 150
+class C19DeathsNorm:
+	num_days = 25
+	y_min = 1
+	y_max = 150
 
 # List of state/territory abbreviations.
 states = [
@@ -534,9 +543,9 @@ class CovidCases:
 		options.use_log_scale = True
 		options.output_dir = 'tests'
 		options.output_filebase = 'tests'
-		options.y_min = _y_min_for_tests
-		options.y_max = _y_max_for_tests
-		options.max_days = _num_days_for_tests
+		options.y_min = C19Tests.y_min
+		options.y_max = C19Tests.y_max
+		options.max_days = C19Tests.num_days
 		options.title = title % (top_n, 'Log')
 		options.x_label = 'Days since 100th reported test'
 		options.y_label = 'Cumulative reported tests'
@@ -554,9 +563,9 @@ class CovidCases:
 		options.use_log_scale = True
 		options.output_dir = 'tests-norm'
 		options.output_filebase = 'tests'
-		options.y_min = _y_min_for_tests_norm
-		options.y_max = _y_max_for_tests_norm
-		options.max_days = _num_days_for_tests_norm
+		options.y_min = C19TestsNorm.y_min
+		options.y_max = C19TestsNorm.y_max
+		options.max_days = C19TestsNorm.num_days
 		options.title = title % (top_n, 'Log')
 		options.x_label = 'Days since 10 reported tests per million people'
 		options.y_label = 'Cumulative reported tests per million people'
@@ -580,9 +589,9 @@ class CovidCases:
 		options.use_log_scale = True
 		options.output_dir = 'cases'
 		options.output_filebase = 'cases'
-		options.y_min = _y_min_for_cases
-		options.y_max = _y_max_for_cases
-		options.max_days = _num_days_for_cases
+		options.y_min = C19Cases.y_min
+		options.y_max = C19Cases.y_max
+		options.max_days = C19Cases.num_days
 		options.title = title % (top_n, 'Log')
 		options.x_label = 'Days since 100th reported positive case'
 		options.y_label = 'Cumulative reported positive cases'
@@ -600,9 +609,9 @@ class CovidCases:
 		options.use_log_scale = True
 		options.output_dir = 'cases-norm'
 		options.output_filebase = 'cases'
-		options.y_min = _y_min_for_cases_norm
-		options.y_max = _y_max_for_cases_norm
-		options.max_days = _num_days_for_cases_norm
+		options.y_min = C19CasesNorm.y_min
+		options.y_max = C19CasesNorm.y_max
+		options.max_days = C19CasesNorm.num_days
 		options.title = title % (top_n, 'Log')
 		options.x_label = 'Days since 10 reported positive cases per million people'
 		options.y_label = 'Cumulative reported positive cases per million people'
@@ -626,9 +635,9 @@ class CovidCases:
 		options.use_log_scale = True
 		options.output_dir = 'deaths'
 		options.output_filebase = 'deaths'
-		options.y_min = _y_min_for_deaths
-		options.y_max = _y_max_for_deaths
-		options.max_days = _num_days_for_deaths
+		options.y_min = C19Deaths.y_min
+		options.y_max = C19Deaths.y_max
+		options.max_days = C19Deaths.num_days
 		options.title = title % (top_n, 'Log')
 		options.x_label = 'Days since 10th reported death'
 		options.y_label = 'Cumulative reported deaths'
@@ -646,9 +655,9 @@ class CovidCases:
 		options.use_log_scale = True
 		options.output_dir = 'deaths-norm'
 		options.output_filebase = 'deaths'
-		options.y_min = _y_min_for_deaths_norm
-		options.y_max = _y_max_for_deaths_norm
-		options.max_days = _num_days_for_deaths_norm
+		options.y_min = C19DeathsNorm.y_min
+		options.y_max = C19DeathsNorm.y_max
+		options.max_days = C19DeathsNorm.num_days
 		options.title = title % (top_n, 'Log')
 		options.x_label = 'Days since 1 reported death per million people'
 		options.y_label = 'Cumulative reported deaths per million people'
@@ -746,7 +755,7 @@ class CovidCases:
 		for s in states:
 			ax = state_ax[s]
 			#ax.set_title(s)
-			ax.axis([0, _num_days_for_cases_norm, _y_min_for_cases_norm, _y_max_for_cases_norm])
+			ax.axis([0, C19CasesNorm.num_days, C19CasesNorm.y_min, C19CasesNorm.y_max])
 			self.format_axes(ax, True)
 			# Plot data for all the states in light gray for reference.
 			for s2 in states:
@@ -768,9 +777,9 @@ class CovidCases:
 		options.italy_data = self.cdata.get_italy_cases
 
 		options.use_log_scale = True
-		options.y_min = _y_min_for_cases_norm
-		options.y_max = _y_max_for_cases_norm
-		options.max_days = _num_days_for_cases_norm
+		options.y_min = C19CasesNorm.y_min
+		options.y_max = C19CasesNorm.y_max
+		options.max_days = C19CasesNorm.num_days
 		options.x_label = 'Days since 10 reported positive cases per million people'
 		options.y_label = 'Cumulative reported positive cases per million people'
 		options.processor = self.process_normalize_and_filter
