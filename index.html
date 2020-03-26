@@ -42,7 +42,7 @@ li {
 	margin: 5%;
 }
 .toc-container {
-	padding: 1em 1em 1.5em 1em;
+	padding: 0.5em 1em 1.5em 1em;
 	border: 1px solid black;
 	margin: 0 auto;
 	max-width: 50%;
@@ -52,7 +52,7 @@ li {
 	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
 	font-size: 16pt;
 	text-align: center;
-	margin: 0.5em auto;
+	margin: 1em auto 0.5em auto;
 }
 .toc-link {
 	font-size: 12pt;
@@ -118,6 +118,7 @@ is also included.
 	<div class="toc-h1">Deaths Reported in US</div>
 		<div class="toc-link"><a href="#deaths-direct">Direct Comparison</a></div>
 		<div class="toc-link"><a href="#deaths-normalized">Normalized for Population</a></div>
+		<div class="toc-link"><a href="#deaths-states-normalized">Individual States - Normalized for Population</a></div>
 
 	<div class="toc-h1">Tests Reported in US</div>
 		<div class="toc-link"><a href="#tests-direct">Direct Comparison</a></div>
@@ -214,7 +215,7 @@ reported 10 positive cases per million residents.
 Normalized reported positive cases, ranking data for all states: <a href="cases-norm/cases-norm-data.txt">.txt</a>, <a href="cases-norm/cases-norm-data.csv">.csv</a>
 </p>
 
-<h2 id="cases-states-normalized">Positive Cases Reported for Individual States - Normalized</h2>
+<h2 id="cases-states-normalized">Positive Cases Reported for Individual States</h2>
 <div class="h2subheading">Normalized per million residents</div>
 
 <p>
@@ -327,6 +328,16 @@ Reported deaths, ranking data for all states: <a href="deaths/deaths-data.txt">.
 </div>
 </div><!-- graphcontainer -->
 
+<h2 id="deaths-states-normalized">Deaths Reported for Individual States</h2>
+<div class="h2subheading">Normalized per million residents</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><a href="deaths-norm/states.png"></div>
+	<div class="graph"><img src="deaths-norm/states.png" width='700px'/></a></div>
+</div>
+</div><!-- graphcontainer -->
+
 <p>
 Normalized reported deaths, ranking data for all states: <a href="deaths-norm/deaths-norm-data.txt">.txt</a>, <a href="deaths-norm/deaths-norm-data.csv">.csv</a>
 </p>
@@ -368,7 +379,7 @@ Reported tests, ranking data for all states: <a href="tests/tests-data.txt">.txt
 Normalized reported tests, ranking data for all states: <a href="tests-norm/tests-norm-data.txt">.txt</a>, <a href="deaths-norm/deaths-norm-data.csv">.csv</a>
 </p>
 
-<h2 id="tests-states-normalized">Tests Reported for Individual States - Normalized</h2>
+<h2 id="tests-states-normalized">Tests Reported for Individual States</h2>
 <div class="h2subheading">Normalized per million residents</div>
 
 <div class="graphcontainer">
@@ -385,7 +396,7 @@ Normalized reported tests, ranking data for all states: <a href="tests-norm/test
 	The Python script that generates these graphs is on <a href="https://github.com/garykac/covid19">github</a>.
 </li>
 <li>
-	Tomas Pueyo's analysis in
+	Tomas Pueyo's analysis (10 Mar 2020) in
 	<a href="https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca">Coronavirus: Why You Must Act Now</a>
 	<ul><li>
 		Key takeaway:
@@ -402,6 +413,7 @@ Normalized reported tests, ranking data for all states: <a href="tests-norm/test
 </li>
 <li>
 	The Financial Times' <a href="https://www.ft.com/coronavirus-latest">Coronavirus tracked: the latest figures as the pandemic spreads</a>
+	has visualizations for data from various countries around the world.
 </li>
 <li>
 	<a href="https://skepchick.org/2020/03/how-to-spot-bad-science-about-covid-19/">How to Spot Bad Science about COVID-19</a>
@@ -413,11 +425,12 @@ Normalized reported tests, ranking data for all states: <a href="tests-norm/test
 </ul>
 
 <p>
-Reports from the front lines:
+First-hand Accounts:
 </p>
 
 <ul>
-<li><a href="https://twitter.com/Craig_A_Spencer/status/1242302400762908685">A Day in the Life of an ER Doc - A Brief Dispatch from the #COVID19 Frontline</a> (23 Mar 2020)</li>
+<li>23 Mar 2020 <a href="https://twitter.com/Craig_A_Spencer/status/1242302400762908685">A Day in the Life of an ER Doc - A Brief Dispatch from the #COVID19 Frontline</a></li>
+<li>24 Mar 2020 <a href="https://www.boredpanda.com/man-tested-positive-covid-19-coronavirus-describe-symptoms/">“It’s Brutal”: Man Who Tested Positive For COVID-19 Shares The Innocent First Symptoms He Experienced</a></li>
 </ul>
 
 </div><!-- container -->

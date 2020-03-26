@@ -356,39 +356,46 @@ class CovidCases:
 		print 'Generating combined state graphs'
 		self.generate_states_combined_tests()
 		self.generate_states_combined_cases()
+		self.generate_states_combined_deaths()
+	
+	def add_combined_title(self, ax, title, sub):
+		ax.annotate(title,
+				xy=(1,1), xycoords='axes fraction',
+				xytext=(0, 44), textcoords='offset points',
+				size=16, ha='center', va='top')
+		ax.annotate(sub,
+				xy=(1,1), xycoords='axes fraction',
+				xytext=(0, 22), textcoords='offset points',
+				size=10, ha='center', va='top')
+	
+	def add_combined_footer(self, axl, left, axr, right):
+		x = -20
+		y = -28
+		dy = -12
+		for str in left:
+			y += dy
+			axl.annotate(str,
+					xy=(0,0), xycoords='axes fraction',
+					xytext=(x, y), textcoords='offset points',
+					size=8, ha='left', va='bottom')
+		axr.annotate(right,
+				xy=(1,0), xycoords='axes fraction',
+				xytext=(0, y), textcoords='offset points',
+				size=14, ha='right', va='bottom')
 	
 	def generate_states_combined_tests(self):
 		plt.close('all')
 		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
 
-		axs[0,1].annotate('COVID-19 US States Reported Tests per Million',
-				xy=(1,1), xycoords='axes fraction',
-				xytext=(0, 44), textcoords='offset points',
-				size=16, ha='center', va='top')
-		axs[0,1].annotate('Since first day with 10 tests/million',
-				xy=(1,1), xycoords='axes fraction',
-				xytext=(0, 22), textcoords='offset points',
-				size=10, ha='center', va='top')
-		axs[13,0].annotate('Each US state compared with all other states',
-				xy=(0,0), xycoords='axes fraction',
-				xytext=(-20, -36), textcoords='offset points',
-				size=8, ha='left', va='bottom')
-		axs[13,0].annotate('Data is cumulative but some reporting is inconsistent',
-				xy=(0,0), xycoords='axes fraction',
-				xytext=(-20, -48), textcoords='offset points',
-				size=8, ha='left', va='bottom')
-		axs[13,0].annotate('Note: y=10000 is 1% of the state\'s population',
-				xy=(0,0), xycoords='axes fraction',
-				xytext=(-20, -60), textcoords='offset points',
-				size=8, ha='left', va='bottom')
-		axs[13,0].annotate('Data from https://covidtracking.com',
-				xy=(0,0), xycoords='axes fraction',
-				xytext=(-20, -72), textcoords='offset points',
-				size=8, ha='left', va='bottom')
-		axs[13,3].annotate(self.date_str,
-				xy=(1,0), xycoords='axes fraction',
-				xytext=(0, -72), textcoords='offset points',
-				size=14, ha='right', va='bottom')
+		self.add_combined_title(axs[0,1], 
+				'COVID-19 US States Reported Tests per Million',
+				'Since first day with 10 tests/million')
+		self.add_combined_footer(axs[13,0],
+				['Each US state compared with all other states',
+				'Data is cumulative but some reporting is inconsistent',
+				'Note: y=10000 is 1% of the state\'s population',
+				'Data from https://covidtracking.com'],
+				axs[13,3], self.date_str)
 
 		# Build a dictionary of state -> ax
 		state_ax = {}
@@ -400,10 +407,9 @@ class CovidCases:
 
 		for s in USInfo.states:
 			ax = state_ax[s]
-			#ax.set_title(s)
 			ax.axis([0, C19TestsNorm.num_days, C19TestsNorm.y_min, C19TestsNorm.y_max])
 			self.format_axes(ax, True)
-			ax.set_yticks([10,100,1000,10000], minor=False)
+			ax.set_yticks([10,100,1000,10000])
 			
 			# Plot data for all the states in light gray for reference.
 			for s2 in USInfo.states:
@@ -419,23 +425,12 @@ class CovidCases:
 		plt.close('all')
 		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
 
-		#fig.suptitle('States')
-		axs[0,1].annotate('COVID-19 US States Reported Positive Cases per Million',
-				xy=(1,1), xycoords='axes fraction',
-				xytext=(0, 44), textcoords='offset points',
-				size=16, ha='center', va='top')
-		axs[0,1].annotate('Since first day with 10 positive cases/million',
-				xy=(1,1), xycoords='axes fraction',
-				xytext=(0, 22), textcoords='offset points',
-				size=10, ha='center', va='top')
-		axs[13,0].annotate('Data from https://covidtracking.com',
-				xy=(0,0), xycoords='axes fraction',
-				xytext=(-20, -40), textcoords='offset points',
-				size=8, ha='left', va='bottom')
-		axs[13,3].annotate(self.date_str,
-				xy=(1,0), xycoords='axes fraction',
-				xytext=(0, -40), textcoords='offset points',
-				size=14, ha='right', va='bottom')
+		self.add_combined_title(axs[0,1], 
+				'COVID-19 US States Reported Positive Cases per Million',
+				'Since first day with 10 positive cases/million')
+		self.add_combined_footer(axs[13,0],
+				['Data from https://covidtracking.com'],
+				axs[13,3], self.date_str)
 
 		# Build a dictionary of state -> ax
 		state_ax = {}
@@ -459,6 +454,40 @@ class CovidCases:
 
 		fig.set_size_inches(8, 18)
 		plt.savefig('cases-norm/states.png', dpi=150, bbox_inches='tight')
+
+	def generate_states_combined_deaths(self):
+		plt.close('all')
+		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
+
+		self.add_combined_title(axs[0,1], 
+				'COVID-19 US States Reported Deaths per Million',
+				'Since first day with 1 deaths/million')
+		self.add_combined_footer(axs[13,0],
+				['Data from https://covidtracking.com'],
+				axs[13,3], self.date_str)
+
+		# Build a dictionary of state -> ax
+		state_ax = {}
+		s = 0
+		for ax in axs.flat:
+			state = USInfo.states[s]
+			state_ax[state] = ax
+			s += 1
+
+		for s in USInfo.states:
+			ax = state_ax[s]
+			#ax.set_title(s)
+			ax.axis([0, C19DeathsNorm.num_days, C19DeathsNorm.y_min, C19DeathsNorm.y_max])
+			self.format_axes(ax, True)
+			# Plot data for all the states in light gray for reference.
+			for s2 in USInfo.states:
+				self.plot_data(ax, self.cdata.get_state_deaths(s2), 'lt_gray',
+						USInfo.state_pop[s2], '', False, self.process_normalize_and_filter, 1)
+			self.plot_data(ax, self.cdata.get_state_deaths(s), 'dk_gray',
+					USInfo.state_pop[s], s, True, self.process_normalize_and_filter, 1)
+
+		fig.set_size_inches(8, 18)
+		plt.savefig('deaths-norm/states.png', dpi=150, bbox_inches='tight')
 
 	def generate_states_individual(self):
 		self.generate_states_individual_cases()
