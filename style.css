@@ -1,0 +1,93 @@
+body {
+	background-color: white;
+}
+h1 {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;
+	font-size: 40pt;
+}
+.h1subheading {
+	margin-top: -1em;
+	margin-bottom: 1em;
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 24pt;
+}
+h2 {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 28pt;
+}
+.h2subheading {
+	margin-top: -1em;
+	margin-bottom: 1em;
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 18pt;
+	font-style: italic;
+}
+p {
+	font-size: 18px;
+	font-family: 'Libre Baskerville', Georgia, serif;
+	line-height: 1.4em;
+}
+li {
+	font-size: 18px;
+	font-family: 'Libre Baskerville', Georgia, serif;
+	line-height: 1.5em;
+}
+.container {
+	margin: 5%;
+}
+.toc-container {
+	padding: 0.5em 1em 1.5em 1em;
+	border: 1px solid black;
+	margin: 0 auto;
+	max-width: 50%;
+	background-color: #f0f0f0;
+}
+.toc-h1 {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 16pt;
+	text-align: center;
+	margin: 1em auto 0.5em auto;
+}
+.toc-link {
+	font-size: 12pt;
+	text-align: center;
+	margin: 0 auto;
+}
+.graphcontainer {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	padding: 2em;
+}
+.graphbox {
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	margin: 0 auto;
+}
+.graph {
+	font-size: 12pt;
+	text-align: center;
+	margin: 0 auto;
+}
+.table {
+	display: flex;
+	margin: 0 auto;
+	max-width: 800px;
+	flex-flow: row wrap;
+	align-content: center;
+	justify-content: space-around;
+}
+.tcell {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 12pt;
+	padding: 0.25em 1em;
+	flex-grow: 1;
+	flex-basis: 20%;
+	align-content: center;
+}
