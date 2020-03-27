@@ -57,10 +57,10 @@ class C19TestsNorm:
 
 # Graph parameters for Reported Positive Cases
 class C19Cases:
-	num_days = 35
+	num_days = 40
 	threshold = 100
 	y_min = threshold
-	y_max = 200000
+	y_max = 150000
 	title = 'COVID-19 US reported positive cases'
 	subtitle = 'Since first day with %d cases' % threshold
 	output_dir = 'cases'
@@ -72,7 +72,7 @@ class C19CasesNorm:
 	num_days = 35
 	threshold = 10
 	y_min = threshold
-	y_max = 5000
+	y_max = 3000
 	title = 'COVID-19 US States Reported Positive Cases per Million'
 	subtitle = 'Since first day with %d positive cases/million' % threshold
 	output_dir = 'cases-norm'
@@ -81,7 +81,7 @@ class C19CasesNorm:
 	y_label = 'Cumulative reported positive cases per million people'
 
 	combined_num_days = 25
-	combined_y_max = 2000
+	combined_y_max = 3000
 	y_ticks_lin = []
 	y_ticks_log = []
 	combined_footer = []
@@ -102,10 +102,10 @@ class C19Deaths:
 	y_label = 'Cumulative reported deaths'
 
 class C19DeathsNorm:
-	num_days = 25
+	num_days = 30
 	threshold = 1
 	y_min = threshold
-	y_max = 150
+	y_max = 200
 	title = 'COVID-19 US States Reported Deaths per Million'
 	subtitle = 'Since first day with %d death/million' % threshold
 	output_dir = 'deaths-norm'
