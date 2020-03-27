@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>COVID19 Tracking for Minnesota</title>
+<link rel="icon" type="image/svg+xml"  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Ctext y='32' font-size='32'%3E%F0%9F%A6%A0%3C/text%3E%3C/svg%3E">
+<meta name="description" content="COVID-19 tracking graphs Minnesota">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Source+Sans+Pro:wght@700&display=swap" rel="stylesheet">
+<style>
+body {
+	background-color: white;
+}
+h1 {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;
+	font-size: 40pt;
+}
+.h1subheading {
+	margin-top: -1em;
+	margin-bottom: 1em;
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 26pt;
+}
+h2 {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 28pt;
+}
+.h2subheading {
+	margin-top: -1em;
+	margin-bottom: 1em;
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 18pt;
+	font-style: italic;
+}
+p {
+	font-size: 18px;
+	font-family: 'Libre Baskerville', Georgia, serif;
+	line-height: 1.4em;
+}
+li {
+	font-size: 18px;
+	font-family: 'Libre Baskerville', Georgia, serif;
+	line-height: 1.5em;
+}
+.container {
+	margin: 5%;
+}
+.toc-container {
+	padding: 1em 1em 1.5em 1em;
+	border: 1px solid black;
+	margin: 0 auto;
+	max-width: 50%;
+	background-color: #f0f0f0;
+}
+.toc-h1 {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 16pt;
+	text-align: center;
+	margin: 0.5em auto;
+}
+.toc-link {
+	font-size: 12pt;
+	text-align: center;
+	margin: 0 auto;
+}
+.graphcontainer {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	padding: 2em;
+}
+.graphbox {
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: center;
+	margin: 0 auto;
+}
+.graph {
+	font-size: 12pt;
+	text-align: center;
+	margin: 0 auto;
+}
+.table {
+	display: flex;
+	margin: 0 auto;
+	max-width: 800px;
+	flex-flow: row wrap;
+	align-content: center;
+	justify-content: space-around;
+}
+.tcell {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 12pt;
+	padding: 0.25em 1em;
+	flex-grow: 1;
+	flex-basis: 20%;
+	align-content: center;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>COVID19 Tracking for Minnesota</h1>
+<div class="h1subheading">Relative to the rest of the US</div>
+
+<p>
+This site contains alternate visualizations of the data from the
+<a href="https://covidtracking.com/">COVID Tracking Project</a>. For reference,
+Italian <a href="https://github.com/pcm-dpc/COVID-19">data</a> from the
+<i>Presidenza del Consiglio dei Ministri - Dipartimento della Protezione Civile</i>
+is also included.
+</p>
+
+<h2 id="cases-normalized">Positive Cases Reported in Minnesota - Normalized</h2>
+<div class="h2subheading">Normalized per million residents</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><a href="cases-norm-lin.png"><img src="cases-norm-lin.png" /></a></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><a href="cases-norm-log.png"><img src="cases-norm-log.png" /></a></div>
+</div>
+</div><!-- graphcontainer -->
+
+<h2 id="deaths-normalized">Deaths Reported in Minnesota - Normalized</h2>
+<div class="h2subheading">Normalized per million residents</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><a href="deaths-norm-lin.png"><img src="deaths-norm-lin.png" /></a></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><a href="deaths-norm-log.png"><img src="deaths-norm-log.png" /></a></div>
+</div>
+</div><!-- graphcontainer -->
+
+<h2 id="tests-normalized">Tests Reported in Minnesota - Normalized</h2>
+<div class="h2subheading">Normalized per million residents</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><a href="tests-norm-lin.png"><img src="tests-norm-lin.png" /></a></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><a href="tests-norm-log.png"><img src="tests-norm-log.png" /></a></div>
+</div>
+</div><!-- graphcontainer -->
+
+</div><!-- container -->
+
+</body>
+</html>

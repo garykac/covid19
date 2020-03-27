@@ -53,6 +53,8 @@ class C19TestsNorm:
 			'Data is cumulative but some reported data is inconsistent',
 			'Note: y=10000 is 1% of the state\'s population']
 
+	individual_title = 'COVID-19 %s Reported Tests (Pos + Neg) per Million'
+
 # Graph parameters for Reported Positive Cases
 class C19Cases:
 	num_days = 35
@@ -83,6 +85,8 @@ class C19CasesNorm:
 	y_ticks_lin = []
 	y_ticks_log = []
 	combined_footer = []
+	
+	individual_title = 'COVID-19 %s Reported Positive Cases per Million'
 
 # Graph parameters for Reported Deaths
 class C19Deaths:
@@ -114,6 +118,9 @@ class C19DeathsNorm:
 	y_ticks_lin = []
 	y_ticks_log = []
 	combined_footer = []
+	
+	individual_title = 'COVID-19 %s Reported Deaths per Million'
+
 	
 # The order in which colors are assigned to plot lines.
 color_order = [
@@ -313,19 +320,7 @@ class CovidCases:
 		ax.set_xlabel(options.x_label)
 		ax.set_ylabel(options.y_label)
 		plt.title(options.title)
-
-		plt.annotate('US data from https://covidtracking.com',
-				xy=(0,0), xycoords='axes fraction',
-				xytext=(-40, -40), textcoords='offset points',
-				size=8, ha='left', va='top')
-		plt.annotate('Italy data from https://github.com/pcm-dpc/COVID-19',
-				xy=(0,0), xycoords='axes fraction',
-				xytext=(-40, -50), textcoords='offset points',
-				size=8, ha='left', va='top')
-		plt.annotate(self.date_str,
-				xy=(1,0), xycoords='axes fraction',
-				xytext=(0, -40), textcoords='offset points',
-				size=14, ha='right', va='top')
+		self.add_footer(plt)
 
 		# Plot the top |_top_n| states.
 		for i in xrange(_top_n):
@@ -352,6 +347,20 @@ class CovidCases:
 		
 		filename = '%s/%s-%s-%s.png' % (outdir, options.output_filebase, suffix, self.date)
 		plt.savefig(filename, bbox_inches='tight')
+
+	def add_footer(self, plt):
+		plt.annotate('US data from https://covidtracking.com',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-40, -40), textcoords='offset points',
+				size=8, ha='left', va='top')
+		plt.annotate('Italy data from https://github.com/pcm-dpc/COVID-19',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-40, -50), textcoords='offset points',
+				size=8, ha='left', va='top')
+		plt.annotate(self.date_str,
+				xy=(1,0), xycoords='axes fraction',
+				xytext=(0, -40), textcoords='offset points',
+				size=14, ha='right', va='top')
 
 	def generate_states_combined(self):
 		print 'Generating combined state graphs'
@@ -466,84 +475,71 @@ class CovidCases:
 		print 'Generating individual state graphs'
 		self.generate_states_individual_tests()
 		self.generate_states_individual_cases()
+		self.generate_states_individual_deaths()
 	
 	def generate_states_individual_tests(self):
 		print '  individual tests'
 		options = self.new_tests_options()
-
-		options.output_filebase = 'tests-norm'
-		options.use_log_scale = True
-		options.y_min = C19TestsNorm.y_min
-		options.y_max = C19TestsNorm.y_max
-		options.max_days = C19TestsNorm.num_days
-		options.x_label = 'Days since 10 reported tests per million people'
-		options.y_label = 'Cumulative reported tests per million people'
-		options.processor = self.process_normalize_and_filter
-		options.threshold = 10
-		for state in USInfo.states:
-			options.output_dir = 'state/%s' % state
-			options.title = 'COVID-19 %s reported tests per million\n(Since first day with 10 cases/million. Log scale)' % state
-			self.generate_state(state, options)
+		self.generate_states_individual_data(C19TestsNorm, options)
 	
 	def generate_states_individual_cases(self):
 		print '  individual cases'
 		options = self.new_cases_options()
-
-		options.output_filebase = 'cases-norm'
-		options.use_log_scale = True
-		options.y_min = C19CasesNorm.y_min
-		options.y_max = C19CasesNorm.y_max
-		options.max_days = C19CasesNorm.num_days
-		options.x_label = 'Days since 10 reported positive cases per million people'
-		options.y_label = 'Cumulative reported positive cases per million people'
+		self.generate_states_individual_data(C19CasesNorm, options)
+		
+	def generate_states_individual_deaths(self):
+		print '  individual deaths'
+		options = self.new_deaths_options()
+		self.generate_states_individual_data(C19DeathsNorm, options)
+		
+	def generate_states_individual_data(self, info, options):
+		options.output_filebase = info.output_filebase
 		options.processor = self.process_normalize_and_filter
-		options.threshold = 10
+
 		for state in USInfo.states:
-			options.output_dir = 'state/%s' % state
-			options.title = 'COVID-19 %s reported positive cases per million\n(Since first day with 10 cases/million. Log scale)' % state
-			self.generate_state(state, options)
+			self.generate_state(state, info, options, True)
+			self.generate_state(state, info, options, False)
 	
-	def generate_state(self, state, options):
+	def generate_state(self, state, info, options, use_log_scale):
 		plt.close('all')
 		self.fig, ax = plt.subplots()
-		ax.axis([0, options.max_days, options.y_min, options.y_max])
-		self.format_axes(ax, options.use_log_scale)
+		ax.axis([0, info.num_days, info.y_min, info.y_max])
+		self.format_axes(ax, use_log_scale)
 		ax.grid(True)
-		ax.set_xlabel(options.x_label)
-		ax.set_ylabel(options.y_label)
-		plt.title(options.title)
+		ax.set_xlabel(info.x_label)
+		ax.set_ylabel(info.y_label)
 
-		plt.annotate('US data from https://covidtracking.com',
-				xy=(0,0), xycoords='axes fraction',
-				xytext=(-40, -40), textcoords='offset points',
-				size=8, ha='left', va='top')
-		plt.annotate('Italy data from https://github.com/pcm-dpc/COVID-19',
-				xy=(0,0), xycoords='axes fraction',
-				xytext=(-40, -50), textcoords='offset points',
-				size=8, ha='left', va='top')
-		plt.annotate(self.date_str,
-				xy=(1,0), xycoords='axes fraction',
-				xytext=(0, -40), textcoords='offset points',
-				size=14, ha='right', va='top')
+		scale = 'Linear'
+		if use_log_scale:
+			scale = 'Log'
+		title1 = info.individual_title % state
+		title = '%s\n(%s. %s scale)' % (title1, info.subtitle, scale)
+		plt.title(title)
+		self.add_footer(plt)
 	
 		# Plot data for all the states in light gray for reference.
 		for s2 in USInfo.states:
 			self.plot_data(ax, options.state_data(s2), 'lt_gray',
-					USInfo.state_pop[s2], '', False, options.processor, options.threshold)
+					USInfo.state_pop[s2], '', False, options.processor, info.threshold)
 
 		self.plot_data(ax, options.state_data(state), 'dk_blue',
-				USInfo.state_pop[state], state, True, options.processor, options.threshold)
+				USInfo.state_pop[state], state, True, options.processor, info.threshold)
 		self.plot_data(ax, options.us_data(), 'black', USInfo.us_pop, 'US', True,
-				options.processor, options.threshold)
+				options.processor, info.threshold)
 		self.plot_data(ax, options.italy_data(), 'black', _italy_pop, 'Italy', True,
-				options.processor, options.threshold)
+				options.processor, info.threshold)
 
 		plt.legend(loc="lower right")
 
-		if not os.path.exists(options.output_dir):
-			os.makedirs(options.output_dir)
+		output_dir = 'state/%s' % state
+		if not os.path.exists(output_dir):
+			os.makedirs(output_dir)
 
-		filename_date = '%s/%s.png' % (options.output_dir, options.output_filebase)
+		suffix = 'lin'
+		if use_log_scale:
+			suffix = 'log'
+		# Note: Use |info.output_dir| as filename since we don't create subdir for states.
+		filename_date = '%s/%s-%s.png' % (output_dir, info.output_dir, suffix)
 		plt.savefig(filename_date, bbox_inches='tight')
 
 	def plot_data(self, ax, raw_data, color, pop, label, always_label, processor, threshold):
@@ -620,6 +616,14 @@ class CovidCases:
 			shutil.copy(out_gif, '%s.gif' % (filebase))
 			shutil.copy(last_frame, '%s.png' % (filebase))
 		
+	def create_state_html(self):
+		print 'Generating state html files'
+		for s in USInfo.states:
+			with open('state-index-template.txt') as fpin:
+				with open('state/%s/index.html' % s, 'w') as fpout:
+					for line in fpin:
+						fpout.write(line.replace('%%STATE%%', USInfo.state_name[s]))
+
 def usage():
 	print 'plot.py [options]'
 	print 'where options are:'
@@ -686,5 +690,7 @@ def main(argv):
 			cases.generate_top_n_anim_data()
 		cases.export_anim()
 
+	cases.create_state_html()
+	
 if __name__ == "__main__":
 	main(sys.argv[1:])
