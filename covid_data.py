@@ -103,10 +103,11 @@ class CovidData:
 		us_deaths = 0
 		with open('data/states-daily.csv') as fp:
 			for line in fp:
-				# date,state,positive,negative,pending,hospitalized,death,total,dateChecked,totalTestResults,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
+				# date,state,positive,negative,pending,hospitalized,death,total,dateChecked,totalTestResults,fips,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
 				# 21Mar2020: New field: ospitalized
 				# 25Mar2020: New fields: totalTestResults,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
-				(date,state,positive,negative,pending,hospitalized,death,total,timestamp,ttr,di,hi,ni,pi,ttri) = line.strip().split(',')
+				# 27Mar2020: New field: fips
+				(date,state,positive,negative,pending,hospitalized,death,total,timestamp,ttr,fips,di,hi,ni,pi,ttri) = line.strip().split(',')
 				if date == 'date':
 					continue
 
