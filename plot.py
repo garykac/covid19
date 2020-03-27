@@ -35,16 +35,23 @@ class C19Tests:
 
 class C19TestsNorm:
 	num_days = 35
-	num_days_combined = 25
 	threshold = 10
 	y_min = threshold
 	y_max = 10000
-	title = 'COVID-19 US reported tests per million'
+	title = 'COVID-19 US States Reported Tests (Pos + Neg) per Million'
 	subtitle = 'Since first day with %d tests/million' % threshold
 	output_dir = 'tests-norm'
 	output_filebase = 'tests'
 	x_label = 'Days since %d reported tests per million people' % threshold
 	y_label = 'Cumulative reported tests per million people'
+
+	num_days_combined = 25
+	combined_y_max = y_max
+	y_ticks_lin = [0, 5000, 10000]
+	y_ticks_log = [10,100,1000,10000]
+	footer = ['Each US state Pos + Neg tests compared with all other states',
+			'Data is cumulative but some reported data is inconsistent',
+			'Note: y=10000 is 1% of the state\'s population']
 
 # Graph parameters for Reported Positive Cases
 class C19Cases:
@@ -61,16 +68,21 @@ class C19Cases:
 
 class C19CasesNorm:
 	num_days = 35
-	num_days_combined = 25
 	threshold = 10
 	y_min = threshold
 	y_max = 5000
-	title = 'COVID-19 US reported positive cases per million'
-	subtitle = 'Since first day with %d cases/million' % threshold
+	title = 'COVID-19 US States Reported Positive Cases per Million'
+	subtitle = 'Since first day with %d positive cases/million' % threshold
 	output_dir = 'cases-norm'
 	output_filebase = 'cases'
 	x_label = 'Days since %d reported positive cases per million people' % threshold
 	y_label = 'Cumulative reported positive cases per million people'
+
+	num_days_combined = 25
+	combined_y_max = 2000
+	y_ticks_lin = []
+	y_ticks_log = []
+	footer = []
 
 # Graph parameters for Reported Deaths
 class C19Deaths:
@@ -87,17 +99,22 @@ class C19Deaths:
 
 class C19DeathsNorm:
 	num_days = 25
-	num_days_combined = 20
 	threshold = 1
 	y_min = threshold
 	y_max = 150
-	title = 'COVID-19 US reported death per million'
+	title = 'COVID-19 US States Reported Deaths per Million'
 	subtitle = 'Since first day with %d death/million' % threshold
 	output_dir = 'deaths-norm'
 	output_filebase = 'deaths'
 	x_label = 'Days since %d reported death per million people' % threshold
 	y_label = 'Cumulative reported deaths per million people'
 
+	num_days_combined = 20
+	combined_y_max = 100
+	y_ticks_lin = []
+	y_ticks_log = []
+	footer = []
+	
 # The order in which colors are assigned to plot lines.
 color_order = [
 	'red',
@@ -246,14 +263,12 @@ class CovidCases:
 	# Generate a linear and a log top-n graph.
 	def generate_top_n_data(self, options):
 		options.info = options.info_direct
-		options.use_log_scale = True
 		options.processor = self.process_filter
 		options.ranking = options.ranking_direct
 		self.generate_top_n_data_scale(options, True)
 		self.generate_top_n_data_scale(options, False)
 
 		options.info = options.info_norm
-		options.use_log_scale = True
 		options.processor = self.process_normalize_and_filter
 		options.ranking = options.ranking_norm
 		self.generate_top_n_data_scale(options, True)
@@ -275,7 +290,6 @@ class CovidCases:
 		options.title = '%s\n(%s. Top %d states. %s scale)' % (options.info.title, options.info.subtitle, _top_n, scale)
 		options.x_label = options.info.x_label
 		options.y_label = options.info.y_label
-		options.threshold = options.info.threshold
 		self.generate_plot(options)
 
 	def generate_plot(self, options):
@@ -309,35 +323,128 @@ class CovidCases:
 			state = options.ranking[i];
 			self.plot_data(ax, options.state_data(state), color_order[i],
 					USInfo.state_pop[state], state, False,
-					options.processor, options.threshold)
+					options.processor, options.info.threshold)
 
 		self.plot_data(ax, options.italy_data(), 'black', _italy_pop, 'Italy', True,
-				options.processor, options.threshold)
+				options.processor, options.info.threshold)
 		self.plot_data(ax, options.us_data(), 'black', USInfo.us_pop, 'US', True,
-				options.processor, options.threshold)
+				options.processor, options.info.threshold)
 
 		outdir = '%s/%s' % (options.output_dir, self.plot_date)
 		if not os.path.exists(outdir):
 			os.makedirs(outdir)
 
-		logname = 'lin'
+		suffix = 'lin'
 		if options.use_log_scale:
-			logname = 'log'
+			suffix = 'log'
 			plt.legend(loc="lower right")
 		else:
 			plt.legend(loc="upper left")
 		
-		filename = '%s/%s-%s-%s.png' % (outdir, options.output_filebase, logname, self.date)
+		filename = '%s/%s-%s-%s.png' % (outdir, options.output_filebase, suffix, self.date)
 		plt.savefig(filename, bbox_inches='tight')
 
 	def generate_states_combined(self):
 		print 'Generating combined state graphs'
-		self.generate_states_combined_tests('Linear', [0, 5000, 10000])
-		self.generate_states_combined_tests('Log', [10,100,1000,10000])
-		self.generate_states_combined_cases('Linear')
-		self.generate_states_combined_cases('Log')
-		self.generate_states_combined_deaths('Linear')
-		self.generate_states_combined_deaths('Log')
+		self.generate_states_combined_tests()
+		self.generate_states_combined_cases()
+		self.generate_states_combined_deaths()
+	
+	def generate_states_combined_tests(self):
+		print '  combined tests'
+		options = lambda: None  # An object that we can attach attributes to
+		options.info = C19TestsNorm
+
+		options.state_data = self.cdata.get_state_tests
+		options.us_data = self.cdata.get_us_tests
+		options.italy_data = self.cdata.get_italy_tests
+
+		options.info = C19TestsNorm
+		options.ranking = self.cdata.get_test_rank_norm()
+		options.processor = self.process_normalize_and_filter
+
+		self.generate_states_combined_data(options, True)
+		self.generate_states_combined_data(options, False)
+	
+	def generate_states_combined_cases(self):
+		print '  combined cases'
+		options = lambda: None  # An object that we can attach attributes to
+		options.info = C19CasesNorm
+
+		options.state_data = self.cdata.get_state_cases
+		options.us_data = self.cdata.get_us_cases
+		options.italy_data = self.cdata.get_italy_cases
+
+		options.info = C19CasesNorm
+		options.ranking = self.cdata.get_case_rank_norm()
+		options.processor = self.process_normalize_and_filter
+
+		self.generate_states_combined_data(options, True)
+		self.generate_states_combined_data(options, False)
+
+	def generate_states_combined_deaths(self):
+		print '  combined deaths'
+		options = lambda: None  # An object that we can attach attributes to
+		options.info = C19DeathsNorm
+
+		options.state_data = self.cdata.get_state_deaths
+		options.us_data = self.cdata.get_us_deaths
+		options.italy_data = self.cdata.get_italy_deaths
+
+		options.info = C19DeathsNorm
+		options.ranking = self.cdata.get_death_rank_norm()
+		options.processor = self.process_normalize_and_filter
+
+		self.generate_states_combined_data(options, True)
+		self.generate_states_combined_data(options, False)
+
+	def generate_states_combined_data(self, options, use_log_scale):
+		plt.close('all')
+		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
+
+		scale = 'Linear'
+		if use_log_scale:
+			scale = 'Log'
+
+		footer = options.info.footer[:]
+		footer.append('Data from https://covidtracking.com')
+		self.add_combined_title(axs[0,1], 
+				options.info.title,
+				'%s. %s scale' % (options.info.subtitle, scale))
+		self.add_combined_footer(axs[13,0], footer,
+				axs[13,3], self.date_str)
+
+		# Build a dictionary of state -> ax
+		state_ax = {}
+		s = 0
+		for ax in axs.flat:
+			state = USInfo.states[s]
+			state_ax[state] = ax
+			s += 1
+
+		for s in USInfo.states:
+			ax = state_ax[s]
+			ax.axis([0, options.info.num_days_combined, options.info.y_min, options.info.combined_y_max])
+			self.format_axes(ax, use_log_scale)
+			ticks = options.info.y_ticks_lin
+			if use_log_scale:
+				ticks = options.info.y_ticks_log
+			if ticks and len(ticks) > 0:
+				ax.set_yticks(ticks)
+			
+			# Plot data for all the states in light gray for reference.
+			for s2 in USInfo.states:
+				self.plot_data(ax, options.state_data(s2), 'lt_gray',
+						USInfo.state_pop[s2], '', False, options.processor, options.info.threshold)	
+			self.plot_data(ax, options.state_data(s), 'dk_gray',
+					USInfo.state_pop[s], s, True, options.processor, options.info.threshold)
+
+		fig.set_size_inches(8, 18)
+		suffix = 'lin'
+		if use_log_scale:
+			suffix = 'log'
+		plt.savefig('%s/states-%s.png' % (options.info.output_dir, suffix),
+				dpi=150, bbox_inches='tight')
 	
 	def add_combined_title(self, ax, title, sub):
 		ax.annotate(title,
@@ -363,133 +470,6 @@ class CovidCases:
 				xy=(1,0), xycoords='axes fraction',
 				xytext=(0, y), textcoords='offset points',
 				size=14, ha='right', va='bottom')
-	
-	def generate_states_combined_tests(self, scale, ticks):
-		print '  combined tests', scale
-		plt.close('all')
-		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
-
-		self.add_combined_title(axs[0,1], 
-				'COVID-19 US States Reported Tests per Million',
-				'Since first day with 10 tests/million. %s scale' % scale)
-		self.add_combined_footer(axs[13,0],
-				['Each US state Pos + Neg tests compared with all other states',
-				'Data is cumulative but some reported data is inconsistent',
-				'Note: y=10000 is 1% of the state\'s population',
-				'Data from https://covidtracking.com'],
-				axs[13,3], self.date_str)
-
-		# Build a dictionary of state -> ax
-		state_ax = {}
-		s = 0
-		for ax in axs.flat:
-			state = USInfo.states[s]
-			state_ax[state] = ax
-			s += 1
-
-		for s in USInfo.states:
-			ax = state_ax[s]
-			ax.axis([0, C19TestsNorm.num_days_combined, C19TestsNorm.y_min, C19TestsNorm.y_max])
-			plot_scale = False
-			if scale == 'Log':
-				plot_scale = True
-			self.format_axes(ax, plot_scale)
-			ax.set_yticks(ticks)
-			
-			# Plot data for all the states in light gray for reference.
-			for s2 in USInfo.states:
-				self.plot_data(ax, self.cdata.get_state_tests(s2), 'lt_gray',
-						USInfo.state_pop[s2], '', False, self.process_normalize_and_filter, 10)	
-			self.plot_data(ax, self.cdata.get_state_tests(s), 'dk_gray',
-					USInfo.state_pop[s], s, True, self.process_normalize_and_filter, 10)
-
-		fig.set_size_inches(8, 18)
-		suffix = '-lin'
-		if scale == 'Log':
-			suffix = '-log'
-		plt.savefig('tests-norm/states%s.png' % suffix, dpi=150, bbox_inches='tight')
-
-	def generate_states_combined_cases(self, scale):
-		print '  combined cases', scale
-		plt.close('all')
-		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
-
-		self.add_combined_title(axs[0,1], 
-				'COVID-19 US States Reported Positive Cases per Million',
-				'Since first day with 10 positive cases/million. %s scale' % scale)
-		self.add_combined_footer(axs[13,0],
-				['Data from https://covidtracking.com'],
-				axs[13,3], self.date_str)
-
-		# Build a dictionary of state -> ax
-		state_ax = {}
-		s = 0
-		for ax in axs.flat:
-			state = USInfo.states[s]
-			state_ax[state] = ax
-			s += 1
-
-		for s in USInfo.states:
-			ax = state_ax[s]
-			#ax.set_title(s)
-			ax.axis([0, C19CasesNorm.num_days_combined, C19CasesNorm.y_min, C19CasesNorm.y_max])
-			plot_scale = False
-			if scale == 'Log':
-				plot_scale = True
-			self.format_axes(ax, plot_scale)
-			# Plot data for all the states in light gray for reference.
-			for s2 in USInfo.states:
-				self.plot_data(ax, self.cdata.get_state_cases(s2), 'lt_gray',
-						USInfo.state_pop[s2], '', False, self.process_normalize_and_filter, 10)	
-			self.plot_data(ax, self.cdata.get_state_cases(s), 'dk_gray',
-					USInfo.state_pop[s], s, True, self.process_normalize_and_filter, 10)
-
-		fig.set_size_inches(8, 18)
-		suffix = '-lin'
-		if scale == 'Log':
-			suffix = '-log'
-		plt.savefig('cases-norm/states%s.png' % suffix, dpi=150, bbox_inches='tight')
-
-	def generate_states_combined_deaths(self, scale):
-		print '  combined deaths', scale
-		plt.close('all')
-		fig, axs = plt.subplots(14, 4, sharex=True, sharey=True)
-
-		self.add_combined_title(axs[0,1], 
-				'COVID-19 US States Reported Deaths per Million',
-				'Since first day with 1 deaths/million. %s scale' % scale)
-		self.add_combined_footer(axs[13,0],
-				['Data from https://covidtracking.com'],
-				axs[13,3], self.date_str)
-
-		# Build a dictionary of state -> ax
-		state_ax = {}
-		s = 0
-		for ax in axs.flat:
-			state = USInfo.states[s]
-			state_ax[state] = ax
-			s += 1
-
-		for s in USInfo.states:
-			ax = state_ax[s]
-			#ax.set_title(s)
-			ax.axis([0, C19DeathsNorm.num_days_combined, C19DeathsNorm.y_min, C19DeathsNorm.y_max])
-			plot_scale = False
-			if scale == 'Log':
-				plot_scale = True
-			self.format_axes(ax, plot_scale)
-			# Plot data for all the states in light gray for reference.
-			for s2 in USInfo.states:
-				self.plot_data(ax, self.cdata.get_state_deaths(s2), 'lt_gray',
-						USInfo.state_pop[s2], '', False, self.process_normalize_and_filter, 1)
-			self.plot_data(ax, self.cdata.get_state_deaths(s), 'dk_gray',
-					USInfo.state_pop[s], s, True, self.process_normalize_and_filter, 1)
-
-		fig.set_size_inches(8, 18)
-		suffix = '-lin'
-		if scale == 'Log':
-			suffix = '-log'
-		plt.savefig('deaths-norm/states%s.png' % suffix, dpi=150, bbox_inches='tight')
 
 	def generate_states_individual(self):
 		print 'Generating individual state graphs'
