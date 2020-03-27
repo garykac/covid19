@@ -238,17 +238,21 @@ class CovidCases:
 	# Generate main graphs for |plot_date|.
 	def generate_top_n(self):
 		print 'Generating Top-n graphs'
+		print '  ',
 		self.generate_top_n_tests()
 		self.generate_top_n_cases()
 		self.generate_top_n_deaths()
+		print
 	
 	# Generate graphs for a previous date (used for animations).
 	def generate_top_n_anim_data(self):
 		print 'Processing animation data for', self.date_str
 		print '  top-n',
+		sys.stdout.flush()
 		self.generate_top_n_tests()
 		self.generate_top_n_cases()
 		self.generate_top_n_deaths()
+		print
 
 	def generate_top_n_tests(self):
 		options = self.new_tests_options()		
@@ -279,8 +283,9 @@ class CovidCases:
 
 	# Generate a linear and a log top-n graph.
 	def generate_top_n_data(self, options):
-		print options.info.output_dir,
 		options.info = options.info_direct
+		print options.info.output_dir,
+		sys.stdout.flush()
 		options.processor = self.process_filter
 		options.ranking = options.ranking_direct
 		self.generate_top_n_data_scale(options, True)
@@ -369,7 +374,7 @@ class CovidCases:
 		self.generate_states_combined_deaths()
 	
 	def generate_states_combined_tests(self):
-		print '  combined tests'
+		print '  combined state tests'
 		options = self.new_tests_options()
 		options.info = C19TestsNorm
 		options.ranking = self.cdata.get_test_rank_norm()
@@ -379,7 +384,7 @@ class CovidCases:
 		self.generate_states_combined_data(options, False)
 	
 	def generate_states_combined_cases(self):
-		print '  combined cases'
+		print '  combined state cases'
 		options = self.new_cases_options()
 		options.info = C19CasesNorm
 		options.ranking = self.cdata.get_case_rank_norm()
@@ -389,7 +394,7 @@ class CovidCases:
 		self.generate_states_combined_data(options, False)
 
 	def generate_states_combined_deaths(self):
-		print '  combined deaths'
+		print '  combined state deaths'
 		options = self.new_deaths_options()
 		options.info = C19DeathsNorm
 		options.ranking = self.cdata.get_death_rank_norm()
@@ -478,17 +483,17 @@ class CovidCases:
 		self.generate_states_individual_deaths()
 	
 	def generate_states_individual_tests(self):
-		print '  individual tests'
+		print '  individual state tests'
 		options = self.new_tests_options()
 		self.generate_states_individual_data(C19TestsNorm, options)
 	
 	def generate_states_individual_cases(self):
-		print '  individual cases'
+		print '  individual state cases'
 		options = self.new_cases_options()
 		self.generate_states_individual_data(C19CasesNorm, options)
 		
 	def generate_states_individual_deaths(self):
-		print '  individual deaths'
+		print '  individual state deaths'
 		options = self.new_deaths_options()
 		self.generate_states_individual_data(C19DeathsNorm, options)
 		
