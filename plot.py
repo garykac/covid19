@@ -42,7 +42,7 @@ class C19CasesNorm:
 	num_days = 35
 	num_days_combined = 25
 	y_min = 10
-	y_max = 2000
+	y_max = 5000
 
 	x_label = 'Days since 10 reported positive cases per million people'
 	y_label = 'Cumulative reported positive cases per million people'
@@ -162,12 +162,13 @@ class CovidCases:
 	
 	# Generate graphs for a previous date (used for animations).
 	def generate_top_n_anim_data(self):
-		print 'Processing data for', self.date_str
+		print 'Processing animation data for', self.date_str
 		self.generate_top_n_tests()
 		self.generate_top_n_cases()
 		self.generate_top_n_deaths()
 
 	def generate_top_n_tests(self):
+		print '  top-n tests'
 		options = lambda: None  # An object that we can attach attributes to
 		options.state_data = self.cdata.get_state_tests
 		options.us_data = self.cdata.get_us_tests
@@ -262,6 +263,7 @@ class CovidCases:
 		self.generate_plot(options)
 
 	def generate_top_n_cases(self):
+		print '  top-n cases'
 		options = lambda: None  # An object that we can attach attributes to
 		options.state_data = self.cdata.get_state_cases
 		options.us_data = self.cdata.get_us_cases
@@ -308,6 +310,7 @@ class CovidCases:
 		self.generate_plot(options)
 
 	def generate_top_n_deaths(self):
+		print '  top-n deaths'
 		options = lambda: None  # An object that we can attach attributes to
 		options.state_data = self.cdata.get_state_deaths
 		options.us_data = self.cdata.get_us_deaths
@@ -761,13 +764,6 @@ def main(argv):
 
 	if gen_top_n:
 		cases.generate_top_n()
-	
-		if gen_animated:
-			# Process previous day data using top-N from current day.
-			while int(covid_data.get_date()) > int('20200316'):
-				cases.remove_last_day()
-				cases.generate_top_n_anim_data()
-			cases.export_anim()
 
 	if gen_combined:
 		cases.generate_states_combined()
@@ -775,5 +771,12 @@ def main(argv):
 	if gen_individual:
 		cases.generate_states_individual();
 		
+	if gen_top_n and gen_animated:
+		# Process previous day data using top-N from current day.
+		while int(covid_data.get_date()) > int('20200316'):
+			cases.remove_last_day()
+			cases.generate_top_n_anim_data()
+		cases.export_anim()
+
 if __name__ == "__main__":
 	main(sys.argv[1:])
