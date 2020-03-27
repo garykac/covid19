@@ -157,6 +157,8 @@ class CovidCases:
 		self.generate_top_n_tests()
 		self.generate_top_n_cases()
 		self.generate_top_n_deaths()
+
+		#self.generate_bottom_n_tests()
 	
 	# Generate graphs for a previous date (used for animations).
 	def generate_top_n_anim_data(self):
@@ -205,6 +207,54 @@ class CovidCases:
 		options.processor = self.process_normalize_and_filter
 		options.threshold = 10
 		options.ranking = self.cdata.get_test_rank_norm()
+		self.generate_plot(options)
+		# Normalized for population, filtered for 10 cases/million, linear
+		options.use_log_scale = False
+		options.title = title % (_top_n, 'Linear')
+		self.generate_plot(options)
+
+	def generate_bottom_n_tests(self):
+		options = lambda: None  # An object that we can attach attributes to
+		options.state_data = self.cdata.get_state_tests
+		options.us_data = self.cdata.get_us_tests
+		options.italy_data = self.cdata.get_italy_tests
+		
+		# Filtered for 100 cases, log-scale
+		title = 'COVID-19 US reported tests\n(Since first day with 100 tests. Bottom %d states. %s scale)'
+		options.use_log_scale = True
+		options.output_dir = 'tests-bottom'
+		options.output_filebase = 'tests'
+		options.y_min = C19Tests.y_min
+		options.y_max = C19Tests.y_max
+		options.max_days = C19Tests.num_days
+		options.title = title % (_top_n, 'Log')
+		options.x_label = 'Days since 100th reported test'
+		options.y_label = 'Cumulative reported tests'
+		options.processor = self.process_filter
+		options.threshold = 100
+		rank = list(reversed(self.cdata.get_test_rank()))
+		options.ranking = rank[2:]
+		self.generate_plot(options)
+		# Filtered for 100 tests, linear-scale
+		options.use_log_scale = False
+		options.title = title % (_top_n, 'Linear')
+		self.generate_plot(options)
+
+		# Normalized for population, filtered for 10 cases/million, log
+		title = 'COVID-19 US reported tests per million\n(Since first day with 10 tests/million. Bottom %d states. %s scale)'
+		options.use_log_scale = True
+		options.output_dir = 'tests-bottom-norm'
+		options.output_filebase = 'tests'
+		options.y_min = C19TestsNorm.y_min
+		options.y_max = C19TestsNorm.y_max
+		options.max_days = C19TestsNorm.num_days
+		options.title = title % (_top_n, 'Log')
+		options.x_label = 'Days since 10 reported tests per million people'
+		options.y_label = 'Cumulative reported tests per million people'
+		options.processor = self.process_normalize_and_filter
+		options.threshold = 10
+		rank = list(reversed(self.cdata.get_test_rank_norm()))
+		options.ranking = rank[2:]
 		self.generate_plot(options)
 		# Normalized for population, filtered for 10 cases/million, linear
 		options.use_log_scale = False
@@ -395,8 +445,8 @@ class CovidCases:
 				'COVID-19 US States Reported Tests per Million',
 				'Since first day with 10 tests/million')
 		self.add_combined_footer(axs[13,0],
-				['Each US state compared with all other states',
-				'Data is cumulative but some reporting is inconsistent',
+				['Each US state Pos + Neg tests compared with all other states',
+				'Data is cumulative but some reported data is inconsistent',
 				'Note: y=10000 is 1% of the state\'s population',
 				'Data from https://covidtracking.com'],
 				axs[13,3], self.date_str)
@@ -496,14 +546,39 @@ class CovidCases:
 		plt.savefig('deaths-norm/states.png', dpi=150, bbox_inches='tight')
 
 	def generate_states_individual(self):
+		print 'Generating individual state graphs'
+		self.generate_states_individual_tests()
 		self.generate_states_individual_cases()
 	
+	def generate_states_individual_tests(self):
+		print '  individual tests'
+		options = lambda: None  # An object that we can attach attributes to
+		options.state_data = self.cdata.get_state_tests
+		options.us_data = self.cdata.get_us_tests
+		options.italy_data = self.cdata.get_italy_tests
+
+		options.output_filebase = 'tests-norm'
+		options.use_log_scale = True
+		options.y_min = C19TestsNorm.y_min
+		options.y_max = C19TestsNorm.y_max
+		options.max_days = C19TestsNorm.num_days
+		options.x_label = 'Days since 10 reported tests per million people'
+		options.y_label = 'Cumulative reported tests per million people'
+		options.processor = self.process_normalize_and_filter
+		options.threshold = 10
+		for state in USInfo.states:
+			options.output_dir = 'state/%s' % state
+			options.title = 'COVID-19 %s reported tests per million\n(Since first day with 10 cases/million. Log scale)' % state
+			self.generate_state(state, options)
+	
 	def generate_states_individual_cases(self):
+		print '  individual cases'
 		options = lambda: None  # An object that we can attach attributes to
 		options.state_data = self.cdata.get_state_cases
 		options.us_data = self.cdata.get_us_cases
 		options.italy_data = self.cdata.get_italy_cases
 
+		options.output_filebase = 'cases-norm'
 		options.use_log_scale = True
 		options.y_min = C19CasesNorm.y_min
 		options.y_max = C19CasesNorm.y_max
@@ -557,7 +632,7 @@ class CovidCases:
 		if not os.path.exists(options.output_dir):
 			os.makedirs(options.output_dir)
 
-		filename_date = '%s/cases-norm.png' % options.output_dir
+		filename_date = '%s/%s.png' % (options.output_dir, options.output_filebase)
 		plt.savefig(filename_date, bbox_inches='tight')
 
 	def plot_data(self, ax, raw_data, color, pop, label, always_label, processor, threshold):
@@ -570,7 +645,10 @@ class CovidCases:
 			linestyle = ':'  # Dotted
 			if label == 'US':
 				linestyle = '--'  # Dashed
-
+		# On combined graphs, the other states are in lt_gray
+		if color == 'lt_gray':
+			linewidth = 1
+		
 		processed_data = processor(raw_data, threshold, pop)
 		
 		# Always plot the data (even if empty) so that it gets added to the Legend.
