@@ -623,6 +623,12 @@ class CovidCases:
 		
 	def create_state_html(self):
 		print 'Generating state html files'
+
+		with open('index-template.txt') as fpin:
+			with open('index.html', 'w') as fpout:
+				for line in fpin:
+					fpout.write(line.replace('%%DATE%%', self.date_str))
+
 		for s in USInfo.states:
 			with open('state-index-template.txt') as fpin:
 				with open('state/%s/index.html' % s, 'w') as fpout:
