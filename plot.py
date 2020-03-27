@@ -45,11 +45,11 @@ class C19TestsNorm:
 	x_label = 'Days since %d reported tests per million people' % threshold
 	y_label = 'Cumulative reported tests per million people'
 
-	num_days_combined = 25
+	combined_num_days = 25
 	combined_y_max = y_max
 	y_ticks_lin = [0, 5000, 10000]
 	y_ticks_log = [10,100,1000,10000]
-	footer = ['Each US state Pos + Neg tests compared with all other states',
+	combined_footer = ['Each US state Pos + Neg tests compared with all other states',
 			'Data is cumulative but some reported data is inconsistent',
 			'Note: y=10000 is 1% of the state\'s population']
 
@@ -78,11 +78,11 @@ class C19CasesNorm:
 	x_label = 'Days since %d reported positive cases per million people' % threshold
 	y_label = 'Cumulative reported positive cases per million people'
 
-	num_days_combined = 25
+	combined_num_days = 25
 	combined_y_max = 2000
 	y_ticks_lin = []
 	y_ticks_log = []
-	footer = []
+	combined_footer = []
 
 # Graph parameters for Reported Deaths
 class C19Deaths:
@@ -109,11 +109,11 @@ class C19DeathsNorm:
 	x_label = 'Days since %d reported death per million people' % threshold
 	y_label = 'Cumulative reported deaths per million people'
 
-	num_days_combined = 20
+	combined_num_days = 20
 	combined_y_max = 100
 	y_ticks_lin = []
 	y_ticks_log = []
-	footer = []
+	combined_footer = []
 	
 # The order in which colors are assigned to plot lines.
 color_order = [
@@ -207,6 +207,27 @@ class CovidCases:
 		#formatter = LogFormatter(labelOnlyBase=False, minor_thresholds=(2, 0.4))
 		#ax.yaxis.set_minor_formatter(formatter)
 
+	def new_tests_options(self):
+		options = lambda: None  # An object that we can attach attributes to
+		options.state_data = self.cdata.get_state_tests
+		options.us_data = self.cdata.get_us_tests
+		options.italy_data = self.cdata.get_italy_tests
+		return options
+	
+	def new_cases_options(self):
+		options = lambda: None  # An object that we can attach attributes to
+		options.state_data = self.cdata.get_state_cases
+		options.us_data = self.cdata.get_us_cases
+		options.italy_data = self.cdata.get_italy_cases
+		return options
+
+	def new_deaths_options(self):
+		options = lambda: None  # An object that we can attach attributes to
+		options.state_data = self.cdata.get_state_deaths
+		options.us_data = self.cdata.get_us_deaths
+		options.italy_data = self.cdata.get_italy_deaths
+		return options
+
 	# Generate main graphs for |plot_date|.
 	def generate_top_n(self):
 		print 'Generating Top-n graphs'
@@ -217,16 +238,13 @@ class CovidCases:
 	# Generate graphs for a previous date (used for animations).
 	def generate_top_n_anim_data(self):
 		print 'Processing animation data for', self.date_str
+		print '  top-n',
 		self.generate_top_n_tests()
 		self.generate_top_n_cases()
 		self.generate_top_n_deaths()
 
 	def generate_top_n_tests(self):
-		options = lambda: None  # An object that we can attach attributes to
-		options.state_data = self.cdata.get_state_tests
-		options.us_data = self.cdata.get_us_tests
-		options.italy_data = self.cdata.get_italy_tests
-		
+		options = self.new_tests_options()		
 		options.info_direct = C19Tests
 		options.ranking_direct = self.cdata.get_test_rank()
 		options.info_norm = C19TestsNorm
@@ -235,11 +253,7 @@ class CovidCases:
 		self.generate_top_n_data(options)
 		
 	def generate_top_n_cases(self):
-		options = lambda: None  # An object that we can attach attributes to
-		options.state_data = self.cdata.get_state_cases
-		options.us_data = self.cdata.get_us_cases
-		options.italy_data = self.cdata.get_italy_cases
-
+		options = self.new_cases_options()
 		options.info_direct = C19Cases
 		options.ranking_direct = self.cdata.get_case_rank()
 		options.info_norm = C19CasesNorm
@@ -248,11 +262,7 @@ class CovidCases:
 		self.generate_top_n_data(options)
 
 	def generate_top_n_deaths(self):
-		options = lambda: None  # An object that we can attach attributes to
-		options.state_data = self.cdata.get_state_deaths
-		options.us_data = self.cdata.get_us_deaths
-		options.italy_data = self.cdata.get_italy_deaths
-
+		options = self.new_deaths_options()
 		options.info_direct = C19Deaths
 		options.ranking_direct = self.cdata.get_death_rank()
 		options.info_norm = C19DeathsNorm
@@ -262,6 +272,7 @@ class CovidCases:
 
 	# Generate a linear and a log top-n graph.
 	def generate_top_n_data(self, options):
+		print options.info.output_dir,
 		options.info = options.info_direct
 		options.processor = self.process_filter
 		options.ranking = options.ranking_direct
@@ -276,8 +287,6 @@ class CovidCases:
 
 	# Generate top-n graph.
 	def generate_top_n_data_scale(self, options, use_log_scale):
-		print '  top-n', options.info.output_dir, use_log_scale
-
 		scale = 'Linear'
 		if use_log_scale:
 			scale = 'Log'
@@ -352,13 +361,7 @@ class CovidCases:
 	
 	def generate_states_combined_tests(self):
 		print '  combined tests'
-		options = lambda: None  # An object that we can attach attributes to
-		options.info = C19TestsNorm
-
-		options.state_data = self.cdata.get_state_tests
-		options.us_data = self.cdata.get_us_tests
-		options.italy_data = self.cdata.get_italy_tests
-
+		options = self.new_tests_options()
 		options.info = C19TestsNorm
 		options.ranking = self.cdata.get_test_rank_norm()
 		options.processor = self.process_normalize_and_filter
@@ -368,13 +371,7 @@ class CovidCases:
 	
 	def generate_states_combined_cases(self):
 		print '  combined cases'
-		options = lambda: None  # An object that we can attach attributes to
-		options.info = C19CasesNorm
-
-		options.state_data = self.cdata.get_state_cases
-		options.us_data = self.cdata.get_us_cases
-		options.italy_data = self.cdata.get_italy_cases
-
+		options = self.new_cases_options()
 		options.info = C19CasesNorm
 		options.ranking = self.cdata.get_case_rank_norm()
 		options.processor = self.process_normalize_and_filter
@@ -384,13 +381,7 @@ class CovidCases:
 
 	def generate_states_combined_deaths(self):
 		print '  combined deaths'
-		options = lambda: None  # An object that we can attach attributes to
-		options.info = C19DeathsNorm
-
-		options.state_data = self.cdata.get_state_deaths
-		options.us_data = self.cdata.get_us_deaths
-		options.italy_data = self.cdata.get_italy_deaths
-
+		options = self.new_deaths_options()
 		options.info = C19DeathsNorm
 		options.ranking = self.cdata.get_death_rank_norm()
 		options.processor = self.process_normalize_and_filter
@@ -406,7 +397,7 @@ class CovidCases:
 		if use_log_scale:
 			scale = 'Log'
 
-		footer = options.info.footer[:]
+		footer = options.info.combined_footer[:]
 		footer.append('Data from https://covidtracking.com')
 		self.add_combined_title(axs[0,1], 
 				options.info.title,
@@ -424,7 +415,7 @@ class CovidCases:
 
 		for s in USInfo.states:
 			ax = state_ax[s]
-			ax.axis([0, options.info.num_days_combined, options.info.y_min, options.info.combined_y_max])
+			ax.axis([0, options.info.combined_num_days, options.info.y_min, options.info.combined_y_max])
 			self.format_axes(ax, use_log_scale)
 			ticks = options.info.y_ticks_lin
 			if use_log_scale:
@@ -478,10 +469,7 @@ class CovidCases:
 	
 	def generate_states_individual_tests(self):
 		print '  individual tests'
-		options = lambda: None  # An object that we can attach attributes to
-		options.state_data = self.cdata.get_state_tests
-		options.us_data = self.cdata.get_us_tests
-		options.italy_data = self.cdata.get_italy_tests
+		options = self.new_tests_options()
 
 		options.output_filebase = 'tests-norm'
 		options.use_log_scale = True
@@ -499,10 +487,7 @@ class CovidCases:
 	
 	def generate_states_individual_cases(self):
 		print '  individual cases'
-		options = lambda: None  # An object that we can attach attributes to
-		options.state_data = self.cdata.get_state_cases
-		options.us_data = self.cdata.get_us_cases
-		options.italy_data = self.cdata.get_italy_cases
+		options = self.new_cases_options()
 
 		options.output_filebase = 'cases-norm'
 		options.use_log_scale = True
