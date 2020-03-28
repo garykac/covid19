@@ -633,7 +633,10 @@ class CovidCases:
 			with open('state-index-template.txt') as fpin:
 				with open('state/%s/index.html' % s, 'w') as fpout:
 					for line in fpin:
-						fpout.write(line.replace('%%STATE%%', USInfo.state_name[s]))
+						if '%%' in line:
+							line = line.replace('%%DATE%%', self.date_str)
+							line = line.replace('%%STATE%%', USInfo.state_name[s])
+						fpout.write(line)
 
 def usage():
 	print 'plot.py [options]'
