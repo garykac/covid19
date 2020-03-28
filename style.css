@@ -13,6 +13,13 @@ h1 {
 	text-align: center;	
 	font-size: 24pt;
 }
+.lastupdate {
+	margin-top: -0.6em;
+	margin-bottom: 1em;
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 18pt;
+}
 h2 {
 	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
 	text-align: center;	
@@ -35,6 +42,11 @@ li {
 	font-size: 18px;
 	font-family: 'Libre Baskerville', Georgia, serif;
 	line-height: 1.5em;
+}
+.map {
+	margin: 0 auto;
+	display: block;
+	text-align: center;
 }
 .container {
 	margin: 5%;

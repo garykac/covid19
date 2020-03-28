@@ -15,11 +15,13 @@
 <div class="container">
 
 <h1>COVID19 Tracking for US States</h1>
-<div class='h1subheading'>Last update: 27 Mar 2020</div>
+<div class='lastupdate'>Last update: 27 Mar 2020</div>
 
 <p>
 This site contains alternate visualizations of the data from the
-<a href="https://covidtracking.com/">COVID Tracking Project</a>. For reference,
+<a href="https://covidtracking.com/">COVID Tracking Project</a> and
+<a href="https://github.com/nytimes/covid-19-data">The New York Times</a>.
+For reference,
 Italian <a href="https://github.com/pcm-dpc/COVID-19">data</a> from the
 <i>Presidenza del Consiglio dei Ministri - Dipartimento della Protezione Civile</i>
 is also included.
@@ -27,18 +29,18 @@ is also included.
 
 <div class="toc-container">
 	<div class="toc-h1">Positive Cases Reported in US</div>
-		<div class="toc-link"><a href="#cases-direct">Direct Comparison</a></div>
-		<div class="toc-link"><a href="#cases-normalized">Normalized for Population</a></div>
+		<div class="toc-link"><a href="#cases-direct">Direct Comparison - Top 8 States</a></div>
+		<div class="toc-link"><a href="#cases-normalized">Normalized for Population - Top 8 States</a></div>
 		<div class="toc-link"><a href="#cases-states-normalized">Individual States - Normalized for Population</a></div>
 
 	<div class="toc-h1">Deaths Reported in US</div>
-		<div class="toc-link"><a href="#deaths-direct">Direct Comparison</a></div>
-		<div class="toc-link"><a href="#deaths-normalized">Normalized for Population</a></div>
+		<div class="toc-link"><a href="#deaths-direct">Direct Comparison - Top 8 States</a></div>
+		<div class="toc-link"><a href="#deaths-normalized">Normalized for Population - Top 8 States</a></div>
 		<div class="toc-link"><a href="#deaths-states-normalized">Individual States - Normalized for Population</a></div>
 
 	<div class="toc-h1">Tests Reported in US</div>
-		<div class="toc-link"><a href="#tests-direct">Direct Comparison</a></div>
-		<div class="toc-link"><a href="#tests-normalized">Normalized for Population</a></div>
+		<div class="toc-link"><a href="#tests-direct">Direct Comparison - Top 8 States</a></div>
+		<div class="toc-link"><a href="#tests-normalized">Normalized for Population - Top 8 States</a></div>
 		<div class="toc-link"><a href="#tests-states-normalized">Individual States - Normalized for Population</a></div>
 </div><!-- toc-container -->
 
@@ -64,12 +66,23 @@ and raw data are shown.
 </p>
 
 <p>
-<b>Caveat</b>: The US has been seriously undertesting so far during this outbreak.
-Because of this, these graphs will underreport the actual situation until the
-testing can be performed at a large scale. As states catch up on their testing, their
-graphs will likely include large "correcting" jumps. As testing coverage improves, the
-data presented here will more accurately reflect the actual situation.
+<b>Caveat</b>: Because of testing limitations, these graphs underreport the actual
+situation. As more testing is performed, some graphs will include large "correcting"
+jumps. As testing coverage improves, the data presented here will more accurately
+reflect the actual situation.
 </p>
+
+<h2 id="cases-direct">Positive Cases Reported in US by County</h2>
+<div class="h2subheading">Normalized for size of county (in sq miles)</div>
+
+<div class="map"><img src="us-cases.svg" width='80%'/></div>
+
+<h2 id="cases-direct">Deaths Reported in US by County</h2>
+<div class="h2subheading">Normalized for size of county (in sq miles)</div>
+
+<div class="map"><img src="us-deaths.svg" width='80%'/></div>
+
+<h2 id="states">Positive Cases, Deaths and Tests for each state</h2>
 
 <div class="table">
 	<div class="tcell"><a href="state/AK/index.html">Alabama (AL)</a></div>
@@ -317,8 +330,21 @@ Normalized reported tests, ranking data for all states: <a href="tests-norm/test
 <li>
 	The Python script that generates these graphs is on <a href="https://github.com/garykac/covid19">github</a>.
 </li>
+</ul>
+
+<p>
+Analysis
+</p>
+
+<ul>
 <li>
-	Tomas Pueyo's analysis (10 Mar 2020) in
+	26 Mar 2020 <a href="https://www.corriere.it/politica/20_marzo_26/the-real-death-toll-for-covid-19-is-at-least-4-times-the-official-numbers-b5af0edc-6eeb-11ea-925b-a0c3cdbe1130.shtml">«The real death toll for Covid-19 is at least 4 times the official numbers»</a>
+	<ul><li>
+		Nembro, one of the municipalities most affected by Covid-19, should have had - under normal conditions - about 35 deaths. 158 people were registered dead this year by the municipal offices. But the number of deaths officially attributed to Covid-19 is 31
+	</li></ul>
+</li>
+<li>
+	10 Mar 2020 Tomas Pueyo's analysis in
 	<a href="https://medium.com/@tomaspueyo/coronavirus-act-today-or-people-will-die-f4d3d9cd99ca">Coronavirus: Why You Must Act Now</a>
 	<ul><li>
 		Key takeaway:
@@ -330,14 +356,6 @@ Normalized reported tests, ranking data for all states: <a href="tests-norm/test
 	</li></ul>
 </li>
 <li>
-	<a href="https://coronavirus.1point3acres.com/">1Point3Acres.com</a> has some exellent
-	visualizations of data that they gather for US and Canada.
-</li>
-<li>
-	The Financial Times' <a href="https://www.ft.com/coronavirus-latest">Coronavirus tracked: the latest figures as the pandemic spreads</a>
-	has visualizations for data from various countries around the world.
-</li>
-<li>
 	<a href="https://skepchick.org/2020/03/how-to-spot-bad-science-about-covid-19/">How to Spot Bad Science about COVID-19</a>
 </li>
 <li>
@@ -347,12 +365,32 @@ Normalized reported tests, ranking data for all states: <a href="tests-norm/test
 </ul>
 
 <p>
-First-hand Accounts:
+Other visualizations
 </p>
 
 <ul>
-<li>23 Mar 2020 <a href="https://twitter.com/Craig_A_Spencer/status/1242302400762908685">A Day in the Life of an ER Doc - A Brief Dispatch from the #COVID19 Frontline</a></li>
+<li>
+	<a href="https://covid19.healthdata.org/">IHME COVID-19 Projections</a>.
+	Projecting impact on US overall and for individual states.
+	IMHE is the University of Washington's Institute for Health Metrics and Evaluation.
+</li>
+<li>
+	<a href="https://coronavirus.1point3acres.com/">1Point3Acres.com</a> has some exellent
+	visualizations of data that they gather for US and Canada.
+</li>
+<li>
+	The Financial Times' <a href="https://www.ft.com/coronavirus-latest">Coronavirus tracked: the latest figures as the pandemic spreads</a>
+	has visualizations for data from various countries around the world.
+</li>
+</ul>
+
+<p>
+First-hand Accounts
+</p>
+
+<ul>
 <li>24 Mar 2020 <a href="https://www.boredpanda.com/man-tested-positive-covid-19-coronavirus-describe-symptoms/">“It’s Brutal”: Man Who Tested Positive For COVID-19 Shares The Innocent First Symptoms He Experienced</a></li>
+<li>23 Mar 2020 <a href="https://twitter.com/Craig_A_Spencer/status/1242302400762908685">A Day in the Life of an ER Doc - A Brief Dispatch from the #COVID19 Frontline</a></li>
 </ul>
 
 </div><!-- container -->
