@@ -48,7 +48,24 @@ is also included.
 		<div class="toc-link"><a href="#tests-states-normalized">Individual States - Normalized for Population</a></div>
 </div><!-- toc-container -->
 
-<h2>Introduction</h2>
+<p>
+<b>Caveat</b>: Because of testing limitations, these graphs underreport the actual
+situation. As more testing is performed, some graphs will include large "correcting"
+jumps. As testing coverage improves, the data presented here will more accurately
+reflect the actual situation.
+</p>
+
+<h2 id="map-cases">Positive Cases Reported in US by County</h2>
+<div class="h2subheading">Normalized for size of county (in sq miles)</div>
+
+<div class="map"><img src="us-cases.svg" width='80%'/></div>
+
+<h2 id="map-deaths">Deaths Reported in US by County</h2>
+<div class="h2subheading">Normalized for size of county (in sq miles)</div>
+
+<div class="map"><img src="us-deaths.svg" width='80%'/></div>
+
+<h2 id="states">Positive Cases, Deaths and Tests for each state</h2>
 
 <p>
 The approach taken here is similar to the one taken by
@@ -68,25 +85,6 @@ However, rather than comparing entire countries, the graphs on this site compare
 different states (and territories) in the US. Both normalized (i.e., adjust for population)
 and raw data are shown.
 </p>
-
-<p>
-<b>Caveat</b>: Because of testing limitations, these graphs underreport the actual
-situation. As more testing is performed, some graphs will include large "correcting"
-jumps. As testing coverage improves, the data presented here will more accurately
-reflect the actual situation.
-</p>
-
-<h2 id="map-cases">Positive Cases Reported in US by County</h2>
-<div class="h2subheading">Normalized for size of county (in sq miles)</div>
-
-<div class="map"><img src="us-cases.svg" width='80%'/></div>
-
-<h2 id="map-deaths">Deaths Reported in US by County</h2>
-<div class="h2subheading">Normalized for size of county (in sq miles)</div>
-
-<div class="map"><img src="us-deaths.svg" width='80%'/></div>
-
-<h2 id="states">Positive Cases, Deaths and Tests for each state</h2>
 
 <div class="table">
 	<div class="tcell"><a href="state/AK/index.html">Alabama (AL)</a></div>
