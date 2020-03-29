@@ -33,6 +33,9 @@ class MapData:
 		self.names = {}
 		self.area = {}
 		self.density = {}
+		self.state2fips = {}
+		self.fips2state = {}
+
 		# Load data for states and Puerto Rico.
 		with open(census_data) as fp:
 			for line in fp:
@@ -66,6 +69,8 @@ class MapData:
 				# Handle states.
 				if len(fips) == 2:
 					fips += '999'
+					self.state2fips[label] = fips
+					self.fips2state[fips] = label
 
 				self.names[fips] = label
 				self.area[fips] = float(area)
@@ -83,25 +88,31 @@ class MapData:
 			self.area[FIPS_KANSAS_CITY_MO] += self.area[f]
 
 		# Extra info for missing territories
-		self.names['60999'] = 'American Samoa'
-		self.area['60999'] = 76.83
-		self.names['66999'] = 'Guam'
-		self.area['66999'] = 212
-		self.names['69999'] = 'Northern Mariana Islands'
-		self.area['69999'] = 184.2
-		self.names['78999'] = 'Virgin Islands'
-		self.area['78999'] = 133.7
+		self.add_state('60999', 'American Samoa', 76.83)
+		self.add_state('66999', 'Guam', 212)
+		self.add_state('69999', 'Northern Mariana Islands', 184.2)
+		self.add_state('78999', 'Virgin Islands', 133.7)
 				
 		#print self.names['53061'], self.area['53061']
 		#print self.density['53061']
 		#print self.names['36998'], self.area['36998']
 
+	def add_state(self, fips, name, area):
+		self.names[fips] = name
+		self.area[fips] = area
+		self.state2fips[name] = fips
+		self.fips2state[fips] = name
+	
 	def load_nyt(self):
 		self.cases = {}
 		self.deaths = {}
-		self.max_deaths_per_Nsqmi = 0
 		self.max_cases_per_Nsqmi = 0
-		max_deaths_fips = ''
+		self.max_deaths_per_Nsqmi = 0
+
+		unknown_state_cases = {}
+		unknown_state_deaths = {}
+		state_fips_with_cases = {}
+		state_fips_with_deaths = {}
 		with open(nyt_data) as fp:
 			for line in fp:
 				# 0: date - "2020-01-21"
@@ -130,13 +141,37 @@ class MapData:
 					if fips in self.nyc_fips:
 						print 'ERROR: data for NYC in', fips
 					
+					if fips == '':
+						if state in self.state2fips:
+							if cases != 0:
+								unknown_state_cases[self.state2fips[state]] = cases
+							if deaths != 0:
+								unknown_state_deaths[self.state2fips[state]] = deaths
+						else:
+							print 'ERROR: Blank fips:', line.strip()
+						continue
+
 					if not fips in self.names:
 						print 'Unknown fips:', line.strip()
 						continue
 
 					self.cases[fips] = cases
 					self.deaths[fips] = deaths
-
+					
+					# Accumulate counties with data for each state. This is used to
+					# distribute unknown cases to these counties. Note that unknown
+					# values are not distributed to counties that report 0.
+					state_fips = fips[0:2] + '999'
+					if cases != 0:
+						if not state_fips in state_fips_with_cases:
+							state_fips_with_cases[state_fips] = []
+						state_fips_with_cases[state_fips].append(fips)
+					if deaths != 0:
+						if not state_fips in state_fips_with_deaths:
+							state_fips_with_deaths[state_fips] = []
+						state_fips_with_deaths[state_fips].append(fips)
+					
+					# Keep track of max value so that we can normalize data to that value.
 					cases_per_Nsqmi = cases * AREA_SCALE / self.area[fips]
 					if cases_per_Nsqmi > self.max_cases_per_Nsqmi:
 						self.max_cases_per_Nsqmi = cases_per_Nsqmi
@@ -144,7 +179,6 @@ class MapData:
 					deaths_per_Nsqmi = deaths * AREA_SCALE / self.area[fips]
 					if deaths_per_Nsqmi > self.max_deaths_per_Nsqmi:
 						self.max_deaths_per_Nsqmi = deaths_per_Nsqmi
-						max_deaths_fips = fips
 
 		# Initialize data for the 5 NYC boroughs		
 		for fips in self.nyc_fips:
@@ -168,9 +202,35 @@ class MapData:
 			percent = self.area[fips] / self.area[FIPS_KANSAS_CITY_MO]
 			self.cases[fips] += self.cases[FIPS_KANSAS_CITY_MO] * percent
 			self.deaths[fips] += self.deaths[FIPS_KANSAS_CITY_MO] * percent
-			
+		
+		# For the 'Unknown' data for each state, distribute it equally (based on area)
+		# to the counties that have reported non-zero values.
+		for state_fips in unknown_state_cases:
+			# Ignore Puerto Rico, Virgin Islands and Guam - all cases are unknown and not on map yet.
+			if state_fips in ['72999', '78999', '66999']:
+				continue
+			#print state_fips, self.fips2state[state_fips], unknown_state_cases[state_fips], state_fips_with_cases[state_fips]
+			# Calc total area for affected counties
+			area = 0
+			for fips in state_fips_with_cases[state_fips]:
+				area += self.area[fips]
+			# Distribute the total to each affected county proportional to area.
+			for fips in state_fips_with_cases[state_fips]:
+				self.cases[fips] += unknown_state_cases[state_fips] * (self.area[fips] / area)
+		for state_fips in unknown_state_deaths:
+			# Ignore Puerto Rico and Guam - all cases are unknown and not on map yet.
+			if state_fips in ['72999', '66999']:
+				continue
+			#print state_fips, self.fips2state[state_fips], unknown_state_deaths[state_fips], state_fips_with_deaths[state_fips]
+			# Calc total area for affected counties
+			area = 0
+			for fips in state_fips_with_deaths[state_fips]:
+				area += self.area[fips]
+			# Distribute the total to each affected county proportional to area.
+			for fips in state_fips_with_deaths[state_fips]:
+				self.deaths[fips] += unknown_state_deaths[state_fips] * (self.area[fips] / area)
+
 		#print fips, self.names['53061'], self.cases['53061'], self.deaths['53061']
-		#print max_deaths_fips, self.names[max_deaths_fips], self.cases[max_deaths_fips], self.deaths[max_deaths_fips]
 
 	def scan_svg(self):
 		self.map_ids = {}
