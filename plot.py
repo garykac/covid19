@@ -22,8 +22,8 @@ _top_n = 8
 
 # Graph parameters for Reported Tests
 class C19Tests:
-	num_days = 35
-	threshold = 100
+	num_days = 40
+	threshold = 150
 	y_min = threshold
 	y_max = 1000000
 	title = 'COVID-19 US reported tests'
@@ -60,7 +60,7 @@ class C19Cases:
 	num_days = 40
 	threshold = 100
 	y_min = threshold
-	y_max = 150000
+	y_max = 200000
 	title = 'COVID-19 US reported positive cases'
 	subtitle = 'Since first day with %d cases' % threshold
 	output_dir = 'cases'
@@ -72,7 +72,7 @@ class C19CasesNorm:
 	num_days = 35
 	threshold = 10
 	y_min = threshold
-	y_max = 3000
+	y_max = 4000
 	title = 'COVID-19 US States Reported Positive Cases per Million'
 	subtitle = 'Since first day with %d positive cases/million' % threshold
 	output_dir = 'cases-norm'
@@ -93,7 +93,7 @@ class C19Deaths:
 	num_days = 35
 	threshold = 10
 	y_min = threshold
-	y_max = 10000
+	y_max = 15000
 	title = 'COVID-19 US reported deaths'
 	subtitle = 'Since first day with %d deaths' % threshold
 	output_dir = 'deaths'
@@ -162,6 +162,7 @@ class CovidCases:
 		# from the |date| because we plot previous days based on the top-n states
 		# on the |plot_date|.
 		self.plot_date = self.date
+		self.plot_date_str = self.calc_date_str(self.plot_date)
 		
 	def remove_last_day(self):
 		self.cdata.remove_last_day()
@@ -169,7 +170,9 @@ class CovidCases:
 
 	def set_date(self, date):
 		self.date = date
+		self.date_str = self.calc_date_str(self.date)
 
+	def calc_date_str(self, date):
 		month_str = {
 			'01': 'Jan',
 			'02': 'Feb',
@@ -185,7 +188,7 @@ class CovidCases:
 			'12': 'Dec',
 		}
 
-		self.date_str = date[6:8] + ' ' + month_str[date[4:6]] + ' ' + date[0:4]
+		return date[6:8] + ' ' + month_str[date[4:6]] + ' ' + date[0:4]
 
 	# Normalize data based on population, filter by threshold.
 	def process_normalize_and_filter(self, data, threshold, pop):
@@ -586,7 +589,7 @@ class CovidCases:
 	def export_anim(self):
 		print 'Exporting animations'
 		cmd = 'convert'
-		args_base = ['-delay', '20' ,'-loop', '0']
+		args_base = ['-delay', '15' ,'-loop', '0']
 
 		templates = []
 		for dir in ['tests', 'tests-norm']:
@@ -627,14 +630,14 @@ class CovidCases:
 		with open('index-template.txt') as fpin:
 			with open('index.html', 'w') as fpout:
 				for line in fpin:
-					fpout.write(line.replace('%%DATE%%', self.date_str))
+					fpout.write(line.replace('%%DATE%%', self.plot_date_str))
 
 		for s in USInfo.states:
 			with open('state-index-template.txt') as fpin:
 				with open('state/%s/index.html' % s, 'w') as fpout:
 					for line in fpin:
 						if '%%' in line:
-							line = line.replace('%%DATE%%', self.date_str)
+							line = line.replace('%%DATE%%', self.plot_date_str)
 							line = line.replace('%%STATE%%', USInfo.state_name[s])
 						fpout.write(line)
 
