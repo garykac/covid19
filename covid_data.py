@@ -107,7 +107,8 @@ class CovidData:
 				# 21Mar2020: New field: ospitalized
 				# 25Mar2020: New fields: totalTestResults,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
 				# 27Mar2020: New field: fips
-				(date,state,positive,negative,pending,hospitalized,death,total,timestamp,ttr,fips,di,hi,ni,pi,ttri) = line.strip().split(',')
+				# 28Mar2020: New field: hash
+				(date,state,positive,negative,pending,hospitalized,death,total,hash,timestamp,ttr,fips,di,hi,ni,pi,ttri) = line.strip().split(',')
 				if date == 'date':
 					continue
 
