@@ -12,6 +12,8 @@
 </head>
 <body>
 
+<div class="home"><a href="./index.html"><span class="unicon">&#x2302;</span> Home</a></div>
+
 <div class="container">
 
 <h1>COVID19 Tracking for US States</h1>
@@ -339,6 +341,9 @@ Analysis
 </p>
 
 <ul>
+<li>
+	27 Mar 2020 <a href="https://www.livescience.com/coronavirus-testing-us-states.html">States aren’t testing uniformly for coronavirus. That’s creating a distorted picture of the outbreak</a>
+</li>
 <li>
 	26 Mar 2020 <a href="https://www.corriere.it/politica/20_marzo_26/the-real-death-toll-for-covid-19-is-at-least-4-times-the-official-numbers-b5af0edc-6eeb-11ea-925b-a0c3cdbe1130.shtml">«The real death toll for Covid-19 is at least 4 times the official numbers»</a>
 	<ul><li>

@@ -103,3 +103,18 @@ li {
 	flex-basis: 20%;
 	align-content: center;
 }
+.home {
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	padding: 0 4px 2px 4px;
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-size: 12pt;
+	border: solid 1px black;
+}
+.home a {
+	text-decoration: none;
+}
+.home .unicon {
+	font-size: 16pt;
+}
