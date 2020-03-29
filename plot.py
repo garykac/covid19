@@ -34,7 +34,7 @@ class C19Tests:
 	y_label = 'Cumulative reported tests'
 
 class C19TestsNorm:
-	num_days = 35
+	num_days = 40
 	threshold = 10
 	y_min = threshold
 	y_max = 10000
@@ -81,7 +81,7 @@ class C19CasesNorm:
 	y_label = 'Cumulative reported positive cases per million people'
 
 	combined_num_days = 25
-	combined_y_max = 3000
+	combined_y_max = 4000
 	y_ticks_lin = []
 	y_ticks_log = []
 	combined_footer = []
@@ -90,7 +90,7 @@ class C19CasesNorm:
 
 # Graph parameters for Reported Deaths
 class C19Deaths:
-	num_days = 35
+	num_days = 40
 	threshold = 10
 	y_min = threshold
 	y_max = 15000
