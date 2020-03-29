@@ -1,2 +1,6 @@
 ref/*
 *.pyc
+map-us-cases/*
+map-us-deaths/*
+us-cases.gif
+us-deaths.gif
