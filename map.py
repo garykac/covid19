@@ -35,6 +35,7 @@ class MapData:
 		self.density = {}
 		self.state2fips = {}
 		self.fips2state = {}
+		self.state_fips_list = {}
 
 		# Load data for states and Puerto Rico.
 		with open(census_data) as fp:
@@ -71,6 +72,11 @@ class MapData:
 					fips += '999'
 					self.state2fips[label] = fips
 					self.fips2state[fips] = label
+					self.state_fips_list[fips] = []
+				else:
+					# Gather a list of all fips within each state
+					state_fips = fips[0:2] + '999'
+					self.state_fips_list[state_fips].append(fips)
 
 				self.names[fips] = label
 				self.area[fips] = float(area)
@@ -96,23 +102,17 @@ class MapData:
 		#print self.names['53061'], self.area['53061']
 		#print self.density['53061']
 		#print self.names['36998'], self.area['36998']
-
+		
 	def add_state(self, fips, name, area):
 		self.names[fips] = name
 		self.area[fips] = area
 		self.state2fips[name] = fips
 		self.fips2state[fips] = name
 	
-	def load_nyt(self):
-		self.cases = {}
-		self.deaths = {}
-		self.max_cases_per_Nsqmi = 0
-		self.max_deaths_per_Nsqmi = 0
-
-		unknown_state_cases = {}
-		unknown_state_deaths = {}
-		state_fips_with_cases = {}
-		state_fips_with_deaths = {}
+	def load_nyt(self, process_date):
+		self.curr_date = ''
+		found_date = False
+		
 		with open(nyt_data) as fp:
 			for line in fp:
 				# 0: date - "2020-01-21"
@@ -131,65 +131,86 @@ class MapData:
 				cases = int(data[4])
 				deaths = int(data[5])
 				
-				if date == '2020-03-27':					
-					if fips == '' and county == 'New York City':
-						fips = FIPS_NEW_YORK_CITY
-
-					if fips == '' and county == 'Kansas City' and state == 'Missouri':
-						fips = '29998'
-						
-					if fips in self.nyc_fips:
-						print 'ERROR: data for NYC in', fips
-					
-					if fips == '':
-						if state in self.state2fips:
-							if cases != 0:
-								unknown_state_cases[self.state2fips[state]] = cases
-							if deaths != 0:
-								unknown_state_deaths[self.state2fips[state]] = deaths
-						else:
-							print 'ERROR: Blank fips:', line.strip()
+				if date != self.curr_date:
+					# If finished processing the request date, then skip
+					if process_date and self.curr_date == process_date:
 						continue
-
-					if not fips in self.names:
-						print 'Unknown fips:', line.strip()
-						continue
-
-					self.cases[fips] = cases
-					self.deaths[fips] = deaths
 					
-					# Accumulate counties with data for each state. This is used to
-					# distribute unknown cases to these counties. Note that unknown
-					# values are not distributed to counties that report 0.
-					state_fips = fips[0:2] + '999'
-					if cases != 0:
-						if not state_fips in state_fips_with_cases:
-							state_fips_with_cases[state_fips] = []
-						state_fips_with_cases[state_fips].append(fips)
-					if deaths != 0:
-						if not state_fips in state_fips_with_deaths:
-							state_fips_with_deaths[state_fips] = []
-						state_fips_with_deaths[state_fips].append(fips)
-					
-					# Keep track of max value so that we can normalize data to that value.
-					cases_per_Nsqmi = cases * AREA_SCALE / self.area[fips]
-					if cases_per_Nsqmi > self.max_cases_per_Nsqmi:
-						self.max_cases_per_Nsqmi = cases_per_Nsqmi
-					
-					deaths_per_Nsqmi = deaths * AREA_SCALE / self.area[fips]
-					if deaths_per_Nsqmi > self.max_deaths_per_Nsqmi:
-						self.max_deaths_per_Nsqmi = deaths_per_Nsqmi
+					# Reset all data
+					self.cases = {}
+					self.deaths = {}
+					self.max_cases_per_Nsqmi = 0
+					self.max_deaths_per_Nsqmi = 0
 
-		# Initialize data for the 5 NYC boroughs		
-		for fips in self.nyc_fips:
-			# Verify that there is not existing data for these regions.
-			if fips in self.cases:
-				print 'ERROR: Already have case data for', self.names[fips]
-			if fips in self.deaths:
-				print 'ERROR: Already have death data for', self.names[fips]
-			self.cases[fips] = 0
-			self.deaths[fips] = 0
+					unknown_state_cases = {}
+					unknown_state_deaths = {}
+					state_fips_with_cases = {}
+					state_fips_with_deaths = {}
+					
+					# Initialize data for regions that require special handling.
+					for fips in self.nyc_fips + self.kc_fips:
+						self.cases[fips] = 0
+						self.deaths[fips] = 0
 
+					self.curr_date = date
+					if date == process_date:
+						found_date = True
+
+				if process_date and date != process_date:
+					continue
+					
+				if fips == '' and county == 'New York City':
+					fips = FIPS_NEW_YORK_CITY
+
+				if fips == '' and county == 'Kansas City' and state == 'Missouri':
+					fips = FIPS_KANSAS_CITY_MO
+					
+				if fips in self.nyc_fips:
+					print 'ERROR: data for NYC in', fips
+				
+				if fips == '':
+					if state in self.state2fips:
+						if cases != 0:
+							unknown_state_cases[self.state2fips[state]] = cases
+						if deaths != 0:
+							unknown_state_deaths[self.state2fips[state]] = deaths
+					else:
+						print 'ERROR: Blank fips:', line.strip()
+					continue
+
+				if not fips in self.names:
+					print 'Unknown fips:', line.strip()
+					continue
+
+				self.cases[fips] = cases
+				self.deaths[fips] = deaths
+				
+				# Accumulate counties with data for each state. This is used to
+				# distribute unknown cases to these counties. Note that unknown
+				# values are not distributed to counties that report 0.
+				state_fips = fips[0:2] + '999'
+				if cases != 0:
+					if not state_fips in state_fips_with_cases:
+						state_fips_with_cases[state_fips] = []
+					state_fips_with_cases[state_fips].append(fips)
+				if deaths != 0:
+					if not state_fips in state_fips_with_deaths:
+						state_fips_with_deaths[state_fips] = []
+					state_fips_with_deaths[state_fips].append(fips)
+				
+				# Keep track of max value so that we can normalize data to that value.
+				cases_per_Nsqmi = cases * AREA_SCALE / self.area[fips]
+				if cases_per_Nsqmi > self.max_cases_per_Nsqmi:
+					self.max_cases_per_Nsqmi = cases_per_Nsqmi
+				
+				deaths_per_Nsqmi = deaths * AREA_SCALE / self.area[fips]
+				if deaths_per_Nsqmi > self.max_deaths_per_Nsqmi:
+					self.max_deaths_per_Nsqmi = deaths_per_Nsqmi
+
+		if process_date and not found_date:
+			print 'ERROR: Unable to find data for', process_date
+			exit(1)
+			
 		# Equally distribute the data amongst the 5 boroughs based on size (sq mi)
 		for fips in self.nyc_fips:
 			percent = self.area[fips] / self.area[FIPS_NEW_YORK_CITY]
@@ -200,34 +221,59 @@ class MapData:
 		# Add this data to the existing data for the region
 		for fips in self.kc_fips:
 			percent = self.area[fips] / self.area[FIPS_KANSAS_CITY_MO]
-			self.cases[fips] += self.cases[FIPS_KANSAS_CITY_MO] * percent
-			self.deaths[fips] += self.deaths[FIPS_KANSAS_CITY_MO] * percent
+			if FIPS_KANSAS_CITY_MO in self.cases:
+				self.cases[fips] += self.cases[FIPS_KANSAS_CITY_MO] * percent
+			if FIPS_KANSAS_CITY_MO in self.deaths:
+				self.deaths[fips] += self.deaths[FIPS_KANSAS_CITY_MO] * percent
 		
 		# For the 'Unknown' data for each state, distribute it equally (based on area)
 		# to the counties that have reported non-zero values.
 		for state_fips in unknown_state_cases:
-			# Ignore Puerto Rico, Virgin Islands and Guam - all cases are unknown and not on map yet.
-			if state_fips in ['72999', '78999', '66999']:
+			# Ignore Puerto Rico, Virgin Islands, Guam and Northern Mariana Islands.
+			# All cases are unknown and not on map yet.
+			if state_fips in ['72999', '78999', '66999', '69999']:
 				continue
-			#print state_fips, self.fips2state[state_fips], unknown_state_cases[state_fips], state_fips_with_cases[state_fips]
+
+			# Determine set of FIPS to distribute the cases to
+			if state_fips in state_fips_with_cases:
+				#print 'Distributing Unknowns cases for', self.fips2state[state_fips], 'to counties with data'
+				target_fips = state_fips_with_cases[state_fips]
+			else:
+				# If all cases in a state are 'Unknown', then distribute to entire state
+				print 'Distributing Unknowns cases for', self.fips2state[state_fips], 'to entire state'
+				target_fips = self.state_fips_list[state_fips]
+				for f in target_fips:
+					self.cases[f] = 0
+				
 			# Calc total area for affected counties
 			area = 0
-			for fips in state_fips_with_cases[state_fips]:
+			for fips in target_fips:
 				area += self.area[fips]
 			# Distribute the total to each affected county proportional to area.
-			for fips in state_fips_with_cases[state_fips]:
+			for fips in target_fips:
 				self.cases[fips] += unknown_state_cases[state_fips] * (self.area[fips] / area)
 		for state_fips in unknown_state_deaths:
 			# Ignore Puerto Rico and Guam - all cases are unknown and not on map yet.
 			if state_fips in ['72999', '66999']:
 				continue
-			#print state_fips, self.fips2state[state_fips], unknown_state_deaths[state_fips], state_fips_with_deaths[state_fips]
+
+			# Determine set of FIPS to distribute the deaths to
+			if state_fips in state_fips_with_deaths:
+				#print 'Distributing Unknowns deaths for', self.fips2state[state_fips], 'to counties with data'
+				target_fips = state_fips_with_deaths[state_fips]
+			else:
+				# If all cases in a state are 'Unknown', then distribute to entire state
+				print 'Distributing Unknowns deaths for', self.fips2state[state_fips], 'to entire state'
+				target_fips = self.state_fips_list[state_fips]
+				for f in target_fips:
+					self.deaths[f] = 0
+				
 			# Calc total area for affected counties
 			area = 0
-			for fips in state_fips_with_deaths[state_fips]:
+			for fips in target_fips:
 				area += self.area[fips]
 			# Distribute the total to each affected county proportional to area.
-			for fips in state_fips_with_deaths[state_fips]:
+			for fips in target_fips:
 				self.deaths[fips] += unknown_state_deaths[state_fips] * (self.area[fips] / area)
 
 		#print fips, self.names['53061'], self.cases['53061'], self.deaths['53061']
@@ -259,10 +305,17 @@ class MapData:
 		self.generate_map('Deaths', us_map_deaths, self.deaths, self.max_deaths_per_Nsqmi)
 		
 	def generate_map(self, type, out_svg, data, max_per_Nsqmi):
+		d = self.curr_date
+		months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+		date_str = d[8:10] + ' ' + months[int(d[5:7])-1] + ' ' + d[0:4]
+
 		val_log_max = math.log10(max_per_Nsqmi)
 		with open(census_map) as fpin:
 			with open(out_svg, 'w') as fpout:
 				for line in fpin:
+					if 'inkscape' in line:
+						if line.strip() == 'inkscape:connector-curvature="0"':
+							continue
 					if line.startswith('  #INSERT_STYLES'):
 						self.write_color_style(fpout, 'legend-1', 1.0)
 						self.write_color_style(fpout, 'legend-2', 0.8)
@@ -288,7 +341,7 @@ class MapData:
 								scaled_log = val_log / val_log_max
 								self.write_color_style(fpout, 'c'+fips_style_id, scaled_log)
 					else:
-						line = line.replace('%%DATE%%', '27 Mar 2020')
+						line = line.replace('%%DATE%%', date_str)
 						line = line.replace('%%TYPE%%', type)
 						line = line.replace('%%LEGEND1%%', self.format_val(1.0, val_log_max))
 						line = line.replace('%%LEGEND2%%', self.format_val(0.8, val_log_max))
@@ -296,6 +349,11 @@ class MapData:
 						line = line.replace('%%LEGEND4%%', self.format_val(0.4, val_log_max))
 						line = line.replace('%%LEGEND5%%', self.format_val(0.2, val_log_max))
 						fpout.write(line)
+
+		ymd = d[0:4] + d[5:7] + d[8:10]
+		(name, suffix) = out_svg.split('.')
+		archive = 'map-%s/%s-%s.svg' % (name, name, ymd)
+		shutil.copy(out_svg, archive)
 	
 	def format_val(self, percent, log_max):
 		val = (10 ** (percent * log_max)) / AREA_SCALE
@@ -311,7 +369,7 @@ class MapData:
 			return '%.4f' % val
 		if val > 0.00001:
 			return '%.5f' % val
-		return '%e' % val
+		return '%.2e' % val
 
 	def write_color_style(self, fp, name, value):
 		#rgb = colorsys.hsv_to_rgb(1.0, scaled_log, 1.0)
@@ -320,6 +378,31 @@ class MapData:
 		#print fips, self.deaths[fips], death_log, death_log_max, scaled_log, rgb, color
 		fp.write('  #%s {fill:%s;}\n' % (name, color))
 	
+	def animate(self):
+		self.animate_data('map-us-cases', 'us-cases')
+		self.animate_data('map-us-deaths', 'us-deaths')
+
+	def animate_data(self, dir, filebase):
+		files = os.listdir(dir)
+		last_file = ''
+		print '  Converting svg files'
+		for f in sorted(files):
+			(name, suffix) = f.split('.')
+			if suffix != 'svg':
+				continue
+			svg_file = '%s/%s.svg' % (dir, name)
+			png_file = '%s/%s.png' % (dir, name)
+			# Record last file so that we can hold it longer at end of animation.
+			if png_file > last_file:
+				last_file = png_file
+			if os.path.exists(png_file):
+				continue
+			print '    ', name
+			subprocess.call(['svg2png', svg_file, '-o', png_file])
+
+		print '  Combining images'
+		subprocess.call(['convert', '-morph', '1', '-delay', '15', '%s/*.png' % dir, '-delay', '240', last_file, '%s.gif' % filebase])
+
 def usage():
 	print 'map.py [options]'
 	print 'where options are:'
@@ -328,23 +411,32 @@ def usage():
 def main(argv):
 	try:
 		opts, args = getopt.getopt(argv,
-				"?h",
-				["?", "help"])
+				"?had:",
+				["?", "help", "anim", "date="])
 	except getopt.GetoptError:
 		usage()
 
+	process_date = None
+	animate = False
 	for opt, arg in opts:
 		if opt in ("-?", "-h", "--?", "--help"):
 			usage()
+		if opt in ("-a", "--anim"):
+			animate = True
+		if opt in ("-d", "--date"):
+			process_date = arg
 
 	map_data = MapData()
 	map_data.load_census()
-	map_data.load_nyt()
+	map_data.load_nyt(process_date)
 	map_data.scan_svg()
 	map_data.check_data()
 
 	map_data.generate_map_cases()
 	map_data.generate_map_deaths()
-	
+
+	if animate:
+		map_data.animate()
+		
 if __name__ == "__main__":
 	main(sys.argv[1:])
