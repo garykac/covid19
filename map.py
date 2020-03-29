@@ -58,8 +58,15 @@ class MapData:
 				area = data[11]
 				pop_density = data[12]
 				
+				if fips == '':
+					if not label == 'United States':
+						print 'ERROR: Blank fips for', label, ' fips=', fips
+					continue
+
+				# Handle states.
 				if len(fips) == 2:
 					fips += '999'
+
 				self.names[fips] = label
 				self.area[fips] = float(area)
 				self.density[fips] = float(pop_density)
@@ -108,19 +115,24 @@ class MapData:
 					continue
 				date = data[0]
 				county = data[1]
+				state = data[2]
 				fips = data[3]
 				cases = int(data[4])
 				deaths = int(data[5])
 				
-				if date == '2020-03-25':					
+				if date == '2020-03-27':					
 					if fips == '' and county == 'New York City':
 						fips = FIPS_NEW_YORK_CITY
 
+					if fips == '' and county == 'Kansas City' and state == 'Missouri':
+						fips = '29998'
+						
 					if fips in self.nyc_fips:
 						print 'ERROR: data for NYC in', fips
 					
 					if not fips in self.names:
 						print 'Unknown fips:', line.strip()
+						continue
 
 					self.cases[fips] = cases
 					self.deaths[fips] = deaths
@@ -216,7 +228,7 @@ class MapData:
 								scaled_log = val_log / val_log_max
 								self.write_color_style(fpout, 'c'+fips_style_id, scaled_log)
 					else:
-						line = line.replace('%%DATE%%', '25 Mar 2020')
+						line = line.replace('%%DATE%%', '27 Mar 2020')
 						line = line.replace('%%TYPE%%', type)
 						line = line.replace('%%LEGEND1%%', self.format_val(1.0, val_log_max))
 						line = line.replace('%%LEGEND2%%', self.format_val(0.8, val_log_max))
