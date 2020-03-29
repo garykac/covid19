@@ -606,6 +606,7 @@ class CovidCases:
 				templates.append(base_template)
 
 		for t in templates:
+			print '  ', t
 			filebase = t % ''
 			filebase_date = t % ('/' + self.plot_date)
 
