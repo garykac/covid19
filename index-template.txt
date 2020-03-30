@@ -34,17 +34,17 @@ is also included.
 		<div class="toc-link"><a href="#map-cases">Positive Cases Reported</a></div>
 		<div class="toc-link"><a href="#map-deaths">Deaths Reported</a></div>
 
-	<div class="toc-h1">Positive Cases Reported in US</div>
+	<div class="toc-h1">Positive Cases Reported in US States</div>
 		<div class="toc-link"><a href="#cases-direct">Direct Comparison - Top 8 States</a></div>
 		<div class="toc-link"><a href="#cases-normalized">Normalized for Population - Top 8 States</a></div>
 		<div class="toc-link"><a href="#cases-states-normalized">Individual States - Normalized for Population</a></div>
 
-	<div class="toc-h1">Deaths Reported in US</div>
+	<div class="toc-h1">Deaths Reported in US States</div>
 		<div class="toc-link"><a href="#deaths-direct">Direct Comparison - Top 8 States</a></div>
 		<div class="toc-link"><a href="#deaths-normalized">Normalized for Population - Top 8 States</a></div>
 		<div class="toc-link"><a href="#deaths-states-normalized">Individual States - Normalized for Population</a></div>
 
-	<div class="toc-h1">Tests Reported in US</div>
+	<div class="toc-h1">Tests Reported in US States</div>
 		<div class="toc-link"><a href="#tests-direct">Direct Comparison - Top 8 States</a></div>
 		<div class="toc-link"><a href="#tests-normalized">Normalized for Population - Top 8 States</a></div>
 		<div class="toc-link"><a href="#tests-states-normalized">Individual States - Normalized for Population</a></div>
