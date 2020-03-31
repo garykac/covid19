@@ -22,6 +22,10 @@ FIPS_KANSAS_CITY_MO = '29998'
 
 AREA_SCALE = 1000000
 
+# Max values per N square miles.
+MAX_CASES_PNSM = 111574425.9
+MAX_DEATHS_PNSM = 2564017.8
+
 class MapData:
 	def __init__(self):
 		# FIPS for the New York City boroughs: New York, Kings, Queens, Bronx, Richmond
@@ -207,6 +211,13 @@ class MapData:
 				if deaths_per_Nsqmi > self.max_deaths_per_Nsqmi:
 					self.max_deaths_per_Nsqmi = deaths_per_Nsqmi
 
+		# Overwrite calculated max per square mile values so that we use the same
+		# value when plotting historical graphs.
+		print 'Calculated max cases psm', self.max_cases_per_Nsqmi
+		print 'Calculated max deaths psm', self.max_deaths_per_Nsqmi
+		#self.max_cases_per_Nsqmi = MAX_CASES_PNSM
+		#self.max_deaths_per_Nsqmi = MAX_CASES_PNSM
+		
 		if process_date and not found_date:
 			print 'ERROR: Unable to find data for', process_date
 			exit(1)
@@ -339,6 +350,9 @@ class MapData:
 									print 'Bad', type, 'log:', fips, val_log
 								# Scale the log values to be 0.0 - 1.0
 								scaled_log = val_log / val_log_max
+								if scaled_log > 1.0:
+									print 'WARNING: clamping scaled value that exceeds max:', scaled_log, 'for', fips, self.names[fips]
+									scaled_log = 1.0
 								self.write_color_style(fpout, 'c'+fips_style_id, scaled_log)
 					else:
 						line = line.replace('%%DATE%%', date_str)
@@ -406,6 +420,9 @@ class MapData:
 def usage():
 	print 'map.py [options]'
 	print 'where options are:'
+	print '  --help'
+	print '  --anim'
+	print '  --date yyyy-mm-dd'
 	sys.exit(1)
 
 def main(argv):
