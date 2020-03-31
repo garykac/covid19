@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>COVID19 Tracking for Reported Deaths for US States</title>
+<link rel="icon" type="image/svg+xml"  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Ctext y='32' font-size='32'%3E%F0%9F%A6%A0%3C/text%3E%3C/svg%3E">
+<meta name="description" content="COVID-19 tracking graphs %%STATE%%">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1163903-7"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-1163903-7');</script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="home"><a href="index.html"><span class="unicon">&#x2302;</span> Home</a></div>
+
+<div class="container">
+
+<h1>COVID19 Ranking for Reported %%TYPE%%</h1>
+<div class="h1subheading">US State Ranking%%RANKING_NORM%%</div>
+<div class='lastupdate'>Last update: %%DATE%%</div>
+
+<div>
+%%RANKING%%
+</div>
+
+<p>
+Ranking data as: <a href="%%DATAFILE%%.txt">.txt</a>, <a href="%%DATAFILE%%.csv">.csv</a>
+</p>
+
+<p>
+Ranking based on data from the
+<a href="https://covidtracking.com/">COVID Tracking Project</a>.
+</p>
+
+</div><!-- container -->
+
+</body>
+</html>

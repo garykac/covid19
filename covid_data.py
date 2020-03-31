@@ -104,7 +104,7 @@ class CovidData:
 		with open('data/states-daily.csv') as fp:
 			for line in fp:
 				# date,state,positive,negative,pending,hospitalized,death,total,dateChecked,totalTestResults,fips,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
-				# 21Mar2020: New field: ospitalized
+				# 21Mar2020: New field: hospitalized
 				# 25Mar2020: New fields: totalTestResults,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
 				# 27Mar2020: New field: fips
 				# 28Mar2020: New field: hash
@@ -184,6 +184,7 @@ class CovidData:
 		options = lambda: None  # An object that we can attach attributes to
 		options.state_data = self.state_tests
 		options.type = 'tests'
+		options.label = 'Tests'
 
 		self.ranking_test, self.ranking_test_norm = self.rank_states_data(options)
 	
@@ -191,6 +192,8 @@ class CovidData:
 		options = lambda: None  # An object that we can attach attributes to
 		options.state_data = self.state_cases
 		options.type = 'cases'
+		options.label = 'Positive Cases'
+		options.ranking_norm = 'Normalized for Population'
 
 		self.ranking_case, self.ranking_case_norm = self.rank_states_data(options)
 	
@@ -198,6 +201,8 @@ class CovidData:
 		options = lambda: None  # An object that we can attach attributes to
 		options.state_data = self.state_deaths
 		options.type = 'deaths'
+		options.label = 'Deaths'
+		options.ranking_norm = 'Normalized for Population'
 
 		self.ranking_death, self.ranking_death_norm = self.rank_states_data(options)
 	
@@ -222,12 +227,14 @@ class CovidData:
 		for d in sorted(ranking_norm_data, key=ranking_norm_data.get, reverse=True):
 			out_ranking_norm.append(d)
 		
-		self.rank_states_data_export(ranking_data, out_ranking, options.type, 'int')
-		self.rank_states_data_export(ranking_norm_data, out_ranking_norm, '%s-norm' % options.type, 'float')
+		self.rank_states_data_export(ranking_data, out_ranking, options.type,
+				'int', options.label, '', '')
+		self.rank_states_data_export(ranking_norm_data, out_ranking_norm, '%s-norm' % options.type,
+				'float', options.label, ', Normalized for Population', '  per million residents')
 
 		return out_ranking, out_ranking_norm
 	
-	def rank_states_data_export(self, data, ranking, type, format):
+	def rank_states_data_export(self, data, ranking, type, format, label, ranking_norm, units):
 		outdir_date = '%s/%s' % (type, self.date)
 		if not os.path.exists(outdir_date):
 			os.makedirs(outdir_date)
@@ -243,6 +250,45 @@ class CovidData:
 					fp.write('{:s},{:d}\n'.format(state, data[state]))
 		shutil.copy(file_csv, '%s/%s-data.csv' % (outdir_date, type))
 		shutil.copy(file_csv, '%s/%s-data.txt' % (type, type))
+
+		d = self.date
+		months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+		date_str = d[6:8] + ' ' + months[int(d[4:6])-1] + ' ' + d[0:4]
+		datafile = '%s/%s-data' % (type, type)
+		
+		file_template = 'state-ranking-template.txt'
+		file_html = 'state-ranking-%s.html' % type
+		with open(file_template) as fpin:
+			with open(file_html, 'w') as fpout:
+				for line in fpin:
+					if line.startswith('%%RANKING%%'):
+						fpout.write('<table class="ranking-table">\n')
+						fpout.write('<thead><tr>\n')
+						fpout.write('\t<th>Rank</th>\n')
+						fpout.write('\t<th>State</th>\n')
+						fpout.write('\t<th>%s%s</th>\n' % (label, units))
+						fpout.write('</tr></thead>\n')
+						fpout.write('<tbody>\n')
+						rank = 1
+						for state in ranking:
+							fpout.write('<tr>\n')
+							fpout.write('\t<td>%d</td>\n' % rank)
+							fpout.write('\t<td>%s</td>\n' % USInfo.state_name[state])
+							if format == 'float':
+								fpout.write('\t<td>{:.2f}</td>\n'.format(data[state]))
+							else:
+								fpout.write('\t<td>{:d}</td>\n'.format(data[state]))
+							fpout.write('</tr>\n')
+							rank += 1
+						fpout.write('</tbody>\n')
+						fpout.write('</table>\n')
+					else:
+						line = line.replace('%%DATE%%', date_str)
+						line = line.replace('%%TYPE%%', label)
+						line = line.replace('%%RANKING_NORM%%', ranking_norm)
+						line = line.replace('%%DATAFILE%%', datafile)
+						fpout.write(line)
+
 
 	def load_italy_data(self):
 		self.italy_tests = []

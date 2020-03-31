@@ -1,8 +1,19 @@
 body {
 	background-color: white;
 }
+.banner {
+	margin: 1em auto;
+	padding: 0.25em;
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 700;
+	text-align: center;
+	font-size: 40pt;
+	border-top: 5px double black;
+	border-bottom: 5px double black;
+}
 h1 {
 	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 700;
 	text-align: center;
 	font-size: 40pt;
 }
@@ -10,6 +21,7 @@ h1 {
 	margin-top: -1em;
 	margin-bottom: 1em;
 	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 700;
 	text-align: center;	
 	font-size: 24pt;
 }
@@ -17,11 +29,13 @@ h1 {
 	margin-top: -0.6em;
 	margin-bottom: 1em;
 	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 700;
 	text-align: center;	
 	font-size: 18pt;
 }
 h2 {
 	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 700;
 	text-align: center;	
 	font-size: 28pt;
 }
@@ -29,6 +43,7 @@ h2 {
 	margin-top: -1em;
 	margin-bottom: 1em;
 	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 700;
 	text-align: center;	
 	font-size: 18pt;
 	font-style: italic;
@@ -51,23 +66,39 @@ li {
 .container {
 	margin: 5%;
 }
+.top-container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	padding: 2em;
+}
 .toc-container {
 	padding: 0.5em 1em 1.5em 1em;
 	border: 1px solid black;
-	margin: 0 auto;
-	max-width: 50%;
 	background-color: #f0f0f0;
+	flex: 3;
+	min-width: 300px;
+}
+.toc-container a {
+	text-decoration: none;
 }
 .toc-h1 {
 	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-	font-size: 16pt;
+	font-size: 14pt;
+	font-weight: 700;
 	text-align: center;
 	margin: 1em auto 0.5em auto;
 }
 .toc-link {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
 	font-size: 12pt;
+	font-weight: 400;
 	text-align: center;
 	margin: 0 auto;
+}
+.intro-container {
+	flex: 7;
+	padding: 0 1em;
 }
 .graphcontainer {
 	display: flex;
@@ -102,6 +133,21 @@ li {
 	flex-grow: 1;
 	flex-basis: 20%;
 	align-content: center;
+}
+.ranking-table {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	text-align: center;	
+	font-size: 18pt;
+	margin: 0 auto;
+	align-content: center;
+}
+.ranking-table td {
+	padding: 0 1em;
+	font-size: 16pt;
+	font-weight: 300;
+}
+.ranking-table tr:nth-child(even) {
+	background: #c8e1f3;
 }
 .home {
 	position: absolute;

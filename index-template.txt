@@ -7,7 +7,7 @@
 <meta name="description" content="COVID-19 tracking graphs for individual US states">
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1163903-7"></script>
 <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-1163903-7');</script>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Source+Sans+Pro:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,6 +19,31 @@
 <h1>COVID19 Tracking for US States</h1>
 <div class='lastupdate'>Last update: %%DATE%%</div>
 
+<div class="top-container">
+<div class="toc-container">
+	<div class="toc-h1"><a href="#maps">US Maps by County</a></div>
+		<div class="toc-link"><a href="#map-cases">Positive Cases Reported</a></div>
+		<div class="toc-link"><a href="#map-deaths">Deaths Reported</a></div>
+
+	<div class="toc-h1"><a href="#states">Individual State Data</a></div>
+
+	<div class="toc-h1"><a href="#cases">Positive Cases Reported in US States</a></div>
+		<div class="toc-link"><a href="#cases-direct">Direct Comparison - Top 8 States</a></div>
+		<div class="toc-link"><a href="#cases-normalized">Normalized for Population - Top 8 States</a></div>
+		<div class="toc-link"><a href="#cases-states-normalized">Individual States - Normalized for Population</a></div>
+
+	<div class="toc-h1"><a href="#deaths">Deaths Reported in US States</a></div>
+		<div class="toc-link"><a href="#deaths-direct">Direct Comparison - Top 8 States</a></div>
+		<div class="toc-link"><a href="#deaths-normalized">Normalized for Population - Top 8 States</a></div>
+		<div class="toc-link"><a href="#deaths-states-normalized">Individual States - Normalized for Population</a></div>
+
+	<div class="toc-h1"><a href="#tests">Tests Reported in US States</a></div>
+		<div class="toc-link"><a href="#tests-direct">Direct Comparison - Top 8 States</a></div>
+		<div class="toc-link"><a href="#tests-normalized">Normalized for Population - Top 8 States</a></div>
+		<div class="toc-link"><a href="#tests-states-normalized">Individual States - Normalized for Population</a></div>
+</div><!-- toc-container -->
+
+<div class="intro-container">
 <p>
 This site contains alternate visualizations of the data from the
 <a href="https://covidtracking.com/">COVID Tracking Project</a> and
@@ -29,33 +54,22 @@ Italian <a href="https://github.com/pcm-dpc/COVID-19">data</a> from the
 is also included.
 </p>
 
-<div class="toc-container">
-	<div class="toc-h1">US Maps by County</div>
-		<div class="toc-link"><a href="#map-cases">Positive Cases Reported</a></div>
-		<div class="toc-link"><a href="#map-deaths">Deaths Reported</a></div>
-
-	<div class="toc-h1">Positive Cases Reported in US States</div>
-		<div class="toc-link"><a href="#cases-direct">Direct Comparison - Top 8 States</a></div>
-		<div class="toc-link"><a href="#cases-normalized">Normalized for Population - Top 8 States</a></div>
-		<div class="toc-link"><a href="#cases-states-normalized">Individual States - Normalized for Population</a></div>
-
-	<div class="toc-h1">Deaths Reported in US States</div>
-		<div class="toc-link"><a href="#deaths-direct">Direct Comparison - Top 8 States</a></div>
-		<div class="toc-link"><a href="#deaths-normalized">Normalized for Population - Top 8 States</a></div>
-		<div class="toc-link"><a href="#deaths-states-normalized">Individual States - Normalized for Population</a></div>
-
-	<div class="toc-h1">Tests Reported in US States</div>
-		<div class="toc-link"><a href="#tests-direct">Direct Comparison - Top 8 States</a></div>
-		<div class="toc-link"><a href="#tests-normalized">Normalized for Population - Top 8 States</a></div>
-		<div class="toc-link"><a href="#tests-states-normalized">Individual States - Normalized for Population</a></div>
-</div><!-- toc-container -->
-
 <p>
 <b>Caveat</b>: Because of testing limitations, these graphs underreport the actual
 situation. As more testing is performed, some graphs will include large "correcting"
 jumps. As testing coverage improves, the data presented here will more accurately
 reflect the actual situation.
 </p>
+</div><!-- intro-container -->
+</div><!-- top-container -->
+
+<!--
+	=============
+	US County Map
+	=============
+-->
+
+<div id="maps" class="banner">US County Maps</div>
 
 <h2 id="map-cases">Positive Cases Reported in US by County</h2>
 <div class="h2subheading">Normalized for size of county (in sq miles)</div>
@@ -67,26 +81,15 @@ reflect the actual situation.
 
 <div class="map"><img src="us-deaths.svg" width='80%'/></div>
 
-<h2 id="states">Positive Cases, Deaths and Tests for each state</h2>
+<!--
+	=================
+	Individual States
+	=================
+-->
 
-<p>
-The approach taken here is similar to the one taken by
-<a href="https://twitter.com/jburnmurdoch/status/1240373707224363014">John Burn-Murdoch</a>'s
-group at the
-<a href="https://www.ft.com/content/a26fbf7e-48f8-11ea-aeb3-955839e06441">Financial Times</a>
-where the data for each country is overlaid on the same graph, aligned so that the
-x-axis origin is the day the country first achieved some reporting milestone ("day 0").
-Others, like
-<a href="https://www.reddit.com/r/dataisbeautiful/comments/fm0jvl/oc_update_chart_continuing_the_comparison_of/">dev_thetromboneguy</a>
-on Reddit and
-<a href="https://twitter.com/kendrickhang/status/1241110084597374977">Kendrick Hang</a>
-on Twitter used a similar approach to create aligned tables comparing the US total and Italy.
-</p>
-<p>
-However, rather than comparing entire countries, the graphs on this site compare and rank
-different states (and territories) in the US. Both normalized (i.e., adjust for population)
-and raw data are shown.
-</p>
+<div id="states" class="banner">Individual State Data</div>
+
+<h2 id="states">Positive Cases, Deaths and Tests for each state</h2>
 
 <div class="table">
 	<div class="tcell"><a href="state/AK/index.html">Alabama (AL)</a></div>
@@ -152,11 +155,19 @@ and raw data are shown.
 	<div class="tcell"><a href="state/WY/index.html">Wyoming (WY)</a></div>
 </div><!-- table -->
 
+<!--
+	=======================
+	Positive Cases Reported
+	=======================
+-->
+
+<div id="cases" class="banner">Positive Cases Reported</div>
+
 <h2 id="cases-direct">Positive Cases Reported in US</h2>
 <div class="h2subheading">Top 8 States/Territories</div>
 
 <p>
-These 2 graphs plot the same data: the number of positive cases reported each day for the
+These 2 graphs plot the number of positive cases reported each day for the
 8 states that reported the largest number of cases.
 The origin for each state is the day it first reported 100 positive cases.
 </p>
@@ -168,22 +179,17 @@ reference.
 
 <div class="graphcontainer">
 <div class="graphbox">
-	<div class="graph"><img src="cases/cases-lin.gif" /></div>
+	<div class="graph"><a href="cases/cases-lin.gif"><img src="cases/cases-lin.gif" width="550px"/></a></div>
 	<div class="graph"><a href="cases/cases-lin.png">static image</a></div>
 </div>
 <div class="graphbox">
-	<div class="graph"><img src="cases/cases-log.gif" /></div>
+	<div class="graph"><a href="cases/cases-log.gif"><img src="cases/cases-log.gif" width="550px"/></a></div>
 	<div class="graph"><a href="cases/cases-log.png">static image</a></div>
 </div>
 </div><!-- graphcontainer -->
 
 <p>
-Reported positive cases, ranking data for all states: <a href="cases/cases-data.txt">.txt</a>, <a href="cases/cases-data.csv">.csv</a>
-</p>
-<p>
-One issue with the above graphs is that they don't take into account the state population:
-1000 cases in a low-population state is more significant than the same number of cases
-in a high-population state.
+<a href="state-ranking-cases.html">Ranking data for all states (reported positive cases)</a>.
 </p>
 
 <h2 id="cases-normalized">Positive Cases Reported in US - Normalized</h2>
@@ -191,25 +197,24 @@ in a high-population state.
 <div class="h2subheading">Top 8 States/Territories</div>
 
 <p>
-To account for the population variation, the next graphs take the same data as above,
-but normalize the data for each state based on its population. The normalized data is
-re-ranked to find the top 8 states. The "day 0" is based on when the state first
+These 2 graphs plot the number of positive cases reported each day, normalized for
+each state based on its population. The "day 0" is based on when the state first
 reported 10 positive cases per million residents.
 </p>
 
 <div class="graphcontainer">
 <div class="graphbox">
-	<div class="graph"><img src="cases-norm/cases-lin.gif" /></div>
+	<div class="graph"><a href="cases-norm/cases-lin.gif"><img src="cases-norm/cases-lin.gif" width="550px"/></a></div>
 	<div class="graph"><a href="cases-norm/cases-lin.png">static image</a></div>
 </div>
 <div class="graphbox">
-	<div class="graph"><img src="cases-norm/cases-log.gif" /></div>
+	<div class="graph"><a href="cases-norm/cases-log.gif"><img src="cases-norm/cases-log.gif" width="550px"/></a></div>
 	<div class="graph"><a href="cases-norm/cases-log.png">static image</a></div>
 </div>
 </div><!-- graphcontainer -->
 
 <p>
-Normalized reported positive cases, ranking data for all states: <a href="cases-norm/cases-norm-data.txt">.txt</a>, <a href="cases-norm/cases-norm-data.csv">.csv</a>
+<a href="state-ranking-cases-norm.html">Ranking data for all states (reported positive cases, per capita)</a>.
 </p>
 
 <h2 id="cases-states-normalized">Positive Cases Reported for Individual States</h2>
@@ -217,103 +222,165 @@ Normalized reported positive cases, ranking data for all states: <a href="cases-
 
 <p>
 The following graphs shows the normalized data for each state individually.
-Just like the normalized graphs above, "day 0" is when the state first reported 10 positive cases per million residents.
+As with the normalized graphs above, "day 0" is when the state first reported 10 positive cases per million residents.
 Each graph contains the data for all states plotted in the background for reference.
 </p>
 
 <div class="graphcontainer">
 <div class="graphbox">
-	<div class="graph"><a href="cases-norm/states-lin.png"><img src="cases-norm/states-lin.png" width='600px'/></a></div>
+	<div class="graph"><a href="cases-norm/states-lin.png"><img src="cases-norm/states-lin.png" width='550px'/></a></div>
 </div>
 <div class="graphbox">
-	<div class="graph"><a href="cases-norm/states-log.png"><img src="cases-norm/states-log.png" width='600px'/></a></div>
+	<div class="graph"><a href="cases-norm/states-log.png"><img src="cases-norm/states-log.png" width='550px'/></a></div>
 </div>
 </div><!-- graphcontainer -->
+
+<!--
+	===============
+	Deaths Reported
+	===============
+-->
+
+<div id="deaths" class="banner">Deaths Reported</div>
 
 <h2 id="deaths-direct">Deaths Reported in US</h2>
 <div class="h2subheading">Top 8 States/Territories</div>
 
+<p>
+These 2 graphs plot the number of deaths reported each day for the
+8 states that reported the largest number of deaths.
+The origin for each state is the day it first reported 10 deaths.
+</p>
+<p>
+The first graph uses a linear scale, while the second uses a log scale.
+An aggretate total for the entire US and the data for Italy are also included for
+reference.
+</p>
+
 <div class="graphcontainer">
 <div class="graphbox">
-	<div class="graph"><img src="deaths/deaths-lin.gif" /></div>
+	<div class="graph"><a href="deaths/deaths-lin.gif"><img src="deaths/deaths-lin.gif" width="550px"/></a></div>
 	<div class="graph"><a href="deaths/deaths-lin.png">static image</a></div>
 </div>
 <div class="graphbox">
-	<div class="graph"><img src="deaths/deaths-log.gif" /></div>
+	<div class="graph"><a href="deaths/deaths-log.gif"><img src="deaths/deaths-log.gif" width="550px"/></a></div>
 	<div class="graph"><a href="deaths/deaths-log.png">static image</a></div>
 </div>
 </div><!-- graphcontainer -->
 
 <p>
-Reported deaths, ranking data for all states: <a href="deaths/deaths-data.txt">.txt</a>, <a href="deaths/deaths-data.csv">.csv</a>
+<a href="state-ranking-deaths.html">Ranking data for all states (reported deaths)</a>.
 </p>
 
 <h2 id="deaths-normalized">Deaths Reported in US - Normalized</h2>
 <div class="h2subheading">Normalized per million residents</div>
 <div class="h2subheading">Top 8 States/Territories</div>
 
+<p>
+These 2 graphs plot the number of deaths reported each day, normalized for
+each state based on its population. The "day 0" is based on when the state first
+reported 1 death per million residents.
+</p>
+
 <div class="graphcontainer">
 <div class="graphbox">
-	<div class="graph"><img src="deaths-norm/deaths-lin.gif" /></div>
+	<div class="graph"><a href="deaths-norm/deaths-lin.gif"><img src="deaths-norm/deaths-lin.gif" width="550px"/></a></div>
 	<div class="graph"><a href="deaths-norm/deaths-lin.png">static image</a></div>
 </div>
 <div class="graphbox">
-	<div class="graph"><img src="deaths-norm/deaths-log.gif" /></div>
+	<div class="graph"><a href="deaths-norm/deaths-log.gif"><img src="deaths-norm/deaths-log.gif" width="550px"/></a></div>
 	<div class="graph"><a href="deaths-norm/deaths-log.png">static image</a></div>
 </div>
 </div><!-- graphcontainer -->
 
 <p>
-Normalized reported deaths, ranking data for all states: <a href="deaths-norm/deaths-norm-data.txt">.txt</a>, <a href="deaths-norm/deaths-norm-data.csv">.csv</a>
+<a href="state-ranking-deaths.html">Ranking data for all states (reported deaths, per capita)</a>.
 </p>
 
 <h2 id="deaths-states-normalized">Deaths Reported for Individual States</h2>
 <div class="h2subheading">Normalized per million residents</div>
 
+<p>
+The following graphs shows the normalized data for each state individually.
+As with the normalized graphs above, "day 0" is when the state first reported 1 death per million residents.
+Each graph contains the data for all states plotted in the background for reference.
+</p>
+
 <div class="graphcontainer">
 <div class="graphbox">
-	<div class="graph"><a href="deaths-norm/states-lin.png"><img src="deaths-norm/states-lin.png" width='600px'/></a></div>
+	<div class="graph"><a href="deaths-norm/states-lin.png"><img src="deaths-norm/states-lin.png" width='550px'/></a></div>
 </div>
 <div class="graphbox">
-	<div class="graph"><a href="deaths-norm/states-log.png"><img src="deaths-norm/states-log.png" width='600px'/></a></div>
+	<div class="graph"><a href="deaths-norm/states-log.png"><img src="deaths-norm/states-log.png" width='550px'/></a></div>
 </div>
 </div><!-- graphcontainer -->
+
+<!--
+	==============
+	Tests Reported
+	==============
+-->
+
+<div id="tests" class="banner">Tests Reported</div>
 
 <h2 id="tests-direct">Tests Reported in US</h2>
 <div class="h2subheading">Top 8 States/Territories</div>
 
+<p>
+These 2 graphs plot the number of tests reported each day for the
+8 states that reported the largest number of tests.
+The origin for each state is the day it first reported 150 tests.
+</p>
+<p>
+The first graph uses a linear scale, while the second uses a log scale.
+An aggretate total for the entire US and the data for Italy are also included for
+reference.
+</p>
+
 <div class="graphcontainer">
 <div class="graphbox">
-	<div class="graph"><img src="tests/tests-lin.gif" /></div>
+	<div class="graph"><a href="tests/tests-lin.gif"><img src="tests/tests-lin.gif" width="550px"/></a></div>
 	<div class="graph"><a href="tests/tests-lin.png">static image</a></div>
 </div>
 <div class="graphbox">
-	<div class="graph"><img src="tests/tests-log.gif" /></div>
+	<div class="graph"><a href="tests/tests-log.gif"><img src="tests/tests-log.gif" width="550px"/></a></div>
 	<div class="graph"><a href="tests/tests-log.png">static image</a></div>
 </div>
 </div><!-- graphcontainer -->
 
 <p>
-Reported tests, ranking data for all states: <a href="tests/tests-data.txt">.txt</a>, <a href="tests/tests-data.csv">.csv</a>
+<a href="state-ranking-tests.html">Ranking data for all states (reported tests)</a>.
 </p>
 
 <h2 id="tests-normalized">Tests Reported in US - Normalized</h2>
 <div class="h2subheading">Normalized per million residents</div>
 <div class="h2subheading">Top 8 States/Territories</div>
 
+<p>
+These 2 graphs plot the number of tests reported each day, normalized for
+each state based on its population. The "day 0" is based on when the state first
+reported 10 tests per million residents.
+</p>
+
 <div class="graphcontainer">
 <div class="graphbox">
-	<div class="graph"><img src="tests-norm/tests-lin.gif" /></div>
+	<div class="graph"><a href="tests-norm/tests-lin.gif"><img src="tests-norm/tests-lin.gif" width="550px"/></a></div>
 	<div class="graph"><a href="tests-norm/tests-lin.png">static image</a></div>
 </div>
 <div class="graphbox">
-	<div class="graph"><img src="tests-norm/tests-log.gif" /></div>
+	<div class="graph"><a href="tests-norm/tests-log.gif"><img src="tests-norm/tests-log.gif" width="550px"/></a></div>
 	<div class="graph"><a href="tests-norm/tests-log.png">static image</a></div>
 </div>
 </div><!-- graphcontainer -->
 
 <p>
-Normalized reported tests, ranking data for all states: <a href="tests-norm/tests-norm-data.txt">.txt</a>, <a href="deaths-norm/deaths-norm-data.csv">.csv</a>
+<a href="state-ranking-tests-norm.html">Ranking data for all states (reported tests, per capita)</a>.
+</p>
+
+<p>
+The following graphs shows the normalized data for each state individually.
+As with the normalized graphs above, "day 0" is when the state first reported 10 tests per million residents.
+Each graph contains the data for all states plotted in the background for reference.
 </p>
 
 <h2 id="tests-states-normalized">Tests Reported for Individual States</h2>
@@ -321,12 +388,45 @@ Normalized reported tests, ranking data for all states: <a href="tests-norm/test
 
 <div class="graphcontainer">
 <div class="graphbox">
-	<div class="graph"><a href="tests-norm/states-lin.png"><img src="tests-norm/states-lin.png" width='600px'/></a></div>
+	<div class="graph"><a href="tests-norm/states-lin.png"><img src="tests-norm/states-lin.png" width='550px'/></a></div>
 </div>
 <div class="graphbox">
-	<div class="graph"><a href="tests-norm/states-log.png"><img src="tests-norm/states-log.png" width='600px'/></a></div>
+	<div class="graph"><a href="tests-norm/states-log.png"><img src="tests-norm/states-log.png" width='550px'/></a></div>
 </div>
 </div><!-- graphcontainer -->
+
+<!--
+	====
+	Info
+	====
+-->
+
+<h2>Info</h2>
+
+<p>
+The approach taken here is similar to the one taken by
+<a href="https://twitter.com/jburnmurdoch/status/1240373707224363014">John Burn-Murdoch</a>'s
+group at the
+<a href="https://www.ft.com/content/a26fbf7e-48f8-11ea-aeb3-955839e06441">Financial Times</a>
+where the data for each country is overlaid on the same graph, aligned so that the
+x-axis origin is the day the country first achieved some reporting milestone ("day 0").
+Others, like
+<a href="https://www.reddit.com/r/dataisbeautiful/comments/fm0jvl/oc_update_chart_continuing_the_comparison_of/">dev_thetromboneguy</a>
+on Reddit and
+<a href="https://twitter.com/kendrickhang/status/1241110084597374977">Kendrick Hang</a>
+on Twitter used a similar approach to create aligned tables comparing the US total and Italy.
+</p>
+<p>
+However, rather than comparing entire countries, the graphs on this site compare and rank
+different states (and territories) in the US. Both normalized (i.e., adjusted for population)
+and raw data are shown.
+</p>
+
+<!--
+	=====
+	Links
+	=====
+-->
 
 <h2>Links and Further Reading</h2>
 
