@@ -33,6 +33,9 @@ class C19Tests:
 	x_label = 'Days since %dth reported test' % threshold
 	y_label = 'Cumulative reported tests'
 
+	label = 'Reported Tests'
+	units = ''
+
 class C19TestsNorm:
 	num_days = 40
 	threshold = 10
@@ -44,6 +47,9 @@ class C19TestsNorm:
 	output_filebase = 'tests'
 	x_label = 'Days since %d reported tests per million people' % threshold
 	y_label = 'Cumulative reported tests per million people'
+
+	label = 'Reported Tests (per capita)'
+	units = 'per million'
 
 	combined_num_days = 30
 	combined_y_max = y_max
@@ -68,6 +74,9 @@ class C19Cases:
 	x_label = 'Days since %dth reported positive case' % threshold
 	y_label = 'Cumulative reported positive cases'
 
+	label = 'Reported Cases'
+	units = ''
+	
 class C19CasesNorm:
 	num_days = 35
 	threshold = 10
@@ -79,6 +88,9 @@ class C19CasesNorm:
 	output_filebase = 'cases'
 	x_label = 'Days since %d reported positive cases per million people' % threshold
 	y_label = 'Cumulative reported positive cases per million people'
+
+	label = 'Reported Cases (per capita)'
+	units = 'per million'
 
 	combined_num_days = 25
 	combined_y_max = 4000
@@ -101,6 +113,9 @@ class C19Deaths:
 	x_label = 'Days since %dth reported death' % threshold
 	y_label = 'Cumulative reported deaths'
 
+	label = 'Reported Deaths'
+	units = ''
+
 class C19DeathsNorm:
 	num_days = 30
 	threshold = 1
@@ -112,6 +127,9 @@ class C19DeathsNorm:
 	output_filebase = 'deaths'
 	x_label = 'Days since %d reported death per million people' % threshold
 	y_label = 'Cumulative reported deaths per million people'
+
+	label = 'Reported Deaths (per capita)'
+	units = 'per million'
 
 	combined_num_days = 25
 	combined_y_max = 100
@@ -163,8 +181,14 @@ class CovidCases:
 		# on the |plot_date|.
 		self.plot_date = self.date
 		self.plot_date_str = self.calc_date_str(self.plot_date)
-
-		self.ranking = {}
+		
+		self.info = {}
+		self.info[C19Cases.output_dir] = C19Cases
+		self.info[C19CasesNorm.output_dir] = C19CasesNorm
+		self.info[C19Deaths.output_dir] = C19Deaths
+		self.info[C19DeathsNorm.output_dir] = C19DeathsNorm
+		self.info[C19Tests.output_dir] = C19Tests
+		self.info[C19TestsNorm.output_dir] = C19TestsNorm
 		
 	def remove_last_day(self):
 		self.cdata.remove_last_day()
@@ -241,69 +265,57 @@ class CovidCases:
 		return options
 
 	# Generate main graphs for |plot_date|.
-	def generate_top_n(self):
-		print 'Generating Top-n graphs'
-		print '  ',
-		self.generate_top_n_tests()
-		self.generate_top_n_cases()
-		self.generate_top_n_deaths()
-		print
-	
-	# Generate graphs for a previous date (used for animations).
-	def generate_top_n_anim_data(self):
-		print 'Processing animation data for', self.date_str
-		print '  top-n',
-		sys.stdout.flush()
-		self.generate_top_n_tests()
-		self.generate_top_n_cases()
-		self.generate_top_n_deaths()
-		print
+	def calc_top_n(self):
+		self.top_n_plots = {}
+		self.ranking = {}
 
-	def generate_top_n_tests(self):
+		self.calc_top_n_tests()
+		self.calc_top_n_cases()
+		self.calc_top_n_deaths()
+	
+	def calc_top_n_tests(self):
 		options = self.new_tests_options()		
 		options.info_direct = C19Tests
 		options.ranking_direct = self.cdata.get_test_rank()
 		options.info_norm = C19TestsNorm
 		options.ranking_norm = self.cdata.get_test_rank_norm()
 
-		self.generate_top_n_data(options)
+		self.calc_top_n_data(options)
 		
-	def generate_top_n_cases(self):
+	def calc_top_n_cases(self):
 		options = self.new_cases_options()
 		options.info_direct = C19Cases
 		options.ranking_direct = self.cdata.get_case_rank()
 		options.info_norm = C19CasesNorm
 		options.ranking_norm = self.cdata.get_case_rank_norm()
 		
-		self.generate_top_n_data(options)
+		self.calc_top_n_data(options)
 
-	def generate_top_n_deaths(self):
+	def calc_top_n_deaths(self):
 		options = self.new_deaths_options()
 		options.info_direct = C19Deaths
 		options.ranking_direct = self.cdata.get_death_rank()
 		options.info_norm = C19DeathsNorm
 		options.ranking_norm = self.cdata.get_death_rank_norm()
 		
-		self.generate_top_n_data(options)
+		self.calc_top_n_data(options)
 
 	# Generate a linear and a log top-n graph.
-	def generate_top_n_data(self, options):
+	def calc_top_n_data(self, options):
 		options.info = options.info_direct
-		print options.info.output_dir,
-		sys.stdout.flush()
 		options.processor = self.process_filter
 		options.ranking = options.ranking_direct
-		self.generate_top_n_data_scale(options, True)
-		self.generate_top_n_data_scale(options, False)
+		self.calc_top_n_data_scale(options, True)
+		self.calc_top_n_data_scale(options, False)
 
 		options.info = options.info_norm
 		options.processor = self.process_normalize_and_filter
 		options.ranking = options.ranking_norm
-		self.generate_top_n_data_scale(options, True)
-		self.generate_top_n_data_scale(options, False)
+		self.calc_top_n_data_scale(options, True)
+		self.calc_top_n_data_scale(options, False)
 
 	# Generate top-n graph.
-	def generate_top_n_data_scale(self, options, use_log_scale):
+	def calc_top_n_data_scale(self, options, use_log_scale):
 		scale = 'Linear'
 		if use_log_scale:
 			scale = 'Log'
@@ -316,10 +328,14 @@ class CovidCases:
 		options.title = '%s\n(%s. Top %d states. %s scale)' % (options.info.title, options.info.subtitle, _top_n, scale)
 		options.x_label = options.info.x_label
 		options.y_label = options.info.y_label
-		self.generate_plot(options)
 		
+		self.record_top_n_plots(options)
 		self.record_ranking(options)
-		
+	
+	# Keep track of which plots to perform	
+	def record_top_n_plots(self, options):
+		self.top_n_plots[options.output_dir] = options
+	
 	def record_ranking(self, options):
 		ranking = {}
 		rank = 1
@@ -335,6 +351,14 @@ class CovidCases:
 		
 		self.ranking[options.output_dir] = ranking
 
+	def generate_top_n_plots(self):
+		print 'Generating top-n graphs for', self.date_str
+		print '  ',
+		for options in self.top_n_plot_list:
+			print options,
+			self.generate_plot(options)
+		print
+	
 	def generate_plot(self, options):
 		if not os.path.exists(options.output_dir):
 			os.makedirs(options.output_dir)
@@ -653,10 +677,7 @@ class CovidCases:
 					fpout.write(line.replace('%%DATE%%', self.plot_date_str))
 
 		for s in USInfo.states:
-			ranking = ''			
-			if 'deaths-norm' in self.ranking:
-				death_rank = self.ranking['deaths-norm'][s]
-				ranking = '<p>Reported deaths ranking {:d} {:.2f} per million</p>\n'.format(death_rank[0], death_rank[1])
+			ranking = self.calc_ranking_html(s)
 			with open('state-index-template.txt') as fpin:
 				with open('state/%s/index.html' % s, 'w') as fpout:
 					for line in fpin:
@@ -666,9 +687,39 @@ class CovidCases:
 							line = line.replace('%%RANKING%%', ranking)
 						fpout.write(line)
 
-		#print self.ranking
-		#for type in self.ranking:
-		#	print type, self.ranking[type]
+	def calc_ranking_html(self, state):
+		ranking = ''
+		ranking += '<h2>%s Ranking</h2>\n' % USInfo.state_name[state]
+		ranking += '<div class="h2subheading">Ranking out of 56 US states and territories</div>\n'
+		ranking += '<table class="ranking-table">\n'
+		ranking += '<thead><tr>\n'
+		ranking += '\t<th>Metric</th>\n'
+		ranking += '\t<th>Rank</th>\n'
+		ranking += '\t<th>Value</th>\n'
+		ranking += '</tr></thead>\n'
+		ranking += '<tbody>\n'
+
+		for type in sorted(self.ranking.keys()):
+			info = self.info[type]
+			ranking += '<tr>\n'
+			url = '../../state-ranking-{:s}.html'.format(type)
+			ranking += '<td><a href="{:s}">{:s}</a></td>\n'.format(url, info.label)
+
+			rank = self.ranking[type][state]
+			ranking += '<td>#{:d}</td>\n'.format(rank[0])
+			
+			if info.units == '':
+				ranking += '<td>{:d}</td>\n'.format(rank[1])
+			else:
+				ranking += '<td>{:.2f} {:s}</td>\n'.format(rank[1], info.units)
+
+			ranking += '</tr>\n'
+
+		ranking += '</tbody>\n'
+		ranking += '</table>\n'
+		ranking += '</div>\n'
+
+		return ranking
 
 
 def usage():
@@ -721,8 +772,11 @@ def main(argv):
 	cases = CovidCases(covid_data)
 	print 'Processing data for', cases.date_str
 
+	# Calc plot data and ranking
+	cases.calc_top_n()
+	
 	if gen_top_n:
-		cases.generate_top_n()
+		cases.generate_top_n_plots()
 
 	if gen_combined:
 		cases.generate_states_combined()
@@ -734,7 +788,7 @@ def main(argv):
 		# Process previous day data using top-N from current day.
 		while int(covid_data.get_date()) > int('20200316'):
 			cases.remove_last_day()
-			cases.generate_top_n_anim_data()
+			cases.generate_top_n_plots()
 		cases.export_anim()
 
 	cases.create_state_html()
