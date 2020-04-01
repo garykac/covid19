@@ -217,20 +217,20 @@ class CovidCases:
 		return date[6:8] + ' ' + month_str[date[4:6]] + ' ' + date[0:4]
 
 	# Normalize data based on population, filter by threshold.
-	def process_normalize_and_filter(self, data, threshold, pop):
+	def process_normalize_and_filter(self, data, threshold, pop, filter=True):
 		new_data = []
 		for c in data:
 			if c:
 				n = c * 1000000 / pop
-				if n >= threshold:
+				if (not filter) or n >= threshold:
 					new_data.append(n)
 		return new_data
 
 	# Filter data by threshold.
-	def process_filter(self, data, threshold, pop):
+	def process_filter(self, data, threshold, pop, filter=True):
 		new_data = []
 		for c in data:
-			if c and c >= threshold:
+			if c and ((not filter) or c >= threshold):
 				new_data.append(c)
 		return new_data
 
@@ -341,7 +341,7 @@ class CovidCases:
 		rank = 1
 		for state in options.ranking:
 			raw_data = options.state_data(state)
-			data = options.processor(raw_data, options.info.threshold, USInfo.state_pop[state])
+			data = options.processor(raw_data, options.info.threshold, USInfo.state_pop[state], False)
 			if len(data) > 0:
 				val = data[-1]
 			else:
