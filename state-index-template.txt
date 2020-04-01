@@ -20,13 +20,7 @@
 <div class="h1subheading">Relative to the rest of the US</div>
 <div class='lastupdate'>Last update: %%DATE%%</div>
 
-<p>
-This site contains alternate visualizations of the data from the
-<a href="https://covidtracking.com/">COVID Tracking Project</a>. For reference,
-Italian <a href="https://github.com/pcm-dpc/COVID-19">data</a> from the
-<i>Presidenza del Consiglio dei Ministri - Dipartimento della Protezione Civile</i>
-is also included.
-</p>
+%%RANKING%%
 
 <h2 id="cases-normalized">Positive Cases Reported in %%STATE%% - Normalized</h2>
 <div class="h2subheading">Normalized per million residents</div>
@@ -65,6 +59,16 @@ is also included.
 </div><!-- graphcontainer -->
 
 </div><!-- container -->
+
+<h2 id="info">Info</h2>
+
+<p>
+This site contains alternate visualizations of the data from the
+<a href="https://covidtracking.com/">COVID Tracking Project</a>. For reference,
+Italian <a href="https://github.com/pcm-dpc/COVID-19">data</a> from the
+<i>Presidenza del Consiglio dei Ministri - Dipartimento della Protezione Civile</i>
+is also included.
+</p>
 
 </body>
 </html>
