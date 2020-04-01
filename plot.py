@@ -25,7 +25,7 @@ class C19Tests:
 	num_days = 40
 	threshold = 150
 	y_min = threshold
-	y_max = 1200000
+	y_max = 1400000
 	title = 'COVID-19 US reported tests'
 	subtitle = 'Since first day with %d tests' % threshold
 	output_dir = 'tests'
@@ -37,7 +37,7 @@ class C19TestsNorm:
 	num_days = 40
 	threshold = 10
 	y_min = threshold
-	y_max = 10000
+	y_max = 15000
 	title = 'COVID-19 US States Reported Tests (Pos + Neg) per Million'
 	subtitle = 'Since first day with %d tests/million' % threshold
 	output_dir = 'tests-norm'
@@ -45,7 +45,7 @@ class C19TestsNorm:
 	x_label = 'Days since %d reported tests per million people' % threshold
 	y_label = 'Cumulative reported tests per million people'
 
-	combined_num_days = 25
+	combined_num_days = 30
 	combined_y_max = y_max
 	y_ticks_lin = [0, 5000, 10000]
 	y_ticks_log = [10,100,1000,10000]
@@ -60,7 +60,7 @@ class C19Cases:
 	num_days = 40
 	threshold = 100
 	y_min = threshold
-	y_max = 200000
+	y_max = 250000
 	title = 'COVID-19 US reported positive cases'
 	subtitle = 'Since first day with %d cases' % threshold
 	output_dir = 'cases'
@@ -72,7 +72,7 @@ class C19CasesNorm:
 	num_days = 35
 	threshold = 10
 	y_min = threshold
-	y_max = 4000
+	y_max = 5000
 	title = 'COVID-19 US States Reported Positive Cases per Million'
 	subtitle = 'Since first day with %d positive cases/million' % threshold
 	output_dir = 'cases-norm'
@@ -113,7 +113,7 @@ class C19DeathsNorm:
 	x_label = 'Days since %d reported death per million people' % threshold
 	y_label = 'Cumulative reported deaths per million people'
 
-	combined_num_days = 20
+	combined_num_days = 25
 	combined_y_max = 100
 	y_ticks_lin = []
 	y_ticks_log = []
@@ -163,6 +163,8 @@ class CovidCases:
 		# on the |plot_date|.
 		self.plot_date = self.date
 		self.plot_date_str = self.calc_date_str(self.plot_date)
+
+		self.ranking = {}
 		
 	def remove_last_day(self):
 		self.cdata.remove_last_day()
@@ -315,6 +317,23 @@ class CovidCases:
 		options.x_label = options.info.x_label
 		options.y_label = options.info.y_label
 		self.generate_plot(options)
+		
+		self.record_ranking(options)
+		
+	def record_ranking(self, options):
+		ranking = {}
+		rank = 1
+		for state in options.ranking:
+			raw_data = options.state_data(state)
+			data = options.processor(raw_data, options.info.threshold, USInfo.state_pop[state])
+			if len(data) > 0:
+				val = data[-1]
+			else:
+				val = 0
+			ranking[state] = [rank, val]
+			rank += 1
+		
+		self.ranking[options.output_dir] = ranking
 
 	def generate_plot(self, options):
 		if not os.path.exists(options.output_dir):
@@ -634,13 +653,23 @@ class CovidCases:
 					fpout.write(line.replace('%%DATE%%', self.plot_date_str))
 
 		for s in USInfo.states:
+			ranking = ''			
+			if 'deaths-norm' in self.ranking:
+				death_rank = self.ranking['deaths-norm'][s]
+				ranking = '<p>Reported deaths ranking {:d} {:.2f} per million</p>\n'.format(death_rank[0], death_rank[1])
 			with open('state-index-template.txt') as fpin:
 				with open('state/%s/index.html' % s, 'w') as fpout:
 					for line in fpin:
 						if '%%' in line:
 							line = line.replace('%%DATE%%', self.plot_date_str)
 							line = line.replace('%%STATE%%', USInfo.state_name[s])
+							line = line.replace('%%RANKING%%', ranking)
 						fpout.write(line)
+
+		#print self.ranking
+		#for type in self.ranking:
+		#	print type, self.ranking[type]
+
 
 def usage():
 	print 'plot.py [options]'
