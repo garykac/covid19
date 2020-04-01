@@ -273,7 +273,8 @@ class CovidData:
 						for state in ranking:
 							fpout.write('<tr>\n')
 							fpout.write('\t<td>%d</td>\n' % rank)
-							fpout.write('\t<td>%s</td>\n' % USInfo.state_name[state])
+							url = 'state/%s/index.html' % state
+							fpout.write('\t<td><a href="%s">%s</a></td>\n' % (url, USInfo.state_name[state]))
 							if format == 'float':
 								fpout.write('\t<td>{:.2f}</td>\n'.format(data[state]))
 							else:
