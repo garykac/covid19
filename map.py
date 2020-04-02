@@ -275,8 +275,8 @@ class MapData:
 			for fips in target_fips:
 				self.cases[fips] += unknown_state_cases[state_fips] * (self.area[fips] / area)
 		for state_fips in unknown_state_deaths:
-			# Ignore Puerto Rico and Guam - all cases are unknown and not on map yet.
-			if state_fips in ['72999', '66999']:
+			# Ignore Puerto Rico, Guam and Northern Mariana Islands - all cases are unknown and not on map yet.
+			if state_fips in ['72999', '66999', '69999']:
 				continue
 
 			# Determine set of FIPS to distribute the deaths to
