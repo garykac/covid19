@@ -41,6 +41,8 @@ class MapData:
 		self.fips2state = {}
 		self.state_fips_list = {}
 
+		self.us_area = 0
+		
 		# Load data for states and Puerto Rico.
 		with open(census_data) as fp:
 			for line in fp:
@@ -63,8 +65,8 @@ class MapData:
 					continue
 				fips = data[4]
 				label = data[6]
-				area = data[11]
-				pop_density = data[12]
+				area = float(data[11])  # Land area
+				pop_density = float(data[12])
 				
 				if fips == '':
 					if not label == 'United States':
@@ -82,10 +84,12 @@ class MapData:
 					state_fips = fips[0:2] + '999'
 					self.state_fips_list[state_fips].append(fips)
 
-				self.names[fips] = label
-				self.area[fips] = float(area)
-				self.density[fips] = float(pop_density)
+					self.us_area += area
 
+				self.names[fips] = label
+				self.area[fips] = area
+				self.density[fips] = pop_density
+						
 		# Special FIPS for NYT data
 		self.names[FIPS_NEW_YORK_CITY] = 'New York City'  # NY
 		self.area[FIPS_NEW_YORK_CITY] = 0
@@ -117,6 +121,9 @@ class MapData:
 		self.curr_date = ''
 		found_date = False
 		
+		self.us_cases = 0
+		self.us_deaths = 0
+		
 		with open(nyt_data) as fp:
 			for line in fp:
 				# 0: date - "2020-01-21"
@@ -145,6 +152,8 @@ class MapData:
 					self.deaths = {}
 					self.max_cases_per_Nsqmi = 0
 					self.max_deaths_per_Nsqmi = 0
+					self.us_cases = 0
+					self.us_deaths = 0
 
 					unknown_state_cases = {}
 					unknown_state_deaths = {}
@@ -188,6 +197,8 @@ class MapData:
 
 				self.cases[fips] = cases
 				self.deaths[fips] = deaths
+				self.us_cases += cases
+				self.us_deaths += deaths
 				
 				# Accumulate counties with data for each state. This is used to
 				# distribute unknown cases to these counties. Note that unknown
@@ -289,6 +300,8 @@ class MapData:
 
 		#print fips, self.names['53061'], self.cases['53061'], self.deaths['53061']
 
+		print 'US total: cases', self.us_cases, 'deaths', self.us_deaths
+		
 	def scan_svg(self):
 		self.map_ids = {}
 		with open(census_map) as fp:
