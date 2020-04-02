@@ -4,3 +4,9 @@ map-us-cases/*
 map-us-deaths/*
 us-cases.gif
 us-deaths.gif
+cases/2020*
+cases-norm/2020*
+deaths/2020*
+deaths-norm/2020*
+tests/2020*
+tests-norm/2020*
