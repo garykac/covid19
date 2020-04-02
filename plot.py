@@ -1,5 +1,6 @@
 from __future__ import division
 
+import copy
 import getopt
 import matplotlib.patheffects as PathEffects
 import matplotlib.pyplot as plt
@@ -19,6 +20,10 @@ _italy_pop = 60549600  # 2020 from https://en.wikipedia.org/wiki/Demographics_of
 
 # Number of states to include in plot
 _top_n = 8
+
+# Dummy object for passing option attributes.
+class Options(object):
+	pass
 
 # Graph parameters for Reported Tests
 class C19Tests:
@@ -63,7 +68,7 @@ class C19TestsNorm:
 
 # Graph parameters for Reported Positive Cases
 class C19Cases:
-	num_days = 40
+	num_days = 45
 	threshold = 100
 	y_min = threshold
 	y_max = 250000
@@ -117,7 +122,7 @@ class C19Deaths:
 	units = ''
 
 class C19DeathsNorm:
-	num_days = 30
+	num_days = 35
 	threshold = 1
 	y_min = threshold
 	y_max = 250
@@ -244,21 +249,21 @@ class CovidCases:
 		#ax.yaxis.set_minor_formatter(formatter)
 
 	def new_tests_options(self):
-		options = lambda: None  # An object that we can attach attributes to
+		options = Options()
 		options.state_data = self.cdata.get_state_tests
 		options.us_data = self.cdata.get_us_tests
 		options.italy_data = self.cdata.get_italy_tests
 		return options
 	
 	def new_cases_options(self):
-		options = lambda: None  # An object that we can attach attributes to
+		options = Options()
 		options.state_data = self.cdata.get_state_cases
 		options.us_data = self.cdata.get_us_cases
 		options.italy_data = self.cdata.get_italy_cases
 		return options
 
 	def new_deaths_options(self):
-		options = lambda: None  # An object that we can attach attributes to
+		options = Options()
 		options.state_data = self.cdata.get_state_deaths
 		options.us_data = self.cdata.get_us_deaths
 		options.italy_data = self.cdata.get_italy_deaths
@@ -266,7 +271,7 @@ class CovidCases:
 
 	# Generate main graphs for |plot_date|.
 	def calc_top_n(self):
-		self.top_n_plots = {}
+		self.top_n_plots = []
 		self.ranking = {}
 
 		self.calc_top_n_tests()
@@ -334,8 +339,8 @@ class CovidCases:
 	
 	# Keep track of which plots to perform	
 	def record_top_n_plots(self, options):
-		self.top_n_plots[options.output_dir] = options
-	
+		self.top_n_plots.append(copy.copy(options))	
+
 	def record_ranking(self, options):
 		ranking = {}
 		rank = 1
@@ -353,11 +358,9 @@ class CovidCases:
 
 	def generate_top_n_plots(self):
 		print 'Generating top-n graphs for', self.date_str
-		print '  ',
-		for options in self.top_n_plot_list:
-			print options,
+		for options in self.top_n_plots:
+			print '  ', options.output_dir, options.use_log_scale
 			self.generate_plot(options)
-		print
 	
 	def generate_plot(self, options):
 		if not os.path.exists(options.output_dir):
