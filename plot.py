@@ -593,8 +593,8 @@ class CovidCases:
 		if use_log_scale:
 			suffix = 'log'
 		# Note: Use |info.output_dir| as filename since we don't create subdir for states.
-		filename_date = '%s/%s-%s.png' % (output_dir, info.output_dir, suffix)
-		plt.savefig(filename_date, bbox_inches='tight')
+		filename = '%s/%s-%s.png' % (output_dir, info.output_dir, suffix)
+		plt.savefig(filename, bbox_inches='tight')
 
 	def plot_data(self, ax, raw_data, color, pop, label, always_label, processor, threshold):
 		# Default to thick, solid line.
