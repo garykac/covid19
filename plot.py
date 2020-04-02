@@ -273,6 +273,7 @@ class CovidCases:
 	def calc_top_n(self):
 		self.top_n_plots = []
 		self.ranking = {}
+		self.ranking_data = {}
 
 		self.calc_top_n_tests()
 		self.calc_top_n_cases()
@@ -342,7 +343,8 @@ class CovidCases:
 		self.top_n_plots.append(copy.copy(options))	
 
 	def record_ranking(self, options):
-		ranking = {}
+		ranking = {}  # Ranking for most recent date.
+		ranking_data = {}  # full data needed to calcuate ranking.
 		rank = 1
 		for state in options.ranking:
 			raw_data = options.state_data(state)
@@ -352,9 +354,11 @@ class CovidCases:
 			else:
 				val = 0
 			ranking[state] = [rank, val]
+			ranking_data[state] = data
 			rank += 1
 		
 		self.ranking[options.output_dir] = ranking
+		self.ranking_data[options.output_dir] = ranking_data
 
 	def generate_top_n_plots(self):
 		print 'Generating top-n graphs for', self.date_str
@@ -632,6 +636,82 @@ class CovidCases:
 			text = ax.text(label_x, label_y, label, size=12, color=line_colors[color])
 			text.set_path_effects([PathEffects.Normal()])
 
+	def calc_ranking_plot(self):
+		self.rank_states = {}
+		self.calc_ranking_plot_type('tests-norm')
+		self.calc_ranking_plot_type('cases-norm')
+		self.calc_ranking_plot_type('deaths-norm')
+		
+	def calc_ranking_plot_type(self, type):
+		ranking_data = copy.deepcopy(self.ranking_data)
+		data = ranking_data[type]
+		rank_states = {}
+		rank_states_inv = {}
+		days_with_data = {}
+		for s in USInfo.states:
+			rank_states[s] = []
+			rank_states_inv[s] = []
+			days_with_data[s] = 0
+		
+		num_states = 56
+		num_days = 10
+		
+		plt.close('all')
+		fig, ax = plt.subplots()
+		ax.axis([0, num_days, 0, num_states+1])
+		ax.set_title('US State Ranking of Reported Deaths per Capita\nChanges over Time')
+		#ax.set_xlabel('x label')
+		ax.set_ylabel('Ranking of Reported Deaths per Capita')
+		ax.set_xticks([])
+		ax.set_yticks([])
+		
+		for day in xrange(0, num_days):
+			# Get latest data for each state.
+			curr = {}
+			for s in USInfo.states:
+				if len(data[s]) != 0:
+					curr[s] = data[s][-1]
+					data[s].pop()
+					days_with_data[s] += 1
+				else:
+					curr[s] = 0
+
+			rank = []
+			for d in sorted(curr, key=curr.get, reverse=True):
+				rank.append(d)
+
+			for i in xrange(0, len(rank)):
+				s = rank[i]
+				rank_states_inv[s].append(num_states - i)
+				rank_states[s].append(i + 1)
+
+		# Add labels next to most recent ranking data.
+		for s in USInfo.states:
+			rank = rank_states_inv[s][0]
+			text_bg = ax.text(num_days - 0.4, rank - 0.25, s, size=8)
+		for y in [1,5,10,15,20,25,30,35,40,45,50,55]:
+			text_bg = ax.text(0.45, num_states - (y-1) - 0.25, '#%d' % y, size=8, ha='right')
+		for d in [[num_days, self.date_str], [num_days-2, '2 days ago'], [num_days-4, '4 days ago'],
+					[num_days-6, '6 days ago'], [num_days-8, '8 days ago']]:
+			x = d[0] - 0.5
+			label = d[1]
+			text_bg = ax.text(x, -1, label, size=8, ha='center')
+			ax.plot(x, 0, 'bo')
+		
+		x = list([x+0.5 for x in reversed(xrange(0, num_days))])
+		for s in USInfo.states:
+			linewidth = 1
+			if s == 'AL':
+				linewidth = 3
+			ax.plot(x[:days_with_data[s]], rank_states_inv[s][:days_with_data[s]], linewidth = linewidth)
+
+		# Note: Use |info.output_dir| as filename since we don't create subdir for states.
+		filename = 'state-ranking-%s.png' % type
+		fig.set_size_inches(8, 10)
+		plt.savefig(filename, dpi=150, bbox_inches='tight')
+		
+		self.rank_states[type] = rank_states
+		
 	def export_anim(self):
 		print 'Exporting animations'
 		cmd = 'convert'
@@ -698,6 +778,7 @@ class CovidCases:
 		ranking += '<thead><tr>\n'
 		ranking += '\t<th>Metric</th>\n'
 		ranking += '\t<th>Rank</th>\n'
+		ranking += '\t<th>Change</th>\n'
 		ranking += '\t<th>Value</th>\n'
 		ranking += '</tr></thead>\n'
 		ranking += '<tbody>\n'
@@ -711,6 +792,21 @@ class CovidCases:
 			rank = self.ranking[type][state]
 			ranking += '<td>#{:d}</td>\n'.format(rank[0])
 			
+			if type in ['cases-norm', 'deaths-norm', 'tests-norm']:
+				rank_states = self.rank_states[type]
+				curr_rank = rank[0]
+				prev_rank = rank_states[state][1]
+				if curr_rank == prev_rank:
+					ranking += '<td>-</td>\n'
+				elif curr_rank > prev_rank:
+					# Down in ranking
+					ranking += '<td>&#x2b07;%d</td>\n' % (curr_rank - prev_rank)
+				else:
+					# Up in ranking
+					ranking += '<td>&#x2b06;%d</td>\n' % (prev_rank - curr_rank)
+			else:
+				ranking += '<td></td>\n'
+				
 			if info.units == '':
 				ranking += '<td>{:d}</td>\n'.format(rank[1])
 			else:
@@ -786,7 +882,8 @@ def main(argv):
 
 	if gen_individual:
 		cases.generate_states_individual();
-		
+
+	# Note: Generating animated graphs modified the data in |covid_data|.
 	if gen_top_n and gen_animated:
 		# Process previous day data using top-N from current day.
 		while int(covid_data.get_date()) > int('20200316'):
@@ -794,6 +891,9 @@ def main(argv):
 			cases.generate_top_n_plots()
 		cases.export_anim()
 
+	# This relies only on the saved |ranking_data|.
+	cases.calc_ranking_plot()
+	
 	cases.create_state_html()
 	
 if __name__ == "__main__":
