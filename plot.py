@@ -97,8 +97,8 @@ class C19CasesNorm:
 	label = 'Reported Cases (per capita)'
 	units = 'per million'
 
-	combined_num_days = 25
-	combined_y_max = 4000
+	combined_num_days = 30
+	combined_y_max = 5000
 	y_ticks_lin = []
 	y_ticks_log = []
 	combined_footer = []
@@ -136,8 +136,8 @@ class C19DeathsNorm:
 	label = 'Reported Deaths (per capita)'
 	units = 'per million'
 
-	combined_num_days = 25
-	combined_y_max = 100
+	combined_num_days = 30
+	combined_y_max = 150
 	y_ticks_lin = []
 	y_ticks_log = []
 	combined_footer = []
