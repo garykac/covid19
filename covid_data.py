@@ -103,14 +103,38 @@ class CovidData:
 		us_deaths = 0
 		with open('data/states-daily.csv') as fp:
 			for line in fp:
-				# date,state,positive,negative,pending,hospitalized,death,total,dateChecked,totalTestResults,fips,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
 				# 21Mar2020: New field: hospitalized
 				# 25Mar2020: New fields: totalTestResults,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
 				# 27Mar2020: New field: fips
 				# 28Mar2020: New field: hash
-				(date,state,positive,negative,pending,hospitalized,death,total,hash,timestamp,ttr,fips,di,hi,ni,pi,ttri) = line.strip().split(',')
-				if date == 'date':
+				#  0: date
+				#  1: state
+				#  2: positive
+				#  3: negative
+				#  4: pending
+				#  5: hospitalized
+				#  6: death
+				#  7: total - deprecated (= positive + negative + pending)
+				#     Will be removed at some point because |pending| is not consistent between states.
+				#  8: hash
+				#  9: dateChecked
+				# 10: totalTestResults
+				# 11: fips
+				# 12: deathIncrease
+				# 13: hospitalizedIncrease
+				# 14: negativeIncrease
+				# 15: positiveIncrease
+				# 16: totalTestResultsIncrease
+				data = line.strip().split(',')
+				if data[0] == 'date':
 					continue
+				date = data[0]
+				state = data[1]
+				positive = int(data[2]) if data[2] else 0
+				negative = int(data[3]) if data[3] else 0
+				pending = int(data[4]) if data[4] else 0
+				death = int(data[6]) if data[6] else 0
+				total = int(data[7])
 
 				# Ignore all data before the specified date.
 				if self.date != None and int(date) > int(self.date):
@@ -146,19 +170,11 @@ class CovidData:
 				self.state_tests[state].insert(0, num_tests)
 				us_tests += num_tests
 				
-				if positive == '':
-					pos = 0
-				else:
-					pos = int(positive)
-				self.state_cases[state].insert(0, pos)
-				us_cases += pos
+				self.state_cases[state].insert(0, positive)
+				us_cases += positive
 
-				if death == '':
-					d = 0
-				else:
-					d = int(death)
-				self.state_deaths[state].insert(0, d)
-				us_deaths += d
+				self.state_deaths[state].insert(0, death)
+				us_deaths += death
 
 				# Keep track of which states have data for this date.
 				state_has_data[state] = True
