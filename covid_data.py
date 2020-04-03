@@ -12,12 +12,13 @@ from usinfo import USInfo
 class CovidData:
 	def __init__(self, date):
 		self.date = date
-		self.state_tests = {}
+		self.state_tests_pn = {}
+		self.state_tests_pnp = {}
 		self.state_cases = {}
 		self.state_deaths = {}
 
 	def get_us_tests(self):
-		return self.us_tests
+		return self.us_tests_pnp
 	
 	def get_us_cases(self):
 		return self.us_cases
@@ -26,7 +27,7 @@ class CovidData:
 		return self.us_deaths
 
 	def get_state_tests(self, state):
-		return self.state_tests[state]
+		return self.state_tests_pnp[state]
 		
 	def get_state_cases(self, state):
 		return self.state_cases[state]
@@ -68,14 +69,16 @@ class CovidData:
 		self.dates.pop()
 		self.date = self.dates[-1]
 		
-		self.us_tests.pop()
+		self.us_tests_pn.pop()
+		self.us_tests_pnp.pop()
 		self.us_cases.pop()
 		self.us_deaths.pop()
 		self.italy_tests.pop()
 		self.italy_cases.pop()
 		self.italy_deaths.pop()
 		for s in USInfo.states:
-			self.state_tests[s].pop()
+			self.state_tests_pn[s].pop()
+			self.state_tests_pnp[s].pop()
 			self.state_cases[s].pop()
 			self.state_deaths[s].pop()
 	
@@ -84,21 +87,26 @@ class CovidData:
 		self.load_italy_data()
 	
 	def load_us_data(self):
-		self.state_tests = {}
+		self.state_tests_pn = {}  # pos + neg
+		self.state_tests_pnp = {}  # pos + neg + pend
 		self.state_cases = {}
 		self.state_deaths = {}
+		self.states_with_pending = {}
 		for state in USInfo.states:
-			self.state_tests[state] = []
+			self.state_tests_pn[state] = []
+			self.state_tests_pnp[state] = []
 			self.state_cases[state] = []
 			self.state_deaths[state] = []
-		self.us_tests = []
+		self.us_tests_pn = []
+		self.us_tests_pnp = []
 		self.us_cases = []
 		self.us_deaths = []
-
+		
 		curr_date = None
 		self.dates = []
 		state_has_data = {}
-		us_tests = 0
+		us_tests_pn = 0
+		us_tests_pnp = 0
 		us_cases = 0
 		us_deaths = 0
 		
@@ -142,6 +150,7 @@ class CovidData:
 				# 02Apr2020: 
 				data = line.strip().split(',')
 				if data[0] == 'date':
+					# Verify that fields match expected values.
 					for i in xrange(0, len(fields)):
 						if data[i] != fields[i]:
 							print 'ERROR - changed fields:', fields[i]
@@ -152,7 +161,8 @@ class CovidData:
 				negative = int(data[index['negative']]) if data[index['negative']] else 0
 				pending = int(data[index['pending']]) if data[index['pending']] else 0
 				death = int(data[index['death']]) if data[index['death']] else 0
-				total = int(data[index['total']])
+				total_pn = positive + negative
+				total_pnp = positive + negative + pending
 
 				# Ignore all data before the specified date.
 				if self.date != None and int(date) > int(self.date):
@@ -165,28 +175,37 @@ class CovidData:
 					# Assumes that most recent date is first in file.
 					self.date = date
 
+				if pending != 0:
+					if not state in self.states_with_pending:
+						self.states_with_pending[state] = 0
+					self.states_with_pending[state] += 1
+
 				# If new date, then make sure we close out the current date,
 				# filling out missing state data with '0's.
 				if curr_date != date:
 					for s in USInfo.states:
 						if not state_has_data.has_key(s):
-							self.state_tests[s].insert(0, None)
+							self.state_tests_pn[s].insert(0, None)
+							self.state_tests_pnp[s].insert(0, None)
 							self.state_cases[s].insert(0, None)
 							self.state_deaths[s].insert(0, None)
 					# Record total US infos for current date.
-					self.us_tests.insert(0, us_tests)
+					self.us_tests_pn.insert(0, us_tests_pn)
+					self.us_tests_pnp.insert(0, us_tests_pnp)
 					self.us_cases.insert(0, us_cases)
 					self.us_deaths.insert(0, us_deaths)
-					us_tests = 0
+					us_tests_pn = 0
+					us_tests_pnp = 0
 					us_cases = 0
 					us_deaths = 0
 					state_has_data = {}
 					curr_date = date
 					self.dates.insert(0, date)
 
-				num_tests = int(total)
-				self.state_tests[state].insert(0, num_tests)
-				us_tests += num_tests
+				self.state_tests_pn[state].insert(0, total_pn)
+				self.state_tests_pnp[state].insert(0, total_pnp)
+				us_tests_pn += total_pn
+				us_tests_pnp += total_pnp
 				
 				self.state_cases[state].insert(0, positive)
 				us_cases += positive
@@ -197,13 +216,18 @@ class CovidData:
 				# Keep track of which states have data for this date.
 				state_has_data[state] = True
 		
+		for s in self.states_with_pending:
+			print 'Pending', s, self.states_with_pending[s]
+			
 		# Fill in missing data for final date.
 		for s in USInfo.states:
 			if not state_has_data.has_key(s):
-				self.state_tests[s].insert(0, None)
+				self.state_tests_pn[s].insert(0, None)
+				self.state_tests_pnp[s].insert(0, None)
 				self.state_cases[s].insert(0, None)
 				self.state_deaths[s].insert(0, None)
-		self.us_tests.insert(0, us_tests)
+		self.us_tests_pn.insert(0, us_tests_pn)
+		self.us_tests_pnp.insert(0, us_tests_pnp)
 		self.us_cases.insert(0, us_cases)
 		self.us_deaths.insert(0, us_deaths)
 
@@ -216,7 +240,7 @@ class CovidData:
 
 	def rank_states_tests(self):
 		options = lambda: None  # An object that we can attach attributes to
-		options.state_data = self.state_tests
+		options.state_data = self.state_tests_pnp
 		options.type = 'tests'
 		options.label = 'Tests'
 
