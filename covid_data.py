@@ -17,7 +17,10 @@ class CovidData:
 		self.state_cases = {}
 		self.state_deaths = {}
 
-	def get_us_tests(self):
+	def get_us_tests_pn(self):
+		return self.us_tests_pnp
+	
+	def get_us_tests_pnp(self):
 		return self.us_tests_pnp
 	
 	def get_us_cases(self):
@@ -26,9 +29,12 @@ class CovidData:
 	def get_us_deaths(self):
 		return self.us_deaths
 
-	def get_state_tests(self, state):
+	def get_state_tests_pn(self, state):
 		return self.state_tests_pnp[state]
 		
+	def get_state_tests_pnp(self, state):
+		return self.state_tests_pnp[state]
+
 	def get_state_cases(self, state):
 		return self.state_cases[state]
 	
@@ -164,7 +170,8 @@ class CovidData:
 				total_pn = positive + negative
 				total_pnp = positive + negative + pending
 
-				# Ignore all data before the specified date.
+				# Ignore all data for dates after the specified date.
+				# Note that the most recent dates appear first in the file.
 				if self.date != None and int(date) > int(self.date):
 					continue
 
@@ -174,11 +181,6 @@ class CovidData:
 				if self.date == None:
 					# Assumes that most recent date is first in file.
 					self.date = date
-
-				if pending != 0:
-					if not state in self.states_with_pending:
-						self.states_with_pending[state] = 0
-					self.states_with_pending[state] += 1
 
 				# If new date, then make sure we close out the current date,
 				# filling out missing state data with '0's.

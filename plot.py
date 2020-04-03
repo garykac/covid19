@@ -253,8 +253,8 @@ class CovidCases:
 
 	def new_tests_options(self):
 		options = Options()
-		options.state_data = self.cdata.get_state_tests
-		options.us_data = self.cdata.get_us_tests
+		options.state_data = self.cdata.get_state_tests_pnp
+		options.us_data = self.cdata.get_us_tests_pnp
 		options.italy_data = self.cdata.get_italy_tests
 		return options
 	
