@@ -30,7 +30,7 @@ class C19Tests:
 	num_days = 40
 	threshold = 150
 	y_min = threshold
-	y_max = 1400000
+	y_max = 1500000
 	title = 'COVID-19 US reported tests'
 	subtitle = 'Since first day with %d tests' % threshold
 	output_dir = 'tests'
@@ -71,7 +71,7 @@ class C19Cases:
 	num_days = 45
 	threshold = 100
 	y_min = threshold
-	y_max = 250000
+	y_max = 300000
 	title = 'COVID-19 US reported positive cases'
 	subtitle = 'Since first day with %d cases' % threshold
 	output_dir = 'cases'
@@ -219,7 +219,10 @@ class CovidCases:
 			'12': 'Dec',
 		}
 
-		return date[6:8] + ' ' + month_str[date[4:6]] + ' ' + date[0:4]
+		day = date[6:8]
+		if day[0] == '0':
+			day = day[1:]
+		return day + ' ' + month_str[date[4:6]] + ' ' + date[0:4]
 
 	# Normalize data based on population, filter by threshold.
 	def process_normalize_and_filter(self, data, threshold, pop, filter=True):
@@ -691,7 +694,7 @@ class CovidCases:
 			text_bg = ax.text(num_days - 0.4, rank - 0.25, s, size=8)
 		for y in [1,5,10,15,20,25,30,35,40,45,50,55]:
 			text_bg = ax.text(0.45, num_states - (y-1) - 0.25, '#%d' % y, size=8, ha='right')
-		for d in [[num_days, self.date_str], [num_days-2, '2 days ago'], [num_days-4, '4 days ago'],
+		for d in [[num_days, self.plot_date_str], [num_days-2, '2 days ago'], [num_days-4, '4 days ago'],
 					[num_days-6, '6 days ago'], [num_days-8, '8 days ago']]:
 			x = d[0] - 0.5
 			label = d[1]
