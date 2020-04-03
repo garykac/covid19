@@ -101,40 +101,58 @@ class CovidData:
 		us_tests = 0
 		us_cases = 0
 		us_deaths = 0
+		
+		fields = [
+			'date',
+			'state',
+			'positive',
+			'negative',
+			'pending',
+			'hospitalizedCurrently',
+			'hospitalizedCumulative',
+			'inIcuCurrently',
+			'inIcuCumulative',
+			'onVentilatorCurrently',
+			'onVentilatorCumulative',
+			'recovered',
+			'hash',
+			'dateChecked',
+			'death',
+			'hospitalized',
+			'total',  # deprecated (= positive + negative + pending)
+			          # Will be removed at some point because |pending| is not consistent between states.
+			'totalTestResults',
+			'posNeg',
+			'fips',
+			'deathIncrease',
+			'hospitalizedIncrease',
+			'negativeIncrease',
+			'positiveIncrease',
+			'totalTestResultsIncrease',
+		]
+		index = {}
+		for i in xrange(0, len(fields)):
+			index[fields[i]] = i
 		with open('data/states-daily.csv') as fp:
 			for line in fp:
 				# 21Mar2020: New field: hospitalized
 				# 25Mar2020: New fields: totalTestResults,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
 				# 27Mar2020: New field: fips
 				# 28Mar2020: New field: hash
-				#  0: date
-				#  1: state
-				#  2: positive
-				#  3: negative
-				#  4: pending
-				#  5: hospitalized
-				#  6: death
-				#  7: total - deprecated (= positive + negative + pending)
-				#     Will be removed at some point because |pending| is not consistent between states.
-				#  8: hash
-				#  9: dateChecked
-				# 10: totalTestResults
-				# 11: fips
-				# 12: deathIncrease
-				# 13: hospitalizedIncrease
-				# 14: negativeIncrease
-				# 15: positiveIncrease
-				# 16: totalTestResultsIncrease
+				# 02Apr2020: 
 				data = line.strip().split(',')
 				if data[0] == 'date':
+					for i in xrange(0, len(fields)):
+						if data[i] != fields[i]:
+							print 'ERROR - changed fields:', fields[i]
 					continue
-				date = data[0]
-				state = data[1]
-				positive = int(data[2]) if data[2] else 0
-				negative = int(data[3]) if data[3] else 0
-				pending = int(data[4]) if data[4] else 0
-				death = int(data[6]) if data[6] else 0
-				total = int(data[7])
+				date = data[index['date']]
+				state = data[index['state']]
+				positive = int(data[index['positive']]) if data[index['positive']] else 0
+				negative = int(data[index['negative']]) if data[index['negative']] else 0
+				pending = int(data[index['pending']]) if data[index['pending']] else 0
+				death = int(data[index['death']]) if data[index['death']] else 0
+				total = int(data[index['total']])
 
 				# Ignore all data before the specified date.
 				if self.date != None and int(date) > int(self.date):
