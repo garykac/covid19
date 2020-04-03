@@ -681,6 +681,7 @@ class CovidCases:
 		self.calc_ranking_plot_type('deaths-norm')
 		
 	def calc_ranking_plot_type(self, type):
+		info = self.info[type]
 		ranking_data = copy.deepcopy(self.ranking_data)
 		data = ranking_data[type]
 		rank_states = {}
@@ -697,9 +698,9 @@ class CovidCases:
 		plt.close('all')
 		fig, ax = plt.subplots()
 		ax.axis([0, num_days, 0, num_states+1])
-		ax.set_title('US State Ranking of Reported Deaths per Capita\nChanges over Time')
+		ax.set_title('US State Ranking of %s\nChanges over Time' % info.label)
 		#ax.set_xlabel('x label')
-		ax.set_ylabel('Ranking of Reported Deaths per Capita')
+		ax.set_ylabel('Ranking of %s' % info.label)
 		ax.set_xticks([])
 		ax.set_yticks([])
 		
