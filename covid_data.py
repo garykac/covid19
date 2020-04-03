@@ -18,7 +18,7 @@ class CovidData:
 		self.state_deaths = {}
 
 	def get_us_tests_pn(self):
-		return self.us_tests_pnp
+		return self.us_tests_pn
 	
 	def get_us_tests_pnp(self):
 		return self.us_tests_pnp
@@ -30,7 +30,7 @@ class CovidData:
 		return self.us_deaths
 
 	def get_state_tests_pn(self, state):
-		return self.state_tests_pnp[state]
+		return self.state_tests_pn[state]
 		
 	def get_state_tests_pnp(self, state):
 		return self.state_tests_pnp[state]
@@ -242,7 +242,7 @@ class CovidData:
 
 	def rank_states_tests(self):
 		options = lambda: None  # An object that we can attach attributes to
-		options.state_data = self.state_tests_pnp
+		options.state_data = self.state_tests_pn
 		options.type = 'tests'
 		options.label = 'Tests'
 
@@ -316,6 +316,9 @@ class CovidData:
 		date_str = d[6:8] + ' ' + months[int(d[4:6])-1] + ' ' + d[0:4]
 		datafile = '%s/%s-data' % (type, type)
 		
+		extra_info = ''
+		if type.startswith('tests'):
+			extra_info = '<p align=center>Counting positive and negative tests only. Pending tests are not included.</p>\n'
 		file_template = 'state-ranking-template.txt'
 		file_html = 'state-ranking-%s.html' % type
 		with open(file_template) as fpin:
@@ -348,6 +351,7 @@ class CovidData:
 						line = line.replace('%%TYPE%%', label)
 						line = line.replace('%%RANKING_NORM%%', ranking_norm)
 						line = line.replace('%%DATAFILE%%', datafile)
+						line = line.replace('%%INFO%%', extra_info)
 						fpout.write(line)
 
 

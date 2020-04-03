@@ -38,7 +38,7 @@ class C19Tests:
 	x_label = 'Days since %dth reported test' % threshold
 	y_label = 'Cumulative reported tests'
 
-	label = 'Reported Tests'
+	label = 'Reported Tests (pos+neg)'
 	units = ''
 
 class C19TestsNorm:
@@ -53,7 +53,7 @@ class C19TestsNorm:
 	x_label = 'Days since %d reported tests per million people' % threshold
 	y_label = 'Cumulative reported tests per million people'
 
-	label = 'Reported Tests (per capita)'
+	label = 'Reported Tests (per capita, pos+neg)'
 	units = 'per million'
 
 	combined_num_days = 30
@@ -79,7 +79,7 @@ class C19Cases:
 	x_label = 'Days since %dth reported positive case' % threshold
 	y_label = 'Cumulative reported positive cases'
 
-	label = 'Reported Cases'
+	label = 'Reported Positive Cases'
 	units = ''
 	
 class C19CasesNorm:
@@ -94,7 +94,7 @@ class C19CasesNorm:
 	x_label = 'Days since %d reported positive cases per million people' % threshold
 	y_label = 'Cumulative reported positive cases per million people'
 
-	label = 'Reported Cases (per capita)'
+	label = 'Reported Positive Cases (per capita)'
 	units = 'per million'
 
 	combined_num_days = 30
@@ -253,7 +253,8 @@ class CovidCases:
 
 	def new_tests_options(self):
 		options = Options()
-		options.state_data = self.cdata.get_state_tests_pnp
+		options.state_data = self.cdata.get_state_tests_pn
+		options.state_data2 = self.cdata.get_state_tests_pnp
 		options.us_data = self.cdata.get_us_tests_pnp
 		options.italy_data = self.cdata.get_italy_tests
 		return options
@@ -261,6 +262,7 @@ class CovidCases:
 	def new_cases_options(self):
 		options = Options()
 		options.state_data = self.cdata.get_state_cases
+		options.state_data2 = None
 		options.us_data = self.cdata.get_us_cases
 		options.italy_data = self.cdata.get_italy_cases
 		return options
@@ -268,6 +270,7 @@ class CovidCases:
 	def new_deaths_options(self):
 		options = Options()
 		options.state_data = self.cdata.get_state_deaths
+		options.state_data2 = None
 		options.us_data = self.cdata.get_us_deaths
 		options.italy_data = self.cdata.get_italy_deaths
 		return options
@@ -381,7 +384,7 @@ class CovidCases:
 		ax.set_xlabel(options.x_label)
 		ax.set_ylabel(options.y_label)
 		plt.title(options.title)
-		self.add_footer(plt)
+		self.add_footer(plt, False)
 
 		# Plot the top |_top_n| states.
 		for i in xrange(_top_n):
@@ -409,18 +412,30 @@ class CovidCases:
 		filename = '%s/%s-%s-%s.png' % (outdir, options.output_filebase, suffix, self.date)
 		plt.savefig(filename, bbox_inches='tight')
 
-	def add_footer(self, plt):
+	def add_footer(self, plt, has_pending):
+		# Left side
+		y = -40
+		if has_pending:
+			plt.annotate('Solid line for completed (pos+neg). Dotted line for pending tests.',
+					xy=(0,0), xycoords='axes fraction',
+					xytext=(-40, y), textcoords='offset points',
+					size=8, ha='left', va='top')
+			y -= 10
 		plt.annotate('US data from https://covidtracking.com',
 				xy=(0,0), xycoords='axes fraction',
-				xytext=(-40, -40), textcoords='offset points',
+				xytext=(-40, y), textcoords='offset points',
 				size=8, ha='left', va='top')
+		y -= 10
 		plt.annotate('Italy data from https://github.com/pcm-dpc/COVID-19',
 				xy=(0,0), xycoords='axes fraction',
-				xytext=(-40, -50), textcoords='offset points',
+				xytext=(-40, y), textcoords='offset points',
 				size=8, ha='left', va='top')
+		
+		# Right side
+		y += 10
 		plt.annotate(self.date_str,
 				xy=(1,0), xycoords='axes fraction',
-				xytext=(0, -40), textcoords='offset points',
+				xytext=(0, y), textcoords='offset points',
 				size=14, ha='right', va='top')
 
 	def generate_states_combined(self):
@@ -570,27 +585,33 @@ class CovidCases:
 		ax.set_xlabel(info.x_label)
 		ax.set_ylabel(info.y_label)
 
+		has_pending_data = False
+		if options.state_data2:
+			has_pending_data = True
+
 		scale = 'Linear'
 		if use_log_scale:
 			scale = 'Log'
 		title1 = info.individual_title % state
 		title = '%s\n(%s. %s scale)' % (title1, info.subtitle, scale)
 		plt.title(title)
-		self.add_footer(plt)
+		self.add_footer(plt, has_pending_data)
 	
 		# Plot data for all the states in light gray for reference.
 		for s2 in USInfo.states:
 			self.plot_data(ax, options.state_data(s2), 'lt_gray',
 					USInfo.state_pop[s2], '', False, options.processor, info.threshold)
 
-		self.plot_data(ax, options.state_data(state), 'dk_blue',
+		days_plotted = self.plot_data(ax, options.state_data(state), 'dk_blue',
 				USInfo.state_pop[state], state, True, options.processor, info.threshold)
+		if has_pending_data:
+			self.plot_data(ax, options.state_data2(state), 'dk_blue2',
+					USInfo.state_pop[state], '', False, options.processor, info.threshold,
+					days_plotted)
 		self.plot_data(ax, options.us_data(), 'black', USInfo.us_pop, 'US', True,
 				options.processor, info.threshold)
 		self.plot_data(ax, options.italy_data(), 'black', _italy_pop, 'Italy', True,
 				options.processor, info.threshold)
-
-		plt.legend(loc="lower right")
 
 		output_dir = 'state/%s' % state
 		if not os.path.exists(output_dir):
@@ -599,11 +620,15 @@ class CovidCases:
 		suffix = 'lin'
 		if use_log_scale:
 			suffix = 'log'
+			plt.legend(loc="lower right")
+		else:
+			plt.legend(loc="upper left")
+
 		# Note: Use |info.output_dir| as filename since we don't create subdir for states.
 		filename = '%s/%s-%s.png' % (output_dir, info.output_dir, suffix)
 		plt.savefig(filename, bbox_inches='tight')
 
-	def plot_data(self, ax, raw_data, color, pop, label, always_label, processor, threshold):
+	def plot_data(self, ax, raw_data, color, pop, label, always_label, processor, threshold, max_days=None):
 		# Default to thick, solid line.
 		linewidth = 2
 		linestyle = '-'
@@ -616,7 +641,14 @@ class CovidCases:
 		# On combined graphs, the other states are in lt_gray
 		if color == 'lt_gray':
 			linewidth = 1
-		
+		# Secondary data lines (like tests+pending) are dotted.
+		if color[-1] == '2':
+			color = color[0:-1]
+			linestyle = ':'  # Dotted
+
+		# Clamp to max days so that data2 (eg: pending tests) aligns properly with data.
+		if max_days:
+			raw_data = raw_data[-max_days:]
 		processed_data = processor(raw_data, threshold, pop)
 		
 		# Always plot the data (even if empty) so that it gets added to the Legend.
@@ -638,6 +670,9 @@ class CovidCases:
 					PathEffects.Normal()])
 			text = ax.text(label_x, label_y, label, size=12, color=line_colors[color])
 			text.set_path_effects([PathEffects.Normal()])
+
+		# Return the number of days plotted.
+		return len(processed_data)
 
 	def calc_ranking_plot(self):
 		self.rank_states = {}
@@ -816,10 +851,20 @@ class CovidCases:
 				ranking += '<td>{:.2f} {:s}</td>\n'.format(rank[1], info.units)
 
 			ranking += '</tr>\n'
+			
+		tests_pn = self.cdata.get_state_tests_pn(state)[-1]
+		tests_pnp = self.cdata.get_state_tests_pnp(state)[-1]
+		if tests_pn != tests_pnp:
+			print state, tests_pn, tests_pnp
+			ranking += '<tr>\n'
+			ranking += '<td>Pending tests</td>\n'
+			ranking += '<td></td>\n'
+			ranking += '<td></td>\n'
+			ranking += '<td>%d</td>\n' % (tests_pnp - tests_pn)
+			ranking += '</tr>\n'				
 
 		ranking += '</tbody>\n'
 		ranking += '</table>\n'
-		ranking += '</div>\n'
 
 		return ranking
 
@@ -886,6 +931,11 @@ def main(argv):
 	if gen_individual:
 		cases.generate_states_individual();
 
+	# This relies only on the saved |ranking_data|.
+	cases.calc_ranking_plot()
+	
+	cases.create_state_html()
+	
 	# Note: Generating animated graphs modified the data in |covid_data|.
 	if gen_top_n and gen_animated:
 		# Process previous day data using top-N from current day.
@@ -894,10 +944,5 @@ def main(argv):
 			cases.generate_top_n_plots()
 		cases.export_anim()
 
-	# This relies only on the saved |ranking_data|.
-	cases.calc_ranking_plot()
-	
-	cases.create_state_html()
-	
 if __name__ == "__main__":
 	main(sys.argv[1:])

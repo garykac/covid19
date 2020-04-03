@@ -17,8 +17,10 @@
 <div class="container">
 
 <h1>COVID19 Ranking for Reported %%TYPE%%</h1>
-<div class="h1subheading">US State Ranking%%RANKING_NORM%%</div>
+<div class="h1subheading">US State/Territory Ranking%%RANKING_NORM%%</div>
 <div class='lastupdate'>Last update: %%DATE%%</div>
+
+%%INFO%%
 
 <div>
 %%RANKING%%
