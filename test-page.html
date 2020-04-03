@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>COVID19 Tracking for US States</title>
+<link rel="icon" type="image/svg+xml"  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Ctext y='32' font-size='32'%3E%F0%9F%A6%A0%3C/text%3E%3C/svg%3E">
+<meta name="description" content="COVID-19 tracking graphs for individual US states">
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1163903-7"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'UA-1163903-7');</script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="home"><a href="./index.html"><span class="unicon">&#x2302;</span> Home</a></div>
+
+<div class="container">
+
+<h1>COVID19 Tracking Test Page</h1>
+<div class='lastupdate'>Last update: 3 Apr 2020</div>
+
+<!--
+	=======================
+	Positive Cases Reported
+	=======================
+-->
+
+<div id="cases" class="banner">Positive Cases Reported</div>
+
+<h2 id="cases-direct">Positive Cases Reported in US</h2>
+<div class="h2subheading">Top 8 States/Territories</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><img src="cases/20200403/cases-lin-20200403.png" width="550px"/></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><img src="cases/20200403/cases-log-20200403.png" width="550px"/></div>
+</div>
+</div><!-- graphcontainer -->
+
+<h2 id="cases-normalized">Positive Cases Reported in US - Normalized</h2>
+<div class="h2subheading">Normalized per million residents</div>
+<div class="h2subheading">Top 8 States/Territories</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><img src="cases-norm/20200403/cases-lin-20200403.png" width="550px"/></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><img src="cases-norm/20200403/cases-log-20200403.png" width="550px"/></div>
+</div>
+</div><!-- graphcontainer -->
+
+<!--
+	===============
+	Deaths Reported
+	===============
+-->
+
+<div id="deaths" class="banner">Deaths Reported</div>
+
+<h2 id="deaths-direct">Deaths Reported in US</h2>
+<div class="h2subheading">Top 8 States/Territories</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><img src="deaths/20200403/deaths-lin-20200403.png" width="550px"/></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><img src="deaths/20200403/deaths-log-20200403.png" width="550px"/></div>
+</div>
+</div><!-- graphcontainer -->
+
+<h2 id="deaths-normalized">Deaths Reported in US - Normalized</h2>
+<div class="h2subheading">Normalized per million residents</div>
+<div class="h2subheading">Top 8 States/Territories</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><img src="deaths-norm/20200403/deaths-lin-20200403.png" width="550px"/></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><img src="deaths-norm/20200403/deaths-log-20200403.png" width="550px"/></div>
+</div>
+</div><!-- graphcontainer -->
+
+<!--
+	==============
+	Tests Reported
+	==============
+-->
+
+<div id="tests" class="banner">Tests Reported</div>
+
+<h2 id="tests-direct">Tests Reported in US</h2>
+<div class="h2subheading">Top 8 States/Territories</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><img src="tests/20200403/tests-lin-20200403.png" width="550px"/></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><img src="tests/20200403/tests-log-20200403.png" width="550px"/></div>
+</div>
+</div><!-- graphcontainer -->
+
+<h2 id="tests-normalized">Tests Reported in US - Normalized</h2>
+<div class="h2subheading">Normalized per million residents</div>
+<div class="h2subheading">Top 8 States/Territories</div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="graph"><img src="tests-norm/20200403/tests-lin-20200403.png" width="550px"/></div>
+</div>
+<div class="graphbox">
+	<div class="graph"><img src="tests-norm/20200403/tests-log-20200403.png" width="550px"/></div>
+</div>
+</div><!-- graphcontainer -->
+
+</div><!-- container -->
+
+</body>
+</html>

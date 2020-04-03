@@ -27,10 +27,10 @@ class Options(object):
 
 # Graph parameters for Reported Tests
 class C19Tests:
-	num_days = 40
+	num_days = 45
 	threshold = 150
 	y_min = threshold
-	y_max = 1500000
+	y_max = 2000000
 	title = 'COVID-19 US reported tests'
 	subtitle = 'Since first day with %d tests' % threshold
 	output_dir = 'tests'
@@ -42,10 +42,10 @@ class C19Tests:
 	units = ''
 
 class C19TestsNorm:
-	num_days = 40
+	num_days = 45
 	threshold = 10
 	y_min = threshold
-	y_max = 15000
+	y_max = 20000
 	title = 'COVID-19 US States Reported Tests (Pos + Neg) per Million'
 	subtitle = 'Since first day with %d tests/million' % threshold
 	output_dir = 'tests-norm'
@@ -71,7 +71,7 @@ class C19Cases:
 	num_days = 45
 	threshold = 100
 	y_min = threshold
-	y_max = 300000
+	y_max = 350000
 	title = 'COVID-19 US reported positive cases'
 	subtitle = 'Since first day with %d cases' % threshold
 	output_dir = 'cases'
@@ -83,10 +83,10 @@ class C19Cases:
 	units = ''
 	
 class C19CasesNorm:
-	num_days = 35
+	num_days = 40
 	threshold = 10
 	y_min = threshold
-	y_max = 5000
+	y_max = 6000
 	title = 'COVID-19 US States Reported Positive Cases per Million'
 	subtitle = 'Since first day with %d positive cases/million' % threshold
 	output_dir = 'cases-norm'
@@ -98,7 +98,7 @@ class C19CasesNorm:
 	units = 'per million'
 
 	combined_num_days = 30
-	combined_y_max = 5000
+	combined_y_max = y_max
 	y_ticks_lin = []
 	y_ticks_log = []
 	combined_footer = []
@@ -107,10 +107,10 @@ class C19CasesNorm:
 
 # Graph parameters for Reported Deaths
 class C19Deaths:
-	num_days = 40
+	num_days = 45
 	threshold = 10
 	y_min = threshold
-	y_max = 15000
+	y_max = 20000
 	title = 'COVID-19 US reported deaths'
 	subtitle = 'Since first day with %d deaths' % threshold
 	output_dir = 'deaths'
@@ -136,8 +136,8 @@ class C19DeathsNorm:
 	label = 'Reported Deaths (per capita)'
 	units = 'per million'
 
-	combined_num_days = 30
-	combined_y_max = 150
+	combined_num_days = 35
+	combined_y_max = 200
 	y_ticks_lin = []
 	y_ticks_log = []
 	combined_footer = []
@@ -224,12 +224,15 @@ class CovidCases:
 			day = day[1:]
 		return day + ' ' + month_str[date[4:6]] + ' ' + date[0:4]
 
+	def normalize_pop(self, val, pop):
+		return (val * 1000000) / pop
+	
 	# Normalize data based on population, filter by threshold.
 	def process_normalize_and_filter(self, data, threshold, pop, filter=True):
 		new_data = []
 		for c in data:
 			if c:
-				n = c * 1000000 / pop
+				n = self.normalize_pop(c, pop)
 				if (not filter) or n >= threshold:
 					new_data.append(n)
 		return new_data
@@ -676,11 +679,11 @@ class CovidCases:
 
 	def calc_ranking_plot(self):
 		self.rank_states = {}
-		self.calc_ranking_plot_type('tests-norm')
-		self.calc_ranking_plot_type('cases-norm')
-		self.calc_ranking_plot_type('deaths-norm')
+		self.calc_ranking_plot_type('tests-norm', self.cdata.get_state_tests_pn)
+		self.calc_ranking_plot_type('cases-norm', self.cdata.get_state_cases)
+		self.calc_ranking_plot_type('deaths-norm', self.cdata.get_state_deaths)
 		
-	def calc_ranking_plot_type(self, type):
+	def calc_ranking_plot_type(self, type, raw_data):
 		info = self.info[type]
 		ranking_data = copy.deepcopy(self.ranking_data)
 		data = ranking_data[type]
@@ -703,6 +706,11 @@ class CovidCases:
 		ax.set_ylabel('Ranking of %s' % info.label)
 		ax.set_xticks([])
 		ax.set_yticks([])
+
+		plt.annotate('US data from https://covidtracking.com',
+				xy=(0,0), xycoords='axes fraction',
+				xytext=(-20, -40), textcoords='offset points',
+				size=8, ha='left', va='top')
 		
 		for day in xrange(0, num_days):
 			# Get latest data for each state.
@@ -728,6 +736,8 @@ class CovidCases:
 		for s in USInfo.states:
 			rank = rank_states_inv[s][0]
 			text_bg = ax.text(num_days - 0.4, rank - 0.25, s, size=8)
+			val = self.normalize_pop(raw_data(s)[-1], USInfo.state_pop[s])
+			text_bg = ax.text(num_days + 0.9, rank - 0.25, '{:.2f}'.format(val), size=8, ha='right')
 		for y in [1,5,10,15,20,25,30,35,40,45,50,55]:
 			text_bg = ax.text(0.45, num_states - (y-1) - 0.25, '#%d' % y, size=8, ha='right')
 		for d in [[num_days, self.plot_date_str], [num_days-2, '2 days ago'], [num_days-4, '4 days ago'],
@@ -736,11 +746,31 @@ class CovidCases:
 			label = d[1]
 			text_bg = ax.text(x, -1, label, size=8, ha='center')
 			ax.plot(x, 0, 'bo')
+		text_bg = ax.text(num_days + 0.5, 0, '{:s}\nper\nmillion'.format(info.output_filebase), size=8, ha='center', va='top')
+		
+		# Which state had the largest change in ranking?
+		most_impacted_delta = -1000
+		most_impacted_state = ''
+		most_impacted_state_rank = 100
+		for s in USInfo.states:
+			rank_today = rank_states_inv[s][0]
+			rank_yesterday = rank_states_inv[s][1]
+			rank_delta = rank_today - rank_yesterday
+			if rank_delta >= most_impacted_delta:
+				if rank_delta == most_impacted_delta:
+					if rank_states_inv[s][0] > most_impacted_state_rank:
+						most_impacted_delta = rank_delta
+						most_impacted_state = s
+						most_impacted_state_rank = rank_states_inv[s][0]
+				else:
+					most_impacted_delta = rank_delta
+					most_impacted_state = s
+					most_impacted_state_rank = rank_states_inv[s][0]
 		
 		x = list([x+0.5 for x in reversed(xrange(0, num_days))])
 		for s in USInfo.states:
 			linewidth = 1
-			if s == 'AL':
+			if s == most_impacted_state:
 				linewidth = 3
 			ax.plot(x[:days_with_data[s]], rank_states_inv[s][:days_with_data[s]], linewidth = linewidth)
 
@@ -790,6 +820,17 @@ class CovidCases:
 			shutil.copy(out_gif, '%s.gif' % (filebase))
 			shutil.copy(last_frame, '%s.png' % (filebase))
 		
+	def create_test_page_html(self):
+		print 'Generating test page html files'
+
+		with open('test-page-template.txt') as fpin:
+			with open('test-page.html', 'w') as fpout:
+				for line in fpin:
+					if '%%' in line:
+						line = line.replace('%%DATE%%', self.plot_date_str)
+						line = line.replace('%%YYYYMMDD%%', self.plot_date)
+					fpout.write(line)
+
 	def create_state_html(self):
 		print 'Generating state html files'
 
@@ -934,6 +975,8 @@ def main(argv):
 
 	# This relies only on the saved |ranking_data|.
 	cases.calc_ranking_plot()
+	
+	cases.create_test_page_html()
 	
 	cases.create_state_html()
 	
