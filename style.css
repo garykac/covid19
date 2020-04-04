@@ -48,6 +48,21 @@ h2 {
 	font-size: 18pt;
 	font-style: italic;
 }
+h3 {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 700;
+	text-align: center;	
+	font-size: 20pt;
+}
+.h3subheading {
+	margin-top: -1em;
+	margin-bottom: 1em;
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	font-weight: 700;
+	text-align: center;	
+	font-size: 14pt;
+	font-style: italic;
+}
 p {
 	font-size: 18px;
 	font-family: 'Libre Baskerville', Georgia, serif;
