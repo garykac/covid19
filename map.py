@@ -33,6 +33,15 @@ class MapData:
 		# FIPS for counties that overlap with Kansas City, MO: Cass, Clay, Jackson, Platte
 		self.kc_fips = ['29037', '29047', '29095', '29165']
 	
+		# Update fips data.
+		# See also: https://www.economy.com/support/blog/buffet.aspx?did=EBD51E7D-8822-42F2-BD0D-8937239911E9
+		self.updated_fips = [
+			# "Changed name and code from Shannon County, South Dakota (46113) to Oglala Lakota County,
+			# South Dakota (46102) effective May 1, 2015.
+			# https://www.census.gov/quickfacts/fact/table/oglalalakotacountysouthdakota,SD/HSD410218
+			['46113', '46102']
+		]
+
 	def load_census(self):
 		self.names = {}
 		self.area = {}
@@ -64,6 +73,8 @@ class MapData:
 				if data[0] == 'GEO.id':
 					continue
 				fips = data[4]
+				full_label = data[5]
+				state = full_label.split(' - ')[1] if '-' in full_label else ''
 				label = data[6]
 				area = float(data[11])  # Land area
 				pop_density = float(data[12])
@@ -86,6 +97,12 @@ class MapData:
 
 					self.us_area += area
 
+				# Update fips id for regions that have changed.
+				for f in updated_fips:
+					if fips == f[0]:
+						fips = f[1]
+						print 'Updating fips from', f[0], 'to', f[1], 'for', label, state
+				
 				self.names[fips] = label
 				self.area[fips] = area
 				self.density[fips] = pop_density
