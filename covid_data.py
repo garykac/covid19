@@ -402,6 +402,6 @@ class CovidData:
 	
 		# Verify most recent dates match between US/Italy
 		if not date == self.date:
-			print 'ERROR - US and Italy data not consistent:', date, 'vs', self.date
+			print 'ERROR - US and Italy data not consistent: Italy=', date, 'vs US=', self.date
 			exit(1)
 

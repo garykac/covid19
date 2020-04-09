@@ -28,10 +28,10 @@ class Options(object):
 
 # Graph parameters for Reported Tests
 class C19Tests:
-	num_days = 45
+	num_days = 50
 	threshold = 150
 	y_min = threshold
-	y_max = 2500000
+	y_max = 3000000
 	title = 'COVID-19 US reported tests'
 	subtitle = 'Since first day with %d tests' % threshold
 	output_dir = 'tests'
@@ -43,10 +43,10 @@ class C19Tests:
 	units = ''
 
 class C19TestsNorm:
-	num_days = 45
+	num_days = 50
 	threshold = 10
 	y_min = threshold
-	y_max = 20000
+	y_max = 25000
 	title = 'COVID-19 US States Reported Tests (Pos + Neg) per Million'
 	subtitle = 'Since first day with %d tests/million' % threshold
 	output_dir = 'tests-norm'
@@ -57,7 +57,7 @@ class C19TestsNorm:
 	label = 'Reported Tests (per capita, pos+neg)'
 	units = 'per million'
 
-	combined_num_days = 35
+	combined_num_days = 40
 	combined_y_max = y_max
 	y_ticks_lin = [0, 5000, 10000]
 	y_ticks_log = [10,100,1000,10000]
@@ -108,7 +108,7 @@ class C19CasesNorm:
 
 # Graph parameters for Reported Deaths
 class C19Deaths:
-	num_days = 45
+	num_days = 50
 	threshold = 10
 	y_min = threshold
 	y_max = 20000
@@ -123,10 +123,10 @@ class C19Deaths:
 	units = ''
 
 class C19DeathsNorm:
-	num_days = 40
+	num_days = 45
 	threshold = 1
 	y_min = threshold
-	y_max = 400
+	y_max = 500
 	title = 'COVID-19 US States Reported Deaths per Million'
 	subtitle = 'Since first day with %d death/million' % threshold
 	output_dir = 'deaths-norm'
@@ -137,7 +137,7 @@ class C19DeathsNorm:
 	label = 'Reported Deaths (per capita)'
 	units = 'per million'
 
-	combined_num_days = 35
+	combined_num_days = 40
 	combined_y_max = y_max
 	y_ticks_lin = []
 	y_ticks_log = []
@@ -375,14 +375,31 @@ class CovidCases:
 		self.ranking_data[options.output_dir] = ranking_data
 
 	def generate_top_n_plots(self):
-		print 'Generating top-n graphs for', self.date_str
+		print 'Generating top-n graphs for', self.date_str,
+		self.last_print = 'xxx'
 		for options in self.top_n_plots:
-			print '  ', options.output_dir, options.use_log_scale
 			self.generate_plot(options)
+		print
 	
 	def generate_plot(self, options):
 		if not os.path.exists(options.output_dir):
 			os.makedirs(options.output_dir)
+
+		new_plot_type = True
+		if options.output_dir.startswith(self.last_print):
+			if options.output_dir.endswith('-norm'):
+				new_plot_type = False
+				if options.use_log_scale:
+					print '(norm)',
+				print options.use_log_scale,
+			elif options.output_dir == self.last_print:
+				new_plot_type = False
+				print options.use_log_scale,
+		if new_plot_type:
+			print
+			print '  ', options.output_dir, options.use_log_scale,
+			self.last_print = options.output_dir
+		sys.stdout.flush()
 
 		plt.close('all')
 		self.fig, ax = plt.subplots()
