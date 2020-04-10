@@ -72,7 +72,7 @@ class C19Cases:
 	num_days = 50
 	threshold = 100
 	y_min = threshold
-	y_max = 500000
+	y_max = 600000
 	title = 'COVID-19 US reported positive cases'
 	subtitle = 'Since first day with %d cases' % threshold
 	output_dir = 'cases'
@@ -87,7 +87,7 @@ class C19CasesNorm:
 	num_days = 45
 	threshold = 10
 	y_min = threshold
-	y_max = 10000
+	y_max = 15000
 	title = 'COVID-19 US States Reported Positive Cases per Million'
 	subtitle = 'Since first day with %d positive cases/million' % threshold
 	output_dir = 'cases-norm'
@@ -111,7 +111,7 @@ class C19Deaths:
 	num_days = 50
 	threshold = 10
 	y_min = threshold
-	y_max = 20000
+	y_max = 30000
 	title = 'COVID-19 US reported deaths'
 	subtitle = 'Since first day with %d deaths' % threshold
 	output_dir = 'deaths'
