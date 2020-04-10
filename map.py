@@ -98,7 +98,7 @@ class MapData:
 					self.us_area += area
 
 				# Update fips id for regions that have changed.
-				for f in updated_fips:
+				for f in self.updated_fips:
 					if fips == f[0]:
 						fips = f[1]
 						print 'Updating fips from', f[0], 'to', f[1], 'for', label, state
