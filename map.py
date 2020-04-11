@@ -13,7 +13,7 @@ import sys
 
 census_data = 'data/census/DEC_10_SF1_GCTPH1.US05PR/DEC_10_SF1_GCTPH1.US05PR.csv'
 nyt_data = 'data/nyt/us-counties.csv'
-census_map = 'data/us_counties.svg'
+census_map = 'data/state-maps/us-all.svg'
 us_map_cases = 'us-cases.svg'
 us_map_deaths = 'us-deaths.svg'
 
@@ -346,17 +346,12 @@ class MapData:
 		self.generate_map('Deaths', us_map_deaths, self.deaths, self.max_deaths_per_Nsqmi)
 		
 	def generate_map(self, type, out_svg, data, max_per_Nsqmi):
-		d = self.curr_date
-		months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-		date_str = d[8:10] + ' ' + months[int(d[5:7])-1] + ' ' + d[0:4]
+		date_str = self.calc_date_str()
 
 		val_log_max = math.log10(max_per_Nsqmi)
 		with open(census_map) as fpin:
 			with open(out_svg, 'w') as fpout:
 				for line in fpin:
-					if 'inkscape' in line:
-						if line.strip() == 'inkscape:connector-curvature="0"':
-							continue
 					if line.startswith('  #INSERT_STYLES'):
 						self.write_color_style(fpout, 'legend-1', 1.0)
 						self.write_color_style(fpout, 'legend-2', 0.8)
@@ -387,6 +382,10 @@ class MapData:
 					else:
 						line = line.replace('%%DATE%%', date_str)
 						line = line.replace('%%TYPE%%', type)
+						line = line.replace('%%TITLE%%', '%s Reported in US by County' % type)
+						line = line.replace('%%SUBTITLE%%', 'Colored relative to most-impacted region')
+						line = line.replace('%%URL%%', 'garykac.github.io/covid19')
+						line = line.replace('%%UNITS%%', 'per sq mile')
 						line = line.replace('%%LEGEND1%%', self.format_val(1.0, val_log_max))
 						line = line.replace('%%LEGEND2%%', self.format_val(0.8, val_log_max))
 						line = line.replace('%%LEGEND3%%', self.format_val(0.6, val_log_max))
@@ -394,11 +393,17 @@ class MapData:
 						line = line.replace('%%LEGEND5%%', self.format_val(0.2, val_log_max))
 						fpout.write(line)
 
+		d = self.curr_date
 		ymd = d[0:4] + d[5:7] + d[8:10]
 		(name, suffix) = out_svg.split('.')
 		archive = 'map-%s/%s-%s.svg' % (name, name, ymd)
 		shutil.copy(out_svg, archive)
 	
+	def calc_date_str(self):
+		d = self.curr_date
+		months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+		return d[8:10] + ' ' + months[int(d[5:7])-1] + ' ' + d[0:4]
+
 	def format_val(self, percent, log_max):
 		val = (10 ** (percent * log_max)) / AREA_SCALE
 		if val > 9:
@@ -481,7 +486,7 @@ def main(argv):
 
 	map_data.generate_map_cases()
 	map_data.generate_map_deaths()
-
+	
 	if animate:
 		map_data.animate()
 		
