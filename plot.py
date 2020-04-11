@@ -1027,9 +1027,9 @@ def main(argv):
 	# Note: Generating animated graphs modified the data in |covid_data|.
 	if gen_top_n and gen_animated:
 		# Process previous day data using top-N from current day.
-		#while int(covid_data.get_date()) > int('20200316'):
-		#	cases.remove_last_day()
-		#	cases.generate_top_n_plots()
+		while int(covid_data.get_date()) > int('20200316'):
+			cases.remove_last_day()
+			cases.generate_top_n_plots()
 		cases.export_anim()
 
 if __name__ == "__main__":
