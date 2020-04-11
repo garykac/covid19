@@ -379,14 +379,13 @@ class MapData:
 	
 	def generate_state_maps(self):		
 		for s in ['CA', 'NY', 'OH', 'WA']:
-			self.generate_state_map(s)	
+			self.generate_state_map(s, 'Cases', 'state/%s/map-cases.svg' % s, self.cases,
+					self.max_cases_per_Nsqmi)
+			self.generate_state_map(s, 'Deaths', 'state/%s/map-deaths.svg' % s, self.deaths,
+					self.max_deaths_per_Nsqmi)
 		
-	def generate_state_map(self, s):
-		type = 'Cases'
+	def generate_state_map(self, s, type, out_svg, data, max_per_Nsqmi):
 		in_svg = 'data/state-maps/%s.svg' % s
-		out_svg = 'state/%s/map-cases.svg' % s
-		data = self.cases
-		max_per_Nsqmi = self.max_cases_per_Nsqmi
 		val_log_max = math.log10(max_per_Nsqmi)
 
 		state_name = USInfo.state_name[s]

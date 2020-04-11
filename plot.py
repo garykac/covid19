@@ -877,6 +877,9 @@ class CovidCases:
 
 		for s in USInfo.states:
 			ranking = self.calc_ranking_for_state_html(s)
+			maps = ''
+			if s in ['CA', 'NY', 'OH', 'WA']:
+				maps = self.calc_state_maps_html(s)
 			with open('state-index-template.txt') as fpin:
 				with open('state/%s/index.html' % s, 'w') as fpout:
 					for line in fpin:
@@ -884,8 +887,21 @@ class CovidCases:
 							line = line.replace('%%DATE%%', self.plot_date_str)
 							line = line.replace('%%STATE%%', USInfo.state_name[s])
 							line = line.replace('%%RANKING%%', ranking)
+							line = line.replace('%%MAPS%%', maps)
 						fpout.write(line)
 
+	def calc_state_maps_html(self, state):
+		map = ''
+		map += '<div class="graphcontainer">\n'
+		map += '<div class="graphbox">\n'
+		map += '	<div class="map"><a href="map-cases.svg"><img src="map-cases.svg" width="550px"/></a></div>\n'
+		map += '</div>\n'
+		map += '<div class="graphbox">\n'
+		map += '	<div class="map"><a href="map-deaths.svg"><img src="map-deaths.svg" width="550px"/></a></div>\n'
+		map += '</div>\n'
+		map += '</div><!-- graphcontainer -->\n'
+		return map
+				
 	def calc_ranking_for_state_html(self, state):
 		ranking = ''
 		ranking += '<h2>%s Ranking</h2>\n' % USInfo.state_name[state]
