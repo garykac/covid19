@@ -10,6 +10,7 @@ import shutil
 import subprocess
 import sys
 
+from usinfo import USInfo
 
 census_data = 'data/census/DEC_10_SF1_GCTPH1.US05PR/DEC_10_SF1_GCTPH1.US05PR.csv'
 nyt_data = 'data/nyt/us-counties.csv'
@@ -346,51 +347,28 @@ class MapData:
 		self.generate_map('Deaths', us_map_deaths, self.deaths, self.max_deaths_per_Nsqmi)
 		
 	def generate_map(self, type, out_svg, data, max_per_Nsqmi):
-		date_str = self.calc_date_str()
-
 		val_log_max = math.log10(max_per_Nsqmi)
+
+		tags = {}
+		tags['%%DATE%%'] = self.calc_date_str()
+		tags['%%TYPE%%'] = type
+		tags['%%TITLE%%'] = '%s Reported in US by County' % type
+		tags['%%SUBTITLE%%'] = 'Colored relative to most-impacted region'
+		tags['%%URL%%'] = 'garykac.github.io/covid19'
+		tags['%%UNITS%%'] = 'per sq mile'
+		tags['%%LEGEND1%%'] = self.format_val(1.0, val_log_max)
+		tags['%%LEGEND2%%'] = self.format_val(0.8, val_log_max)
+		tags['%%LEGEND3%%'] = self.format_val(0.6, val_log_max)
+		tags['%%LEGEND4%%'] = self.format_val(0.4, val_log_max)
+		tags['%%LEGEND5%%'] = self.format_val(0.2, val_log_max)
+
 		with open(census_map) as fpin:
 			with open(out_svg, 'w') as fpout:
 				for line in fpin:
 					if line.startswith('  #INSERT_STYLES'):
-						self.write_color_style(fpout, 'legend-1', 1.0)
-						self.write_color_style(fpout, 'legend-2', 0.8)
-						self.write_color_style(fpout, 'legend-3', 0.6)
-						self.write_color_style(fpout, 'legend-4', 0.4)
-						self.write_color_style(fpout, 'legend-5', 0.2)
-						for fips in data.keys():
-							# The CSS style id for coloring this region.
-							fips_style_id = fips
-							if fips == '66999':
-								continue
-							if fips in self.nyc_fips:
-								# NYT data for NYC is all combined into one value. So
-								# Use the same color for each borough.
-								fips = FIPS_NEW_YORK_CITY
-							if fips == FIPS_KANSAS_CITY_MO:
-								continue
-							if data[fips] != 0:
-								val_log = math.log10(data[fips] * AREA_SCALE / self.area[fips])
-								if val_log < 0:
-									print 'Bad', type, 'log:', fips, val_log
-								# Scale the log values to be 0.0 - 1.0
-								scaled_log = val_log / val_log_max
-								if scaled_log > 1.0:
-									print 'WARNING: clamping scaled value that exceeds max:', scaled_log, 'for', fips, self.names[fips]
-									scaled_log = 1.0
-								self.write_color_style(fpout, 'c'+fips_style_id, scaled_log)
+						self.write_css_styles('all', fpout, data, val_log_max)
 					else:
-						line = line.replace('%%DATE%%', date_str)
-						line = line.replace('%%TYPE%%', type)
-						line = line.replace('%%TITLE%%', '%s Reported in US by County' % type)
-						line = line.replace('%%SUBTITLE%%', 'Colored relative to most-impacted region')
-						line = line.replace('%%URL%%', 'garykac.github.io/covid19')
-						line = line.replace('%%UNITS%%', 'per sq mile')
-						line = line.replace('%%LEGEND1%%', self.format_val(1.0, val_log_max))
-						line = line.replace('%%LEGEND2%%', self.format_val(0.8, val_log_max))
-						line = line.replace('%%LEGEND3%%', self.format_val(0.6, val_log_max))
-						line = line.replace('%%LEGEND4%%', self.format_val(0.4, val_log_max))
-						line = line.replace('%%LEGEND5%%', self.format_val(0.2, val_log_max))
+						line = self.replace_tags(line, tags)
 						fpout.write(line)
 
 		d = self.curr_date
@@ -399,10 +377,92 @@ class MapData:
 		archive = 'map-%s/%s-%s.svg' % (name, name, ymd)
 		shutil.copy(out_svg, archive)
 	
+	def generate_state_maps(self):		
+		for s in ['CA', 'NY', 'OH', 'WA']:
+			self.generate_state_map(s)	
+		
+	def generate_state_map(self, s):
+		type = 'Cases'
+		in_svg = 'data/state-maps/%s.svg' % s
+		out_svg = 'state/%s/map-cases.svg' % s
+		data = self.cases
+		max_per_Nsqmi = self.max_cases_per_Nsqmi
+		val_log_max = math.log10(max_per_Nsqmi)
+
+		state_name = USInfo.state_name[s]
+		state_fips = self.state2fips[state_name][0:2]
+		
+		tags = {}
+		tags['%%DATE%%'] = self.calc_date_str()
+		tags['%%TYPE%%'] = type
+		tags['%%TITLE%%'] = '%s Reported by County' % type
+		tags['%%SUBTITLE%%'] = 'Colored relative to most-impacted region'
+		tags['%%UNITS%%'] = 'per sq mile'
+		tags['%%LEGEND1%%'] = self.format_val(1.0, val_log_max)
+		tags['%%LEGEND2%%'] = self.format_val(0.8, val_log_max)
+		tags['%%LEGEND3%%'] = self.format_val(0.6, val_log_max)
+		tags['%%LEGEND4%%'] = self.format_val(0.4, val_log_max)
+		tags['%%LEGEND5%%'] = self.format_val(0.2, val_log_max)
+
+		with open(in_svg) as fpin:
+			with open(out_svg, 'w') as fpout:
+				for line in fpin:
+					if line.startswith('  #INSERT_STYLES'):
+						self.write_css_styles(s, fpout, data, val_log_max)
+					else:
+						tags['%%STATE%%'] = state_name
+						tags['%%URL%%'] = 'garykac.github.io/covid19/state/%s' % s
+
+						line = self.replace_tags(line, tags)
+						fpout.write(line)
+	
 	def calc_date_str(self):
 		d = self.curr_date
 		months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 		return d[8:10] + ' ' + months[int(d[5:7])-1] + ' ' + d[0:4]
+
+	def write_css_styles(self, state, fpout, data, val_log_max):
+		state_fips = None
+		if state != 'all':
+			state_fips = self.state2fips[USInfo.state_name[state]][0:2]
+
+		self.write_color_style(fpout, 'legend-1', 1.0)
+		self.write_color_style(fpout, 'legend-2', 0.8)
+		self.write_color_style(fpout, 'legend-3', 0.6)
+		self.write_color_style(fpout, 'legend-4', 0.4)
+		self.write_color_style(fpout, 'legend-5', 0.2)
+		for fips in data.keys():
+			# Ignore other states if we're writing data for a single state.
+			if state_fips != None and fips[0:2] != state_fips:
+				continue
+
+			# The CSS style id for coloring this region.
+			fips_style_id = fips
+
+			# Skip Guam - not on map
+			if fips == '66999':
+				continue
+			if fips in self.nyc_fips:
+				# NYT data for NYC is all combined into one value. So
+				# Use the same color for each borough.
+				fips = FIPS_NEW_YORK_CITY
+			if fips == FIPS_KANSAS_CITY_MO:
+				continue
+			if data[fips] != 0:
+				val_log = math.log10(data[fips] * AREA_SCALE / self.area[fips])
+				if val_log < 0:
+					print 'Bad', type, 'log:', fips, val_log
+				# Scale the log values to be 0.0 - 1.0
+				scaled_log = val_log / val_log_max
+				if scaled_log > 1.0:
+					print 'WARNING: clamping scaled value that exceeds max:', scaled_log, 'for', fips, self.names[fips]
+					scaled_log = 1.0
+				self.write_color_style(fpout, 'c'+fips_style_id, scaled_log)
+	
+	def replace_tags(self, line, tags):
+		for t in tags:
+			line = line.replace(t, tags[t])
+		return line
 
 	def format_val(self, percent, log_max):
 		val = (10 ** (percent * log_max)) / AREA_SCALE
@@ -486,6 +546,8 @@ def main(argv):
 
 	map_data.generate_map_cases()
 	map_data.generate_map_deaths()
+	
+	map_data.generate_state_maps()
 	
 	if animate:
 		map_data.animate()
