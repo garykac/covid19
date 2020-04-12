@@ -30,16 +30,19 @@
 	<div class="toc-h1"><a href="#cases">Positive Cases Reported in US States</a></div>
 		<div class="toc-link"><a href="#cases-direct">Top 8 States - Direct Comparison</a></div>
 		<div class="toc-link"><a href="#cases-normalized">Top 8 States - Normalized for Population</a></div>
+		<div class="toc-link"><a href="#cases-ranking">Change in State Ranking</a></div>
 		<div class="toc-link"><a href="#cases-states-normalized">All States - Normalized for Population</a></div>
 
 	<div class="toc-h1"><a href="#deaths">Deaths Reported in US States</a></div>
 		<div class="toc-link"><a href="#deaths-direct">Top 8 States - Direct Comparison</a></div>
 		<div class="toc-link"><a href="#deaths-normalized">Top 8 States - Normalized for Population</a></div>
+		<div class="toc-link"><a href="#deaths-ranking">Change in State Ranking</a></div>
 		<div class="toc-link"><a href="#deaths-states-normalized">All States - Normalized for Population</a></div>
 
 	<div class="toc-h1"><a href="#tests">Tests Reported in US States</a></div>
 		<div class="toc-link"><a href="#tests-direct">Top 8 States - Direct Comparison</a></div>
 		<div class="toc-link"><a href="#tests-normalized">Top 8 States - Normalized for Population</a></div>
+		<div class="toc-link"><a href="#tests-ranking">Change in State Ranking</a></div>
 		<div class="toc-link"><a href="#tests-states-normalized">All States - Normalized for Population</a></div>
 </div><!-- toc-container -->
 
@@ -217,7 +220,7 @@ reported 10 positive cases per million residents.
 </div>
 </div><!-- graphcontainer -->
 
-<h2>Cases Reported - Change in State Ranking over Time</h2>
+<h2 id="cases-ranking">Cases Reported - Change in State Ranking over Time</h2>
 <div class="h2subheading">States ranked per capita</div>
 
 <div class="graph"><a href="state-ranking-cases-norm.png"><img src="state-ranking-cases-norm.png" height='400px'/></a></div>
@@ -302,7 +305,7 @@ reported 1 death per million residents.
 </div>
 </div><!-- graphcontainer -->
 
-<h2>Deaths Reported - Change in State Ranking over Time</h2>
+<h2 id="deaths-ranking">Deaths Reported - Change in State Ranking over Time</h2>
 <div class="h2subheading">States ranked per capita</div>
 
 <div class="graph"><a href="state-ranking-deaths-norm.png"><img src="state-ranking-deaths-norm.png" height='400px'/></a></div>
@@ -387,7 +390,7 @@ reported 10 tests per million residents.
 </div>
 </div><!-- graphcontainer -->
 
-<h2>Tests Reported - Change in State Ranking over Time</h2>
+<h2 id="tests-ranking">Tests Reported - Change in State Ranking over Time</h2>
 <div class="h2subheading">States ranked per capita</div>
 
 <div class="graph"><a href="state-ranking-tests-norm.png"><img src="state-ranking-tests-norm.png" height='400px'/></a></div>
