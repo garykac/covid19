@@ -77,49 +77,49 @@
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
   #c36029 {fill:#ff8b46;}
-  #c36023 {fill:#ffcc76;}
+  #c36023 {fill:#ffcc77;}
   #c36021 {fill:#ffb966;}
-  #c36027 {fill:#ff8341;}
-  #c36025 {fill:#ffcf79;}
+  #c36027 {fill:#ff8241;}
+  #c36025 {fill:#ffd07a;}
   #c36001 {fill:#ff964d;}
-  #c36017 {fill:#ffc26d;}
+  #c36017 {fill:#ffc26e;}
   #c36013 {fill:#ffd47e;}
-  #c36011 {fill:#ffca75;}
-  #c36075 {fill:#ffca75;}
-  #c36079 {fill:#ff8240;}
-  #c36003 {fill:#ffd07a;}
+  #c36011 {fill:#ffca74;}
+  #c36075 {fill:#ffcb75;}
+  #c36079 {fill:#ff8241;}
+  #c36003 {fill:#ffd17b;}
   #c36005 {fill:#ff0000;}
   #c36007 {fill:#ffb462;}
   #c36009 {fill:#ffd882;}
-  #c36101 {fill:#ffbe6a;}
-  #c36105 {fill:#ffa759;}
-  #c36107 {fill:#ffcc76;}
-  #c36119 {fill:#ff3919;}
+  #c36101 {fill:#ffbf6b;}
+  #c36105 {fill:#ffa758;}
+  #c36107 {fill:#ffcb76;}
+  #c36119 {fill:#ff391a;}
   #c36047 {fill:#ff0000;}
   #c36123 {fill:#ffe28d;}
   #c36121 {fill:#ffc671;}
   #c36109 {fill:#ffae5e;}
-  #c36065 {fill:#ffb664;}
+  #c36065 {fill:#ffb663;}
   #c36103 {fill:#ff4c23;}
-  #c36069 {fill:#ffbf6b;}
-  #c36015 {fill:#ffb563;}
-  #c36019 {fill:#ffc974;}
+  #c36069 {fill:#ffbe6b;}
+  #c36015 {fill:#ffb664;}
+  #c36019 {fill:#ffca74;}
   #c36099 {fill:#ffc772;}
   #c36097 {fill:#ffd781;}
   #c36095 {fill:#ffd47e;}
   #c36093 {fill:#ff934b;}
   #c36091 {fill:#ffae5e;}
   #c36077 {fill:#ffc974;}
-  #c36071 {fill:#ff6c34;}
-  #c36073 {fill:#ffc36f;}
+  #c36071 {fill:#ff6b33;}
+  #c36073 {fill:#ffc46f;}
   #c36059 {fill:#ff2912;}
   #c36089 {fill:#ffce78;}
   #c36081 {fill:#ff0000;}
   #c36083 {fill:#ffb664;}
   #c36085 {fill:#ff0000;}
-  #c36087 {fill:#ff391a;}
+  #c36087 {fill:#ff3a1a;}
   #c36067 {fill:#ffa054;}
-  #c36063 {fill:#ffa95a;}
+  #c36063 {fill:#ffa85a;}
   #c36061 {fill:#ff0000;}
   #c36053 {fill:#ffb563;}
   #c36057 {fill:#ffc16d;}
@@ -127,17 +127,17 @@
   #c36998 {fill:#ff0000;}
   #c36049 {fill:#ffe590;}
   #c36045 {fill:#ffcc76;}
-  #c36041 {fill:#ffee9d;}
+  #c36041 {fill:#ffef9d;}
   #c36043 {fill:#ffd07a;}
   #c36051 {fill:#ffc872;}
-  #c36113 {fill:#ffc671;}
-  #c36111 {fill:#ffa054;}
+  #c36113 {fill:#ffc772;}
+  #c36111 {fill:#ff9f53;}
   #c36117 {fill:#ffc26d;}
-  #c36039 {fill:#ffc671;}
-  #c36031 {fill:#ffe38e;}
-  #c36033 {fill:#ffe18b;}
-  #c36115 {fill:#ffcd77;}
-  #c36035 {fill:#ffcb75;}
+  #c36039 {fill:#ffc570;}
+  #c36031 {fill:#ffe18c;}
+  #c36033 {fill:#ffe18c;}
+  #c36115 {fill:#ffcb76;}
+  #c36035 {fill:#ffc974;}
   #c36037 {fill:#ffb765;}
  </style>
   <g
@@ -202,7 +202,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">305</tspan></text>
+           sodipodi:role="line">325</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -214,7 +214,7 @@
            id="tspan10462"
            x="897.33807"
            y="427.23941"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">6.1</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">6.4</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text10464"
@@ -226,7 +226,7 @@
            y="441.23941"
            x="897.33807"
            id="tspan10466"
-           sodipodi:role="line">0.12</tspan></text>
+           sodipodi:role="line">0.13</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -238,7 +238,7 @@
            id="tspan10470"
            x="897.33807"
            y="455.23941"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">0.002</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">0.003</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text10472"
@@ -342,7 +342,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">10 Apr 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">11 Apr 2020</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text4238"
