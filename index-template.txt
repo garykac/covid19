@@ -217,6 +217,11 @@ reported 10 positive cases per million residents.
 </div>
 </div><!-- graphcontainer -->
 
+<h2>Cases Reported - Change in State Ranking over Time</h2>
+<div class="h2subheading">States ranked per capita</div>
+
+<div class="graph"><a href="state-ranking-cases-norm.png"><img src="state-ranking-cases-norm.png" height='400px'/></a></div>
+
 <h2 id="cases-states-normalized">Positive Cases Reported for Individual States</h2>
 <div class="h2subheading">Normalized per million residents</div>
 
@@ -296,6 +301,11 @@ reported 1 death per million residents.
 	<div class="graph"><a href="deaths-norm/deaths-log.png">static image</a></div>
 </div>
 </div><!-- graphcontainer -->
+
+<h2>Deaths Reported - Change in State Ranking over Time</h2>
+<div class="h2subheading">States ranked per capita</div>
+
+<div class="graph"><a href="state-ranking-deaths-norm.png"><img src="state-ranking-deaths-norm.png" height='400px'/></a></div>
 
 <h2 id="deaths-states-normalized">Deaths Reported for Individual States</h2>
 <div class="h2subheading">Normalized per million residents</div>
@@ -377,14 +387,19 @@ reported 10 tests per million residents.
 </div>
 </div><!-- graphcontainer -->
 
+<h2>Tests Reported - Change in State Ranking over Time</h2>
+<div class="h2subheading">States ranked per capita</div>
+
+<div class="graph"><a href="state-ranking-tests-norm.png"><img src="state-ranking-tests-norm.png" height='400px'/></a></div>
+
+<h2 id="tests-states-normalized">Tests Reported for Individual States</h2>
+<div class="h2subheading">Normalized per million residents</div>
+
 <p>
 The following graphs shows the normalized data for each state individually.
 As with the normalized graphs above, "day 0" is when the state first reported 10 tests per million residents.
 Each graph contains the data for all states plotted in the background for reference.
 </p>
-
-<h2 id="tests-states-normalized">Tests Reported for Individual States</h2>
-<div class="h2subheading">Normalized per million residents</div>
 
 <div class="graphcontainer">
 <div class="graphbox">

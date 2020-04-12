@@ -754,6 +754,7 @@ class CovidCases:
 		sys.stdout.flush()
 		for s in USInfo.states:
 			self.calc_ranking_plot_type_state(type, s, raw_data)
+		self.calc_ranking_plot_type_state(type, 'all', raw_data)
 
 	def calc_ranking_plot_type_state(self, type, state, raw_data):
 		info = self.info[type]
@@ -817,7 +818,7 @@ class CovidCases:
 			ax.plot(x[:days_with_data[s]], rank_states[s][:days_with_data[s]], linewidth = linewidth)
 
 		if state == 'all':
-			filename = 'state-ranking-%s-norm.png' % type
+			filename = 'state-ranking-%s.png' % type
 		else:
 			filename = 'state/%s/state-ranking-%s.png' % (state, type)
 		fig.set_size_inches(24, 10)
@@ -977,7 +978,8 @@ def usage():
 	print '  --combined Generate combined state plots'
 	print '  --date <yyyymmdd> Only plot data up to date'
 	print '  --individual Generate individual state plots'
-	print '  --top Generate top-N plots'
+	print '  --ranking Generate state ranking plots'
+	print '  --top Generate state top-N plots'
 	sys.exit(1)
 
 def main(argv):
