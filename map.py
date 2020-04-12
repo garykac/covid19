@@ -395,7 +395,7 @@ class MapData:
 		tags['%%DATE%%'] = self.calc_date_str()
 		tags['%%TYPE%%'] = type
 		tags['%%TITLE%%'] = '%s Reported by County' % type
-		tags['%%SUBTITLE%%'] = 'Colored relative to most-impacted region'
+		tags['%%SUBTITLE%%'] = 'Colored relative to most-impacted region in US'
 		tags['%%UNITS%%'] = 'per sq mile'
 		tags['%%LEGEND1%%'] = self.format_val(1.0, val_log_max)
 		tags['%%LEGEND2%%'] = self.format_val(0.8, val_log_max)

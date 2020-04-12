@@ -767,7 +767,10 @@ class CovidCases:
 		plt.close('all')
 		fig, ax = plt.subplots()
 		ax.axis([0, num_days, 0, num_states+1])
-		ax.set_title('US State Ranking of COVID-19 %s\nChanges over Time (%s)' % (info.label, USInfo.state_name[state]))
+		title = 'US State Ranking of COVID-19 %s\nChanges over Time' % (info.label)
+		if state != 'all':
+			title +=  ' (%s)' % USInfo.state_name[state]
+		ax.set_title(title)
 		#ax.set_xlabel('x label')
 		ax.set_ylabel('Ranking of %s' % info.label)
 		ax.set_xticks([])
@@ -813,7 +816,10 @@ class CovidCases:
 				linewidth = 4
 			ax.plot(x[:days_with_data[s]], rank_states[s][:days_with_data[s]], linewidth = linewidth)
 
-		filename = 'state/%s/state-ranking-%s.png' % (state, type)
+		if state == 'all':
+			filename = 'state-ranking-%s-norm.png' % type
+		else:
+			filename = 'state/%s/state-ranking-%s.png' % (state, type)
 		fig.set_size_inches(24, 10)
 		plt.savefig(filename, dpi=90, bbox_inches='tight')
 		
