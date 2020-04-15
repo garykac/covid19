@@ -43,7 +43,7 @@ class C19Tests:
 	units = ''
 
 class C19TestsNorm:
-	num_days = 50
+	num_days = 55
 	threshold = 10
 	y_min = threshold
 	y_max = 30000
