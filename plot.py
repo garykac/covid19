@@ -898,13 +898,17 @@ class CovidCases:
 						fpout.write(line)
 
 	def calc_state_maps_html(self, state):
+		width = '550px'
+		if state in USInfo.TALL_STATES:
+			width = '300px'
+
 		map = ''
 		map += '<div class="graphcontainer">\n'
 		map += '<div class="graphbox">\n'
-		map += '	<div class="map"><a href="map-cases.svg"><img src="map-cases.svg" width="550px"/></a></div>\n'
+		map += '	<div class="map"><a href="map-cases.svg"><img src="map-cases.svg" width="%s"/></a></div>\n' % width
 		map += '</div>\n'
 		map += '<div class="graphbox">\n'
-		map += '	<div class="map"><a href="map-deaths.svg"><img src="map-deaths.svg" width="550px"/></a></div>\n'
+		map += '	<div class="map"><a href="map-deaths.svg"><img src="map-deaths.svg" width="%s"/></a></div>\n' % width
 		map += '</div>\n'
 		map += '</div><!-- graphcontainer -->\n'
 		return map
