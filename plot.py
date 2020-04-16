@@ -17,6 +17,8 @@ from matplotlib.ticker import LogFormatter
 from usinfo import USInfo
 from covid_data import CovidData
 
+STATES_WITH_MAPS = ['CA', 'LA', 'NJ', 'NY', 'OH', 'WA']
+
 _italy_pop = 60549600  # 2020 from https://en.wikipedia.org/wiki/Demographics_of_Italy
 
 # Number of states to include in plot
@@ -885,7 +887,7 @@ class CovidCases:
 		for s in USInfo.states:
 			ranking = self.calc_ranking_for_state_html(s)
 			maps = ''
-			if s in ['CA', 'NY', 'OH', 'WA']:
+			if s in STATES_WITH_MAPS:
 				maps = self.calc_state_maps_html(s)
 			with open('state-index-template.txt') as fpin:
 				with open('state/%s/index.html' % s, 'w') as fpout:
