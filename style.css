@@ -164,6 +164,13 @@ li {
 .ranking-table tr:nth-child(even) {
 	background: #c8e1f3;
 }
+.table-note {
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+	margin: 0 auto;
+	text-align: center;	
+	font-size: 16pt;
+	font-weight: 300;
+}
 .home {
 	position: absolute;
 	top: 2px;

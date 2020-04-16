@@ -365,9 +365,13 @@ class CovidCases:
 			data = options.processor(raw_data, options.info.threshold, USInfo.state_pop[state], False)
 			if len(data) > 0:
 				val = data[-1]
+				delta = val
+				if len(data) > 1:
+					delta = data[-1] - data[-2]
 			else:
 				val = 0
-			ranking[state] = [rank, val]
+				delta = 0
+			ranking[state] = [rank, val, delta]
 			ranking_data[state] = data
 			rank += 1
 		
@@ -921,8 +925,9 @@ class CovidCases:
 		ranking += '<thead><tr>\n'
 		ranking += '\t<th>Metric</th>\n'
 		ranking += '\t<th>Rank</th>\n'
-		ranking += '\t<th>Change</th>\n'
+		ranking += '\t<th>Rank<br/>Change&#x2020;</th>\n'
 		ranking += '\t<th>Value</th>\n'
+		ranking += '\t<th>Value<br/>Change&#x2020;</th>\n'
 		ranking += '</tr></thead>\n'
 		ranking += '<tbody>\n'
 
@@ -933,11 +938,14 @@ class CovidCases:
 			ranking += '<td><a href="{:s}">{:s}</a></td>\n'.format(url, info.label)
 
 			rank = self.ranking[type][state]
-			ranking += '<td>#{:d}</td>\n'.format(rank[0])
+			ranking_ord = rank[0]
+			val = rank[1]
+			delta = rank[2]
+			ranking += '<td>#{:d}</td>\n'.format(ranking_ord)
 			
 			if type in ['cases-norm', 'deaths-norm', 'tests-norm']:
 				rank_states = self.rank_states[type]
-				curr_rank = rank[0]
+				curr_rank = ranking_ord
 				prev_rank = rank_states[state][1]
 				if curr_rank == prev_rank:
 					ranking += '<td>-</td>\n'
@@ -951,9 +959,11 @@ class CovidCases:
 				ranking += '<td></td>\n'
 				
 			if info.units == '':
-				ranking += '<td>{:d}</td>\n'.format(rank[1])
+				ranking += '<td>{:d}</td>\n'.format(val)
+				ranking += '<td>+{:d}</td>\n'.format(delta)
 			else:
-				ranking += '<td>{:.2f} {:s}</td>\n'.format(rank[1], info.units)
+				ranking += '<td>{:.2f} {:s}</td>\n'.format(val, info.units)
+				ranking += '<td>+{:.2f}</td>\n'.format(delta)
 
 			ranking += '</tr>\n'
 			
@@ -970,6 +980,8 @@ class CovidCases:
 
 		ranking += '</tbody>\n'
 		ranking += '</table>\n'
+
+		ranking += '<div class="table-note">&#x2020; Change since previous day\'s value.</p>\n'
 
 		return ranking
 
