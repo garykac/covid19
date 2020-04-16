@@ -1,4 +1,8 @@
 class USInfo:
+
+	# States with separate county-level maps.
+	STATES_WITH_MAPS = ['CA', 'LA', 'NJ', 'NY', 'OH', 'WA']
+
 	us_pop = 331875705  # Total US population summed from state data.
 
 	states = [

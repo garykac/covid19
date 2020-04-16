@@ -12,8 +12,6 @@ import sys
 
 from usinfo import USInfo
 
-STATES_WITH_MAPS = ['CA', 'LA', 'NJ', 'NY', 'OH', 'WA']
-
 census_data = 'data/census/DEC_10_SF1_GCTPH1.US05PR/DEC_10_SF1_GCTPH1.US05PR.csv'
 nyt_data = 'data/nyt/us-counties.csv'
 census_map = 'data/state-maps/us-all.svg'
@@ -380,7 +378,7 @@ class MapData:
 		shutil.copy(out_svg, archive)
 	
 	def generate_state_maps(self):		
-		for s in STATES_WITH_MAPS:
+		for s in USInfo.STATES_WITH_MAPS:
 			self.generate_state_map(s, 'Cases', 'state/%s/map-cases.svg' % s, self.cases,
 					self.max_cases_per_Nsqmi)
 			self.generate_state_map(s, 'Deaths', 'state/%s/map-deaths.svg' % s, self.deaths,
