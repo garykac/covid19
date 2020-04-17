@@ -77,13 +77,13 @@
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
   #c09015 {fill:#ffe08b;}
-  #c09011 {fill:#ffc974;}
-  #c09013 {fill:#ffac5c;}
-  #c09007 {fill:#ffa557;}
-  #c09005 {fill:#ffb361;}
-  #c09003 {fill:#ff8643;}
-  #c09001 {fill:#ff7539;}
-  #c09009 {fill:#ff8442;}
+  #c09011 {fill:#ffc671;}
+  #c09013 {fill:#ffac5d;}
+  #c09007 {fill:#ffa456;}
+  #c09005 {fill:#ffaf5e;}
+  #c09003 {fill:#ff8442;}
+  #c09001 {fill:#ff7338;}
+  #c09009 {fill:#ff8241;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -147,7 +147,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">27</tspan></text>
+           sodipodi:role="line">29</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -183,7 +183,7 @@
            id="tspan10470"
            x="897.33807"
            y="455.23941"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">0.0009</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">0.0010</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text10472"
@@ -287,7 +287,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">15 Apr 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">16 Apr 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
