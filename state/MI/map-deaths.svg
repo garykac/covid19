@@ -77,57 +77,57 @@
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
   #c26157 {fill:#ffc873;}
-  #c26155 {fill:#ffe08b;}
+  #c26155 {fill:#ffd882;}
   #c26151 {fill:#ffdf8a;}
   #c26023 {fill:#ffd781;}
-  #c26021 {fill:#ffcc76;}
+  #c26021 {fill:#ffc772;}
   #c26027 {fill:#ffdf8a;}
   #c26025 {fill:#ffd680;}
-  #c26145 {fill:#ffbd69;}
-  #c26149 {fill:#ffe08a;}
-  #c26039 {fill:#ffe18c;}
-  #c26037 {fill:#ffcf79;}
-  #c26031 {fill:#ffe38f;}
-  #c26033 {fill:#ffea97;}
+  #c26145 {fill:#ffbb68;}
+  #c26149 {fill:#ffdf8a;}
+  #c26039 {fill:#ffe18b;}
+  #c26037 {fill:#ffcc76;}
+  #c26031 {fill:#ffe38e;}
+  #c26033 {fill:#ffe996;}
   #c26159 {fill:#ffda84;}
   #c26049 {fill:#ff974e;}
-  #c26041 {fill:#ffe894;}
+  #c26041 {fill:#ffe793;}
   #c26043 {fill:#ffdc87;}
-  #c26045 {fill:#ffcc76;}
+  #c26045 {fill:#ffcc77;}
   #c26047 {fill:#ffd680;}
-  #c26029 {fill:#ffde88;}
-  #c26059 {fill:#ffc36e;}
+  #c26029 {fill:#ffdd88;}
+  #c26059 {fill:#ffc36f;}
   #c26053 {fill:#ffe793;}
-  #c26055 {fill:#ffd07a;}
-  #c26147 {fill:#ffca75;}
+  #c26055 {fill:#ffd17b;}
+  #c26147 {fill:#ffc873;}
   #c26067 {fill:#ffd983;}
-  #c26065 {fill:#ffcf79;}
-  #c26069 {fill:#ffe18b;}
-  #c26073 {fill:#ffcf79;}
-  #c26075 {fill:#ffca74;}
-  #c26077 {fill:#ffc46f;}
+  #c26065 {fill:#ffcc76;}
+  #c26069 {fill:#ffe08b;}
+  #c26073 {fill:#ffd07a;}
+  #c26075 {fill:#ffc873;}
+  #c26077 {fill:#ffc470;}
   #c26079 {fill:#ffd983;}
-  #c26087 {fill:#ffc46f;}
-  #c26081 {fill:#ffc16d;}
-  #c26099 {fill:#ff7237;}
-  #c26093 {fill:#ffc973;}
-  #c26035 {fill:#ffe18c;}
+  #c26087 {fill:#ffc36e;}
+  #c26081 {fill:#ffbf6b;}
+  #c26099 {fill:#ff7036;}
+  #c26093 {fill:#ffc772;}
+  #c26035 {fill:#ffe18b;}
   #c26137 {fill:#ffd882;}
   #c26139 {fill:#ffd983;}
-  #c26127 {fill:#ffe08b;}
-  #c26125 {fill:#ff7c3d;}
-  #c26121 {fill:#ffca74;}
-  #c26113 {fill:#ffe18c;}
-  #c26111 {fill:#ffe08b;}
+  #c26127 {fill:#ffe08a;}
+  #c26125 {fill:#ff7b3d;}
+  #c26121 {fill:#ffca75;}
+  #c26113 {fill:#ffe18b;}
+  #c26111 {fill:#ffe08a;}
   #c26117 {fill:#ffe38e;}
-  #c26115 {fill:#ffc36f;}
-  #c26107 {fill:#ffe18c;}
+  #c26115 {fill:#ffc26d;}
+  #c26107 {fill:#ffe08b;}
   #c26103 {fill:#ffdc86;}
-  #c26163 {fill:#ff5d2c;}
-  #c26161 {fill:#ffb764;}
-  #c26165 {fill:#ffe18c;}
-  #c26017 {fill:#ffd57f;}
-  #c26015 {fill:#ffe18c;}
+  #c26163 {fill:#ff5c2b;}
+  #c26161 {fill:#ffb563;}
+  #c26165 {fill:#ffe18b;}
+  #c26017 {fill:#ffd680;}
+  #c26015 {fill:#ffe08b;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -191,7 +191,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">25</tspan></text>
+           sodipodi:role="line">27</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -203,7 +203,7 @@
            id="tspan10462"
            x="897.33807"
            y="427.23941"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">0.8</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">0.9</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text10464"
@@ -331,7 +331,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">14 Apr 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">15 Apr 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
