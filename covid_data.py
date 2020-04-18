@@ -1,5 +1,6 @@
 from __future__ import division
 
+import math
 import os
 import shutil
 
@@ -405,3 +406,36 @@ class CovidData:
 			print 'ERROR - US and Italy data not consistent: Italy=', date, 'vs US=', self.date
 			exit(1)
 
+# Calc doubling rate, averaged over the past 3 days.
+def calc_doubling_rate(values):
+	weight = [0.6, 0.3, 0.1]  # Weights for each day to calc average
+	if len(values) < 4:
+		return None
+	
+	val = [values[-2], values[-3], values[-4]]
+	curr = values[-1]
+
+	ln2 = math.log(2)
+	ln_curr = math.log(curr)
+	avg = 0
+	# Calc weighted average of past 3 days: [curr-1, curr-2, curr-3].
+	for delta in [1,2,3]:
+		lndata = ln_curr - math.log(val[delta-1])
+		# avg += weight * (t2 - t1) * rate
+		avg += weight[delta-1] * delta * (ln2 / lndata)
+	return avg
+
+# floating point equal
+def feq(v1, v2):
+	return (v1 + 0.00001) > v2 and (v1 - 0.00001) < v2
+
+def ASSERT(expected, actual, info=''):
+	if not feq(expected, actual):
+		print 'ERROR expected:', expected, 'actual:', actual, 'for', info
+
+def run_tests():
+	data = [4, 8, 16, 32]
+	ASSERT(1.0, calc_doubling_rate(data), data)
+	
+if __name__ == "__main__":
+	run_tests()
