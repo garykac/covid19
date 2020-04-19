@@ -241,25 +241,8 @@ class MapData:
 					state_fips_with_deaths[state_fips].append(fips)
 				
 				# Keep track of max value so that we can normalize data to that value.
-				cases_per_Nsqmi = cases * AREA_SCALE / self.area[fips]
-				if cases_per_Nsqmi > self.max_cases_per_Nsqmi:
-					self.max_cases_per_Nsqmi = cases_per_Nsqmi
-				
-				deaths_per_Nsqmi = deaths * AREA_SCALE / self.area[fips]
-				if deaths_per_Nsqmi > self.max_deaths_per_Nsqmi:
-					self.max_deaths_per_Nsqmi = deaths_per_Nsqmi
+				self.update_max_per_Nsqmi(cases, deaths, fips)
 
-		# Overwrite calculated max per square mile values so that we use the same
-		# value when plotting historical graphs.
-		if self.use_fixed_max_pnsm:
-			print 'Using specified max values'
-			self.max_cases_per_Nsqmi = MAX_CASES_PNSM
-			self.max_deaths_per_Nsqmi = MAX_DEATHS_PNSM
-		else:
-			print 'Using calculated max values'
-		print 'Max cases psm', self.max_cases_per_Nsqmi
-		print 'Max deaths psm', self.max_deaths_per_Nsqmi
-		
 		if process_date and not found_date:
 			print 'ERROR: Unable to find data for', process_date
 			exit(1)
@@ -269,8 +252,9 @@ class MapData:
 			percent = self.area[fips] / self.area[FIPS_NEW_YORK_CITY]
 			self.cases[fips] += self.cases[FIPS_NEW_YORK_CITY] * percent
 			self.deaths[fips] += self.deaths[FIPS_NEW_YORK_CITY] * percent
+			self.update_max_per_Nsqmi(self.cases[fips], self.deaths[fips], fips)			
 
-		# Equally distribute the data amongst the 5 country that contain Kansas City, MO based on size (sq mi)
+		# Equally distribute the data amongst the 5 counties that contain Kansas City, MO based on size (sq mi)
 		# Add this data to the existing data for the region
 		for fips in self.kc_fips:
 			percent = self.area[fips] / self.area[FIPS_KANSAS_CITY_MO]
@@ -278,6 +262,7 @@ class MapData:
 				self.cases[fips] += self.cases[FIPS_KANSAS_CITY_MO] * percent
 			if FIPS_KANSAS_CITY_MO in self.deaths:
 				self.deaths[fips] += self.deaths[FIPS_KANSAS_CITY_MO] * percent
+			self.update_max_per_Nsqmi(self.cases[fips], self.deaths[fips], fips)			
 		
 		# For the 'Unknown' data for each state, distribute it equally (based on area)
 		# to the counties that have reported non-zero values.
@@ -305,8 +290,11 @@ class MapData:
 			# Distribute the total to each affected county proportional to area.
 			for fips in target_fips:
 				self.cases[fips] += unknown_state_cases[state_fips] * (self.area[fips] / area)
+				self.update_max_per_Nsqmi(self.cases[fips], 0, fips)			
+
 		for state_fips in unknown_state_deaths:
-			# Ignore Puerto Rico, Virgin Islands, Guam and Northern Mariana Islands - all cases are unknown and not on map yet.
+			# Ignore Puerto Rico, Virgin Islands, Guam and Northern Mariana Islands.
+			# All cases are unknown and not on map yet.
 			if state_fips in ['72999', '78999', '66999', '69999']:
 				continue
 
@@ -328,11 +316,32 @@ class MapData:
 			# Distribute the total to each affected county proportional to area.
 			for fips in target_fips:
 				self.deaths[fips] += unknown_state_deaths[state_fips] * (self.area[fips] / area)
+				self.update_max_per_Nsqmi(0, self.deaths[fips], fips)			
 
+		# Overwrite calculated max per square mile values so that we use the same
+		# value when plotting historical graphs.
+		if self.use_fixed_max_pnsm:
+			print 'Using specified max values'
+			self.max_cases_per_Nsqmi = MAX_CASES_PNSM
+			self.max_deaths_per_Nsqmi = MAX_DEATHS_PNSM
+		else:
+			print 'Using calculated max values'
+		print 'Max cases psm', self.max_cases_per_Nsqmi
+		print 'Max deaths psm', self.max_deaths_per_Nsqmi
+		
 		#print fips, self.names['53061'], self.cases['53061'], self.deaths['53061']
 
 		print 'US total: cases', self.us_cases, 'deaths', self.us_deaths
 		
+	def update_max_per_Nsqmi(self, cases, deaths, fips):
+		cases_per_Nsqmi = cases * AREA_SCALE / self.area[fips]
+		if cases_per_Nsqmi > self.max_cases_per_Nsqmi:
+			self.max_cases_per_Nsqmi = cases_per_Nsqmi
+		
+		deaths_per_Nsqmi = deaths * AREA_SCALE / self.area[fips]
+		if deaths_per_Nsqmi > self.max_deaths_per_Nsqmi:
+			self.max_deaths_per_Nsqmi = deaths_per_Nsqmi
+
 	def scan_svg(self):
 		self.map_ids = {}
 		with open(census_map) as fp:
@@ -477,6 +486,8 @@ class MapData:
 				scaled_log = val_log / val_log_max
 				if scaled_log > 1.0:
 					print 'WARNING: clamping scaled value that exceeds max:', scaled_log, 'for', fips, self.names[fips]
+					print 'data[fips]', data[fips], 'area', self.area[fips]
+					print 'val_log', val_log, 'val_log_max', val_log_max
 					scaled_log = 1.0
 				self.write_color_style(fpout, 'c'+fips_style_id, scaled_log)
 	
