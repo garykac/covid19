@@ -15,6 +15,7 @@ from usinfo import USInfo
 census_data = 'data/census/DEC_10_SF1_GCTPH1.US05PR/DEC_10_SF1_GCTPH1.US05PR.csv'
 nyt_data = 'data/nyt/us-counties.csv'
 census_map = 'data/state-maps/us-all.svg'
+anim_us_map = 'data/state-maps/us-anim.svg'
 us_map_cases = 'us-cases.svg'
 us_map_deaths = 'us-deaths.svg'
 
@@ -24,11 +25,17 @@ FIPS_KANSAS_CITY_MO = '29998'
 AREA_SCALE = 1000000
 
 # Max values per N square miles.
-MAX_CASES_PNSM = 111574425.9
-MAX_DEATHS_PNSM = 2564017.8
+#MAX_CASES_PNSM = 111574425.9
+#MAX_DEATHS_PNSM = 2564017.8
+# 18 Apr 2020
+MAX_CASES_PNSM = 420789692
+MAX_DEATHS_PNSM = 28521395
+
+# True to calculate the max PNSM values, otherwise use values above.
+CALCULATE_MAX_PNSM = False
 
 class MapData:
-	def __init__(self):
+	def __init__(self, fixed):
 		# FIPS for the New York City boroughs: New York, Kings, Queens, Bronx, Richmond
 		self.nyc_fips = ['36061', '36047', '36081', '36005', '36085']
 		# FIPS for counties that overlap with Kansas City, MO: Cass, Clay, Jackson, Platte
@@ -42,6 +49,8 @@ class MapData:
 			# https://www.census.gov/quickfacts/fact/table/oglalalakotacountysouthdakota,SD/HSD410218
 			['46113', '46102']
 		]
+		
+		self.use_fixed_max_pnsm = fixed
 
 	def load_census(self):
 		self.names = {}
@@ -189,7 +198,7 @@ class MapData:
 
 				if process_date and date != process_date:
 					continue
-					
+									
 				if fips == '' and county == 'New York City':
 					fips = FIPS_NEW_YORK_CITY
 
@@ -242,10 +251,14 @@ class MapData:
 
 		# Overwrite calculated max per square mile values so that we use the same
 		# value when plotting historical graphs.
-		print 'Calculated max cases psm', self.max_cases_per_Nsqmi
-		print 'Calculated max deaths psm', self.max_deaths_per_Nsqmi
-		#self.max_cases_per_Nsqmi = MAX_CASES_PNSM
-		#self.max_deaths_per_Nsqmi = MAX_CASES_PNSM
+		if self.use_fixed_max_pnsm:
+			print 'Using specified max values'
+			self.max_cases_per_Nsqmi = MAX_CASES_PNSM
+			self.max_deaths_per_Nsqmi = MAX_DEATHS_PNSM
+		else:
+			print 'Using calculated max values'
+		print 'Max cases psm', self.max_cases_per_Nsqmi
+		print 'Max deaths psm', self.max_deaths_per_Nsqmi
 		
 		if process_date and not found_date:
 			print 'ERROR: Unable to find data for', process_date
@@ -362,20 +375,29 @@ class MapData:
 		tags['%%LEGEND4%%'] = self.format_val(0.4, val_log_max)
 		tags['%%LEGEND5%%'] = self.format_val(0.2, val_log_max)
 
-		with open(census_map) as fpin:
-			with open(out_svg, 'w') as fpout:
+		map = census_map
+		output = out_svg
+		if self.use_fixed_max_pnsm:
+			map = anim_us_map
+
+			d = self.curr_date
+			ymd = d[0:4] + d[5:7] + d[8:10]
+			(name, suffix) = out_svg.split('.')
+			dir = 'map-%s' % (name)
+			if not os.path.exists(dir):
+				os.makedirs(dir)
+			output = 'map-%s/%s-%s.svg' % (name, name, ymd)
+
+			tags['%%TITLE%%'] = 'COVID-19 Reported %s' % type
+			
+		with open(map) as fpin:
+			with open(output, 'w') as fpout:
 				for line in fpin:
 					if line.startswith('  #INSERT_STYLES'):
 						self.write_css_styles('all', fpout, data, val_log_max)
 					else:
 						line = self.replace_tags(line, tags)
 						fpout.write(line)
-
-		d = self.curr_date
-		ymd = d[0:4] + d[5:7] + d[8:10]
-		(name, suffix) = out_svg.split('.')
-		archive = 'map-%s/%s-%s.svg' % (name, name, ymd)
-		shutil.copy(out_svg, archive)
 	
 	def generate_state_maps(self):		
 		for s in USInfo.STATES_WITH_MAPS:
@@ -508,8 +530,8 @@ class MapData:
 			print '    ', name
 			subprocess.call(['svg2png', svg_file, '-o', png_file])
 
-		print '  Combining images'
-		subprocess.call(['convert', '-morph', '1', '-delay', '15', '%s/*.png' % dir, '-delay', '240', last_file, '%s.gif' % filebase])
+		#print '  Combining images'
+		#subprocess.call(['convert', '-morph', '1', '-delay', '15', '%s/*.png' % dir, '-delay', '240', last_file, '%s.gif' % filebase])
 
 def usage():
 	print 'map.py [options]'
@@ -517,18 +539,21 @@ def usage():
 	print '  --help'
 	print '  --anim'
 	print '  --date yyyy-mm-dd'
+	print '  --fixed  Generate US map with fixed legend'
 	sys.exit(1)
 
 def main(argv):
 	try:
 		opts, args = getopt.getopt(argv,
-				"?had:",
-				["?", "help", "anim", "date="])
+				"?had:f",
+				["?", "help", "anim", "date=", "fixed"])
 	except getopt.GetoptError:
 		usage()
 
 	process_date = None
 	animate = False
+	fixed = False
+	state = True
 	for opt, arg in opts:
 		if opt in ("-?", "-h", "--?", "--help"):
 			usage()
@@ -536,8 +561,11 @@ def main(argv):
 			animate = True
 		if opt in ("-d", "--date"):
 			process_date = arg
+		if opt in ("-f", "--fixed"):
+			fixed = True
+			state = False
 
-	map_data = MapData()
+	map_data = MapData(fixed)
 	map_data.load_census()
 	map_data.load_nyt(process_date)
 	map_data.scan_svg()
@@ -545,8 +573,9 @@ def main(argv):
 
 	map_data.generate_map_cases()
 	map_data.generate_map_deaths()
-	
-	map_data.generate_state_maps()
+
+	if state:
+		map_data.generate_state_maps()
 	
 	if animate:
 		map_data.animate()
