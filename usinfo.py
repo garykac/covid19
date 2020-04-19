@@ -1,11 +1,14 @@
 class USInfo:
 
 	# States with separate county-level maps.
-	STATES_WITH_MAPS = ['CA', 'CT', 'FL', 'IL', 'LA', 'NJ', 'NY', 'MA', 'MI', 'OH', 'PA', 'RI', 'WA']
+	STATES_WITH_MAPS = [
+		'AL', 'AR', 'CA', 'CT', 'DC', 'DE', 'FL', 'IL', 'LA', 'NJ', 'NY',
+		'MA', 'MD', 'MI', 'MS', 'OH', 'OK', 'PA', 'RI', 'TX', 'VA', 'WA',
+	]
 
 	# States that are significantly taller than they are wide.
 	# This is used to scale maps.
-	TALL_STATES = ['IL', 'NJ', 'RI']
+	TALL_STATES = ['AL', 'DE', 'IL', 'MS', 'NJ', 'RI']
 	
 	us_pop = 331875705  # Total US population summed from state data.
 
