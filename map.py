@@ -344,11 +344,21 @@ class MapData:
 
 	def scan_svg(self):
 		self.map_ids = {}
+		curr_state = 'xxx'
 		with open(census_map) as fp:
 			for line in fp:
-				# Match lines with 'id="FIPS_02185"'
+				# Match states: lines with 'id="c02"'
+				m = re.search(r'id="c(\d\d)"', line)
+				if m:
+					curr_state = m.group(1)
+
+				# Match counties: lines with 'id="c02185"'
 				m = re.search(r'id="c(\d\d\d\d\d)"', line)
 				if m:
+					if not m.group(1).startswith(curr_state):
+						print 'County in wrong state: c%s in %s (%s) instead of %s' % (
+							m.group(1), self.fips2state[curr_state + '999'], curr_state,
+							self.fips2state[m.group(1)[0:2] + '999'])
 					self.map_ids[m.group(1)] = True
 	
 	def check_data(self):
