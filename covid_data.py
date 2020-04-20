@@ -371,8 +371,7 @@ class CovidData:
 
 		with open('data/dpc-covid19-ita-andamento-nazionale.csv') as fp:
 			for line in fp:
-				# data,stato,ricoverati_con_sintomi,terapia_intensiva,totale_ospedalizzati,isolamento_domiciliare,totale_positivi,variazione_totale_positivi,nuovi_positivi,dimessi_guariti,deceduti,totale_casi,tamponi,note_it,note_en
-				# data,stato,ricoverati_con_sintomi,terapia_intensiva,totale_ospedalizzati,isolamento_domiciliare,totale_positivi,variazione_totale_positivi,nuovi_positivi,dimessi_guariti,deceduti,totale_casi,tamponi,note_it,note_en
+				# data,stato,ricoverati_con_sintomi,terapia_intensiva,totale_ospedalizzati,isolamento_domiciliare,totale_positivi,variazione_totale_positivi,nuovi_positivi,dimessi_guariti,deceduti,totale_casi,tamponi,casi_testati,note_it,note_en
 				# data = date and time: yyyy-mm-dd hh:mm:ss
 				# stato = state (always ITA)
 				# ricoverati_con_sintomi = hospitalized with symptoms
@@ -389,10 +388,12 @@ class CovidData:
 				# deceduti = deceased
 				# totale_casi = total cases
 				# tamponi = swabs
+				# casi_testati = cases tested
 				# note_it = note italian
 				# note_en = note english
-				# 31 Mar 2020 - totale_attualmente_positivi,nuovi_attualmente_positivi split into totale_positivi,variazione_totale_positivi,nuovi_positivi
-				(datetime,state,hos,ic,hos_total,home,total_pos,delta_pos,new_pos,discharged,deaths,total,swabs,nita,neng) = line.strip().split(',')
+				# 31 Mar 2020 - Added totale_attualmente_positivi,nuovi_attualmente_positivi split into totale_positivi,variazione_totale_positivi,nuovi_positivi
+				# 20 Apr 2020 - Added casi_testati
+				(datetime,state,hos,ic,hos_total,home,total_pos,delta_pos,new_pos,discharged,deaths,total,swabs,ct,nita,neng) = line.strip().split(',')
 				if datetime == 'data':
 					continue
 				
