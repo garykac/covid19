@@ -76,21 +76,21 @@
   #legend-3 {fill:#ffb866;}
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
-  #c12019 {fill:#ffbf6b;}
+  #c12019 {fill:#ffc06c;}
   #c12015 {fill:#ffc26d;}
-  #c12017 {fill:#ffc671;}
+  #c12017 {fill:#ffc771;}
   #c12011 {fill:#ff9d52;}
-  #c12121 {fill:#ffc772;}
-  #c12127 {fill:#ffc873;}
+  #c12121 {fill:#ffc671;}
+  #c12127 {fill:#ffc973;}
   #c12009 {fill:#ffd17b;}
-  #c12005 {fill:#ffe08b;}
-  #c12003 {fill:#ffd881;}
-  #c12001 {fill:#ffea97;}
+  #c12005 {fill:#ffe18b;}
+  #c12003 {fill:#ffd882;}
+  #c12001 {fill:#ffea98;}
   #c12033 {fill:#ffc570;}
   #c12031 {fill:#ffbf6b;}
   #c12035 {fill:#ffdb85;}
   #c12107 {fill:#ffe895;}
-  #c12105 {fill:#ffcd78;}
+  #c12105 {fill:#ffce78;}
   #c12103 {fill:#ffa658;}
   #c12101 {fill:#ffd781;}
   #c12109 {fill:#ffd47e;}
@@ -98,31 +98,31 @@
   #c12027 {fill:#ffd57f;}
   #c12021 {fill:#ffd27c;}
   #c12111 {fill:#ffb966;}
-  #c12113 {fill:#ffd57f;}
-  #c12115 {fill:#ffae5e;}
-  #c12117 {fill:#ffbd6a;}
-  #c12119 {fill:#ffc06c;}
+  #c12113 {fill:#ffd680;}
+  #c12115 {fill:#ffaf5e;}
+  #c12117 {fill:#ffbe6a;}
+  #c12119 {fill:#ffc16c;}
   #c12051 {fill:#ffe691;}
-  #c12053 {fill:#ffd47e;}
+  #c12053 {fill:#ffd57f;}
   #c12055 {fill:#ffd37d;}
   #c12057 {fill:#ffc26d;}
-  #c12043 {fill:#ffe996;}
-  #c12079 {fill:#ffdf8a;}
+  #c12043 {fill:#ffea96;}
+  #c12079 {fill:#ffe08a;}
   #c12073 {fill:#ffdf89;}
-  #c12071 {fill:#ffb361;}
+  #c12071 {fill:#ffb362;}
   #c12095 {fill:#ffba67;}
   #c12097 {fill:#ffd781;}
   #c12091 {fill:#ffde88;}
   #c12099 {fill:#ffa85a;}
-  #c12069 {fill:#ffcc77;}
+  #c12069 {fill:#ffcd77;}
   #c12061 {fill:#ffce78;}
-  #c12065 {fill:#ffdd88;}
+  #c12065 {fill:#ffde88;}
   #c12086 {fill:#ff9a50;}
   #c12087 {fill:#ffdf89;}
   #c12085 {fill:#ffcf79;}
   #c12083 {fill:#ffe18c;}
-  #c12081 {fill:#ffaf5e;}
-  #c12007 {fill:#ffd37d;}
+  #c12081 {fill:#ffaf5f;}
+  #c12007 {fill:#ffd47e;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -186,7 +186,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">37</tspan></text>
+           sodipodi:role="line">38</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -198,7 +198,7 @@
            id="tspan10462"
            x="897.33807"
            y="427.23941"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">1.1</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">1.2</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text10464"
@@ -210,7 +210,7 @@
            y="441.23941"
            x="897.33807"
            id="tspan10466"
-           sodipodi:role="line">0.03</tspan></text>
+           sodipodi:role="line">0.04</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -326,7 +326,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">24 Apr 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">25 Apr 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"

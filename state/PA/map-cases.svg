@@ -76,52 +76,52 @@
   #legend-3 {fill:#ffb866;}
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
-  #c42055 {fill:#ffb462;}
-  #c42057 {fill:#ffe793;}
-  #c42051 {fill:#ffc16d;}
+  #c42055 {fill:#ffb361;}
+  #c42057 {fill:#ffe38e;}
+  #c42051 {fill:#ffc06c;}
   #c42053 {fill:#ffd983;}
   #c42059 {fill:#ffcc77;}
-  #c42129 {fill:#ffae5e;}
+  #c42129 {fill:#ffac5c;}
   #c42125 {fill:#ffbe6a;}
-  #c42021 {fill:#ffd27c;}
+  #c42021 {fill:#ffd17b;}
   #c42023 {fill:#ffed9b;}
   #c42025 {fill:#ffa85a;}
-  #c42027 {fill:#ffc671;}
-  #c42029 {fill:#ff914a;}
+  #c42027 {fill:#ffc570;}
+  #c42029 {fill:#ff9049;}
   #c42031 {fill:#ffcf79;}
-  #c42035 {fill:#ffd781;}
+  #c42035 {fill:#ffd680;}
   #c42039 {fill:#ffd781;}
   #c42127 {fill:#ffbd69;}
   #c42009 {fill:#ffd680;}
   #c42005 {fill:#ffc671;}
-  #c42003 {fill:#ff8f48;}
+  #c42003 {fill:#ff8f49;}
   #c42001 {fill:#ffb462;}
   #c42121 {fill:#ffde89;}
   #c42123 {fill:#fff3a5;}
   #c42019 {fill:#ffb462;}
   #c42011 {fill:#ff8442;}
-  #c42013 {fill:#ffcf79;}
+  #c42013 {fill:#ffce78;}
   #c42015 {fill:#ffd47e;}
-  #c42017 {fill:#ff7b3d;}
+  #c42017 {fill:#ff7c3d;}
   #c42103 {fill:#ffa155;}
-  #c42007 {fill:#ff9d52;}
-  #c42109 {fill:#ffc16d;}
-  #c42093 {fill:#ffab5b;}
+  #c42007 {fill:#ff9c51;}
+  #c42109 {fill:#ffc16c;}
+  #c42093 {fill:#ffab5c;}
   #c42087 {fill:#ffc772;}
   #c42085 {fill:#ffc16d;}
   #c42083 {fill:#ffe692;}
-  #c42081 {fill:#ffce78;}
+  #c42081 {fill:#ffcd77;}
   #c42089 {fill:#ff8e48;}
   #c42117 {fill:#ffdc87;}
-  #c42091 {fill:#ff6f35;}
-  #c42095 {fill:#ff793b;}
+  #c42091 {fill:#ff6e35;}
+  #c42095 {fill:#ff783b;}
   #c42097 {fill:#ffb664;}
-  #c42099 {fill:#ffcc76;}
+  #c42099 {fill:#ffcb76;}
   #c42133 {fill:#ffa155;}
-  #c42069 {fill:#ff8f49;}
-  #c42065 {fill:#ffe48f;}
-  #c42067 {fill:#ffb563;}
-  #c42061 {fill:#ffd57f;}
+  #c42069 {fill:#ff8e48;}
+  #c42065 {fill:#ffe490;}
+  #c42067 {fill:#ffb664;}
+  #c42061 {fill:#ffd47e;}
   #c42063 {fill:#ffc470;}
   #c42037 {fill:#ffa457;}
   #c42079 {fill:#ff8945;}
@@ -131,18 +131,18 @@
   #c42071 {fill:#ff9049;}
   #c42107 {fill:#ffaa5b;}
   #c42105 {fill:#ffe996;}
-  #c42101 {fill:#ff3115;}
-  #c42049 {fill:#ffc26d;}
+  #c42101 {fill:#ff3015;}
+  #c42049 {fill:#ffc06c;}
   #c42043 {fill:#ff9a50;}
   #c42041 {fill:#ffa759;}
   #c42047 {fill:#ffed9b;}
-  #c42045 {fill:#ff5b2b;}
+  #c42045 {fill:#ff5b2a;}
   #c42115 {fill:#ffc16d;}
-  #c42111 {fill:#ffd680;}
-  #c42113 {fill:#ffee9c;}
+  #c42111 {fill:#ffd57f;}
+  #c42113 {fill:#ffee9d;}
   #c42033 {fill:#ffdf8a;}
-  #c42119 {fill:#ffc06c;}
-  #c42131 {fill:#ffcc77;}
+  #c42119 {fill:#ffc16c;}
+  #c42131 {fill:#ffcd77;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -205,7 +205,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">497</tspan></text>
+           sodipodi:role="line">513</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -253,7 +253,7 @@
            y="469.23941"
            x="897.33807"
            id="tspan10474"
-           sodipodi:role="line">0.00005</tspan></text>
+           sodipodi:role="line">0.00006</tspan></text>
       <g
          transform="translate(0,-2.1924533)"
          id="g10492">
@@ -345,7 +345,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">24 Apr 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">25 Apr 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
