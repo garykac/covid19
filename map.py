@@ -52,6 +52,8 @@ class MapData:
 		
 		self.use_fixed_max_pnsm = fixed
 
+		self.color_map_relative_to_us_avg = False
+
 	def load_census(self):
 		self.names = {}
 		self.area = {}
@@ -332,6 +334,10 @@ class MapData:
 		#print fips, self.names['53061'], self.cases['53061'], self.deaths['53061']
 
 		print 'US total: cases', self.us_cases, 'deaths', self.us_deaths
+		self.us_cases_per_Nsqmi = self.us_cases * AREA_SCALE / self.us_area
+		self.us_deaths_per_Nsqmi = self.us_deaths * AREA_SCALE / self.us_area
+		print 'US avg cases psm', self.us_cases_per_Nsqmi
+		print 'US avg deaths psm', self.us_deaths_per_Nsqmi
 		
 	def update_max_per_Nsqmi(self, cases, deaths, fips):
 		cases_per_Nsqmi = cases * AREA_SCALE / self.area[fips]
@@ -373,13 +379,14 @@ class MapData:
 				print 'Unable to find', fips, 'on map.'
 
 	def generate_map_cases(self):
-		self.generate_map('Cases', us_map_cases, self.cases, self.max_cases_per_Nsqmi)
+		self.generate_map('Cases', us_map_cases, self.cases, self.max_cases_per_Nsqmi, self.us_cases_per_Nsqmi)
 		
 	def generate_map_deaths(self):
-		self.generate_map('Deaths', us_map_deaths, self.deaths, self.max_deaths_per_Nsqmi)
+		self.generate_map('Deaths', us_map_deaths, self.deaths, self.max_deaths_per_Nsqmi, self.us_deaths_per_Nsqmi)
 		
-	def generate_map(self, type, out_svg, data, max_per_Nsqmi):
+	def generate_map(self, type, out_svg, data, max_per_Nsqmi, us_per_Nsqmi):
 		val_log_max = math.log10(max_per_Nsqmi)
+		us_avg_log = math.log10(us_per_Nsqmi)
 
 		tags = {}
 		tags['%%DATE%%'] = self.calc_date_str()
@@ -413,7 +420,7 @@ class MapData:
 			with open(output, 'w') as fpout:
 				for line in fpin:
 					if line.startswith('  #INSERT_STYLES'):
-						self.write_css_styles('all', fpout, data, val_log_max)
+						self.write_css_styles('all', fpout, data, val_log_max, us_avg_log)
 					else:
 						line = self.replace_tags(line, tags)
 						fpout.write(line)
@@ -421,13 +428,14 @@ class MapData:
 	def generate_state_maps(self):		
 		for s in USInfo.STATES_WITH_MAPS:
 			self.generate_state_map(s, 'Cases', 'state/%s/map-cases.svg' % s, self.cases,
-					self.max_cases_per_Nsqmi)
+					self.max_cases_per_Nsqmi, self.us_cases_per_Nsqmi)
 			self.generate_state_map(s, 'Deaths', 'state/%s/map-deaths.svg' % s, self.deaths,
-					self.max_deaths_per_Nsqmi)
+					self.max_deaths_per_Nsqmi, self.us_deaths_per_Nsqmi)
 		
-	def generate_state_map(self, s, type, out_svg, data, max_per_Nsqmi):
+	def generate_state_map(self, s, type, out_svg, data, max_per_Nsqmi, us_per_Nsqmi):
 		in_svg = 'data/state-maps/%s.svg' % s
 		val_log_max = math.log10(max_per_Nsqmi)
+		us_avg_log = math.log10(us_per_Nsqmi)
 
 		state_name = USInfo.state_name[s]
 		state_fips = self.state2fips[state_name][0:2]
@@ -448,7 +456,7 @@ class MapData:
 			with open(out_svg, 'w') as fpout:
 				for line in fpin:
 					if line.startswith('  #INSERT_STYLES'):
-						self.write_css_styles(s, fpout, data, val_log_max)
+						self.write_css_styles(s, fpout, data, val_log_max, us_avg_log)
 					else:
 						tags['%%STATE%%'] = state_name
 						tags['%%URL%%'] = 'garykac.github.io/covid19/state/%s' % s
@@ -461,7 +469,7 @@ class MapData:
 		months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 		return d[8:10] + ' ' + months[int(d[5:7])-1] + ' ' + d[0:4]
 
-	def write_css_styles(self, state, fpout, data, val_log_max):
+	def write_css_styles(self, state, fpout, data, val_log_max, us_avg_log):
 		state_fips = None
 		if state != 'all':
 			state_fips = self.state2fips[USInfo.state_name[state]][0:2]
@@ -492,8 +500,20 @@ class MapData:
 				val_log = math.log10(data[fips] * AREA_SCALE / self.area[fips])
 				if val_log < 0:
 					print 'Bad', type, 'log:', fips, val_log
-				# Scale the log values to be 0.0 - 1.0
-				scaled_log = val_log / val_log_max
+
+				# Scale the values to be from 0.0 - 1.0
+				if self.color_map_relative_to_us_avg:
+					# Scale the log values to be 0.0 - 0.5 (below US avg) and 0.5 - 1.0
+					# (above US average)
+					if val_log > us_avg_log:
+						# Above US average, scale from 0.5 - 1.0
+						scaled_log = 0.5 + 0.5 * (val_log - us_avg_log) / (val_log_max - us_avg_log)
+					else:
+						# Below US average, scale from 0.0 - 0.5
+						scaled_log = 0.5 * (val_log / us_avg_log)					
+				else:
+					# Scale the log values to be 0.0 - 1.0
+					scaled_log = val_log / val_log_max
 				if scaled_log > 1.0:
 					print 'WARNING: clamping scaled value that exceeds max:', scaled_log, 'for', fips, self.names[fips]
 					print 'data[fips]', data[fips], 'area', self.area[fips]
@@ -523,8 +543,17 @@ class MapData:
 		return '%.2e' % val
 
 	def write_color_style(self, fp, name, value):
-		#rgb = colorsys.hsv_to_rgb(1.0, scaled_log, 1.0)
-		rgb = colorsys.hsv_to_rgb((1.0 - value) * 0.225, value, 1.0)
+		if self.color_map_relative_to_us_avg:
+			# Only color areas that are above the US average
+			# US average = 0.5
+			rgb = [1,1,1]
+			if value >= 0.5:
+				hi_val = (value - 0.5) * 2.0
+				rgb = colorsys.hsv_to_rgb((1.0 - hi_val) * 0.175, 0.25 + 0.75 * hi_val, 1.0)
+		else:
+			# Covert value into gradient from white -> lt yellow -> orange -> red
+			rgb = colorsys.hsv_to_rgb((1.0 - value) * 0.225, value, 1.0)
+
 		color = "#{:02x}{:02x}{:02x}".format(int(255 * rgb[0]), int(255 * rgb[1]), int(255 * rgb[2]))
 		#print fips, self.deaths[fips], death_log, death_log_max, scaled_log, rgb, color
 		fp.write('  #%s {fill:%s;}\n' % (name, color))
