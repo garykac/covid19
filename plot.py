@@ -178,7 +178,7 @@ class CovidCases:
 		self.cdata = covid_data
 		date = covid_data.get_date()
 		if not date:
-			print 'ERROR - Missing date'
+			print('ERROR - Missing date')
 			sys.exit(2)
 		self.set_date(date)
 		
@@ -379,11 +379,11 @@ class CovidCases:
 		self.ranking_data[options.output_dir] = ranking_data
 
 	def generate_top_n_plots(self):
-		print 'Generating top-n graphs for', self.date_str,
+		print('Generating top-n graphs for', self.date_str, end='')
 		self.last_print = 'xxx'
 		for options in self.top_n_plots:
 			self.generate_plot(options)
-		print
+		print()
 	
 	def generate_plot(self, options):
 		if not os.path.exists(options.output_dir):
@@ -394,14 +394,14 @@ class CovidCases:
 			if options.output_dir.endswith('-norm'):
 				new_plot_type = False
 				if options.use_log_scale:
-					print '(norm)',
-				print options.use_log_scale,
+					print('(norm) ', end='')
+				print(options.use_log_scale, '', end='')
 			elif options.output_dir == self.last_print:
 				new_plot_type = False
-				print options.use_log_scale,
+				print(options.use_log_scale, '', end='')
 		if new_plot_type:
-			print
-			print '  ', options.output_dir, options.use_log_scale,
+			print()
+			print('  ', options.output_dir, options.use_log_scale, '', end='')
 			self.last_print = options.output_dir
 		sys.stdout.flush()
 
@@ -416,7 +416,7 @@ class CovidCases:
 		self.add_footer(plt, False)
 
 		# Plot the top |_top_n| states.
-		for i in xrange(_top_n):
+		for i in range(_top_n):
 			state = options.ranking[i];
 			self.plot_data(ax, options.state_data(state), color_order[i],
 					USInfo.state_pop[state], state, False,
@@ -468,13 +468,13 @@ class CovidCases:
 				size=14, ha='right', va='top')
 
 	def generate_states_combined(self):
-		print 'Generating combined state graphs'
+		print('Generating combined state graphs')
 		self.generate_states_combined_tests()
 		self.generate_states_combined_cases()
 		self.generate_states_combined_deaths()
 	
 	def generate_states_combined_tests(self):
-		print '  combined state tests'
+		print('  combined state tests')
 		options = self.new_tests_options()
 		options.info = C19TestsNorm
 		options.ranking = self.cdata.get_test_rank_norm()
@@ -484,7 +484,7 @@ class CovidCases:
 		self.generate_states_combined_data(options, False)
 	
 	def generate_states_combined_cases(self):
-		print '  combined state cases'
+		print('  combined state cases')
 		options = self.new_cases_options()
 		options.info = C19CasesNorm
 		options.ranking = self.cdata.get_case_rank_norm()
@@ -494,7 +494,7 @@ class CovidCases:
 		self.generate_states_combined_data(options, False)
 
 	def generate_states_combined_deaths(self):
-		print '  combined state deaths'
+		print('  combined state deaths')
 		options = self.new_deaths_options()
 		options.info = C19DeathsNorm
 		options.ranking = self.cdata.get_death_rank_norm()
@@ -577,23 +577,23 @@ class CovidCases:
 				size=14, ha='right', va='bottom')
 
 	def generate_states_individual(self):
-		print 'Generating individual state graphs'
+		print('Generating individual state graphs')
 		self.generate_states_individual_tests()
 		self.generate_states_individual_cases()
 		self.generate_states_individual_deaths()
 	
 	def generate_states_individual_tests(self):
-		print '  individual state tests'
+		print('  individual state tests')
 		options = self.new_tests_options()
 		self.generate_states_individual_data(C19TestsNorm, options)
 	
 	def generate_states_individual_cases(self):
-		print '  individual state cases'
+		print('  individual state cases')
 		options = self.new_cases_options()
 		self.generate_states_individual_data(C19CasesNorm, options)
 		
 	def generate_states_individual_deaths(self):
-		print '  individual state deaths'
+		print('  individual state deaths')
 		options = self.new_deaths_options()
 		self.generate_states_individual_data(C19DeathsNorm, options)
 		
@@ -721,7 +721,7 @@ class CovidCases:
 				rank_states_inv[s] = []
 				days_with_data[s] = 0
 
-			for day in xrange(0, self.num_days_for_ranking):
+			for day in range(0, self.num_days_for_ranking):
 				# Get latest data for each state.
 				curr = {}
 				for s in USInfo.states:
@@ -736,7 +736,7 @@ class CovidCases:
 				for d in sorted(curr, key=curr.get, reverse=True):
 					rank.append(d)
 
-				for i in xrange(0, len(rank)):
+				for i in range(0, len(rank)):
 					s = rank[i]
 					rank_states_inv[s].append(self.num_states_for_ranking - i)
 					rank_states[s].append(i + 1)
@@ -746,15 +746,15 @@ class CovidCases:
 			self.days_with_ranking_data[type] = days_with_data
 	
 	def calc_ranking_plot(self):
-		print 'Generating state ranking graphs'
-		print '  ',
+		print('Generating state ranking graphs')
+		print('  ', end='')
 		self.calc_ranking_plot_type('tests-norm', self.cdata.get_state_tests_pn)
 		self.calc_ranking_plot_type('cases-norm', self.cdata.get_state_cases)
 		self.calc_ranking_plot_type('deaths-norm', self.cdata.get_state_deaths)
-		print
+		print()
 			
 	def calc_ranking_plot_type(self, type, raw_data):
-		print type,
+		print(type, end='')
 		sys.stdout.flush()
 		for s in USInfo.states:
 			self.calc_ranking_plot_type_state(type, s, raw_data)
@@ -802,7 +802,7 @@ class CovidCases:
 		x_labels = []
 		cdate = self.get_date_as_datetime()
 		delta = datetime.timedelta(days=1)
-		for n in reversed(xrange(1, num_days+1)):
+		for n in reversed(range(1, num_days+1)):
 			x_labels.append([n, '{:d} {:s} {:d}'.format(cdate.day, cdate.strftime('%b'), cdate.year)])
 			cdate -= delta
 		for d in x_labels:
@@ -814,7 +814,7 @@ class CovidCases:
 			ax.plot(x, 0, 'bo')
 
 		# Plot the data for each state.		
-		x = list([x+0.5 for x in reversed(xrange(0, num_days))])
+		x = list([x+0.5 for x in reversed(range(0, num_days))])
 		for s in USInfo.states:
 			linewidth = 1
 			if s == state:
@@ -829,7 +829,7 @@ class CovidCases:
 		plt.savefig(filename, dpi=90, bbox_inches='tight')
 		
 	def export_anim(self):
-		print 'Exporting animations'
+		print('Exporting animations')
 		cmd = 'convert'
 		args_base = ['-delay', '8' ,'-loop', '0']
 
@@ -848,7 +848,7 @@ class CovidCases:
 				templates.append(base_template)
 
 		for t in templates:
-			print '  ', t
+			print('  ', t)
 			filebase = t % ''
 			filebase_date = t % ('/' + self.plot_date)
 
@@ -868,7 +868,7 @@ class CovidCases:
 			shutil.copy(last_frame, '%s.png' % (filebase))
 		
 	def create_test_page_html(self):
-		print 'Generating test page html files'
+		print('Generating test page html files')
 
 		with open('test-page-template.txt') as fpin:
 			with open('test-page.html', 'w') as fpout:
@@ -879,7 +879,7 @@ class CovidCases:
 					fpout.write(line)
 
 	def create_state_html(self):
-		print 'Generating state html files'
+		print('Generating state html files')
 
 		with open('index-template.txt') as fpin:
 			with open('index.html', 'w') as fpout:
@@ -970,7 +970,7 @@ class CovidCases:
 		tests_pn = self.cdata.get_state_tests_pn(state)[-1]
 		tests_pnp = self.cdata.get_state_tests_pnp(state)[-1]
 		if tests_pn != tests_pnp:
-			print state, tests_pn, tests_pnp
+			print(state, tests_pn, tests_pnp)
 			ranking += '<tr>\n'
 			ranking += '<td>Pending tests</td>\n'
 			ranking += '<td></td>\n'
@@ -987,15 +987,15 @@ class CovidCases:
 
 
 def usage():
-	print 'plot.py [options]'
-	print 'where options are:'
-	print '  --all Generate all plots'
-	print '  --anim Generate animated plots for top-N (implies --top)'
-	print '  --combined Generate combined state plots'
-	print '  --date <yyyymmdd> Only plot data up to date'
-	print '  --individual Generate individual state plots'
-	print '  --ranking Generate state ranking plots'
-	print '  --top Generate state top-N plots'
+	print('plot.py [options]')
+	print('where options are:')
+	print('  --all Generate all plots')
+	print('  --anim Generate animated plots for top-N (implies --top)')
+	print('  --combined Generate combined state plots')
+	print('  --date <yyyymmdd> Only plot data up to date')
+	print('  --individual Generate individual state plots')
+	print('  --ranking Generate state ranking plots')
+	print('  --top Generate state top-N plots')
 	sys.exit(1)
 
 def main(argv):
@@ -1040,7 +1040,7 @@ def main(argv):
 	covid_data.load_data()
 	
 	cases = CovidCases(covid_data)
-	print 'Processing data for', cases.date_str
+	print('Processing data for', cases.date_str)
 
 	# Calc plot data and ranking
 	cases.calc_top_n()

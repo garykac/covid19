@@ -146,7 +146,7 @@ class CovidData:
 			'totalTestResultsIncrease',
 		]
 		index = {}
-		for i in xrange(0, len(fields)):
+		for i in range(0, len(fields)):
 			index[fields[i]] = i
 		with open('data/states-daily.csv') as fp:
 			for line in fp:
@@ -158,9 +158,9 @@ class CovidData:
 				data = line.strip().split(',')
 				if data[0] == 'date':
 					# Verify that fields match expected values.
-					for i in xrange(0, len(fields)):
+					for i in range(0, len(fields)):
 						if data[i] != fields[i]:
-							print 'ERROR - changed fields:', fields[i]
+							print('ERROR - changed fields:', fields[i])
 					continue
 				date = data[index['date']]
 				state = data[index['state']]
@@ -187,7 +187,7 @@ class CovidData:
 				# filling out missing state data with '0's.
 				if curr_date != date:
 					for s in USInfo.states:
-						if not state_has_data.has_key(s):
+						if not s in state_has_data:
 							self.state_tests_pn[s].insert(0, None)
 							self.state_tests_pnp[s].insert(0, None)
 							self.state_cases[s].insert(0, None)
@@ -220,11 +220,11 @@ class CovidData:
 				state_has_data[state] = True
 		
 		for s in self.states_with_pending:
-			print 'Pending', s, self.states_with_pending[s]
+			print('Pending', s, self.states_with_pending[s])
 			
 		# Fill in missing data for final date.
 		for s in USInfo.states:
-			if not state_has_data.has_key(s):
+			if not s in state_has_data:
 				self.state_tests_pn[s].insert(0, None)
 				self.state_tests_pnp[s].insert(0, None)
 				self.state_cases[s].insert(0, None)
@@ -275,7 +275,7 @@ class CovidData:
 			if len(data) > 0:
 				last = data[-1]
 				if last == None:
-					print 'ERROR ranking', options.type, s, data
+					print('ERROR ranking', options.type, s, data)
 				ranking_data[s] = last
 				pop = USInfo.state_pop[s]
 				ranking_norm_data[s] = (last * 1000000) / pop
@@ -404,7 +404,7 @@ class CovidData:
 	
 		# Verify most recent dates match between US/Italy
 		if not date == self.date:
-			print 'ERROR - US and Italy data not consistent: Italy=', date, 'vs US=', self.date
+			print('ERROR - US and Italy data not consistent: Italy=', date, 'vs US=', self.date)
 			exit(1)
 
 # Calc doubling rate, averaged over the past 3 days.
@@ -432,7 +432,7 @@ def feq(v1, v2):
 
 def ASSERT(expected, actual, info=''):
 	if not feq(expected, actual):
-		print 'ERROR expected:', expected, 'actual:', actual, 'for', info
+		print('ERROR expected:', expected, 'actual:', actual, 'for', info)
 
 def run_tests():
 	data = [4, 8, 16, 32]
