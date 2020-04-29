@@ -76,23 +76,23 @@
   #legend-3 {fill:#ffb866;}
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
-  #c34041 {fill:#ff8945;}
+  #c34041 {fill:#ff8844;}
   #c34039 {fill:#ff2b13;}
-  #c34019 {fill:#ff934b;}
-  #c34011 {fill:#ff964d;}
+  #c34019 {fill:#ff924b;}
+  #c34011 {fill:#ff934b;}
   #c34013 {fill:#ff2e14;}
-  #c34015 {fill:#ff8241;}
+  #c34015 {fill:#ff7f3f;}
   #c34017 {fill:#ff1007;}
   #c34009 {fill:#ff954d;}
   #c34003 {fill:#ff3a1a;}
-  #c34001 {fill:#ff954c;}
-  #c34007 {fill:#ff612e;}
-  #c34005 {fill:#ff8341;}
-  #c34021 {fill:#ff5f2d;}
+  #c34001 {fill:#ff924a;}
+  #c34007 {fill:#ff602d;}
+  #c34005 {fill:#ff8241;}
+  #c34021 {fill:#ff5e2c;}
   #c34025 {fill:#ff642f;}
   #c34037 {fill:#ff8e48;}
   #c34035 {fill:#ff6731;}
-  #c34033 {fill:#ffa155;}
+  #c34033 {fill:#ff9e53;}
   #c34031 {fill:#ff3c1b;}
   #c34023 {fill:#ff4a22;}
   #c34027 {fill:#ff6631;}
@@ -160,7 +160,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">523</tspan></text>
+           sodipodi:role="line">530</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -172,7 +172,7 @@
            id="tspan10462"
            x="897.33807"
            y="427.23941"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">9</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">10</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text10464"
@@ -300,7 +300,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">26 Apr 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">27 Apr 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
