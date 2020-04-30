@@ -76,102 +76,102 @@
   #legend-3 {fill:#ffb866;}
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
-  #c17031 {fill:#ff4b22;}
+  #c17031 {fill:#ff4a22;}
   #c17033 {fill:#ffd27c;}
-  #c17035 {fill:#ffda84;}
-  #c17037 {fill:#ffbd69;}
-  #c17039 {fill:#ffe08b;}
-  #c17199 {fill:#ffc772;}
-  #c17197 {fill:#ff8643;}
-  #c17195 {fill:#ffc06c;}
-  #c17193 {fill:#ffe18c;}
+  #c17035 {fill:#ffda85;}
+  #c17037 {fill:#ffbc69;}
+  #c17039 {fill:#ffde88;}
+  #c17199 {fill:#ffc570;}
+  #c17197 {fill:#ff8543;}
+  #c17195 {fill:#ffbe6a;}
+  #c17193 {fill:#ffdf89;}
   #c17191 {fill:#ffe08b;}
   #c17175 {fill:#ffdf8a;}
-  #c17177 {fill:#ffd07a;}
+  #c17177 {fill:#ffcc77;}
   #c17173 {fill:#ffd781;}
   #c17179 {fill:#ffc772;}
-  #c17189 {fill:#ffd780;}
+  #c17189 {fill:#ffd781;}
   #c17181 {fill:#ffd47e;}
-  #c17183 {fill:#ffd680;}
+  #c17183 {fill:#ffd57f;}
   #c17185 {fill:#ffde89;}
-  #c17187 {fill:#ffc16d;}
+  #c17187 {fill:#ffc06c;}
   #c17165 {fill:#ffdb85;}
-  #c17163 {fill:#ffa255;}
-  #c17161 {fill:#ff9e53;}
+  #c17163 {fill:#ffa154;}
+  #c17161 {fill:#ff9d52;}
   #c17169 {fill:#ffe18c;}
-  #c17153 {fill:#ffc26d;}
-  #c17157 {fill:#ffb664;}
+  #c17153 {fill:#ffc26e;}
+  #c17157 {fill:#ffb462;}
   #c17159 {fill:#ffdb85;}
-  #c17081 {fill:#ffba67;}
+  #c17081 {fill:#ffbb67;}
   #c17083 {fill:#ffce78;}
   #c17085 {fill:#ffd47e;}
   #c17087 {fill:#ffd882;}
-  #c17089 {fill:#ff8945;}
+  #c17089 {fill:#ff8744;}
   #c17149 {fill:#ffe28d;}
-  #c17147 {fill:#ffd67f;}
-  #c17093 {fill:#ffa054;}
+  #c17147 {fill:#ffd680;}
+  #c17093 {fill:#ff9f53;}
   #c17091 {fill:#ffa759;}
-  #c17097 {fill:#ff7137;}
+  #c17097 {fill:#ff7036;}
   #c17095 {fill:#ffc974;}
-  #c17099 {fill:#ffcc76;}
-  #c17139 {fill:#ffd882;}
+  #c17099 {fill:#ffcb75;}
+  #c17139 {fill:#ffd680;}
   #c17131 {fill:#ffd882;}
-  #c17133 {fill:#ffb865;}
+  #c17133 {fill:#ffb765;}
   #c17135 {fill:#ffce78;}
-  #c17137 {fill:#ffcf79;}
+  #c17137 {fill:#ffcd77;}
   #c17041 {fill:#ffce78;}
-  #c17043 {fill:#ff6e35;}
+  #c17043 {fill:#ff6d34;}
   #c17049 {fill:#ffd983;}
-  #c17129 {fill:#ffd781;}
+  #c17129 {fill:#ffd27c;}
   #c17123 {fill:#ffd983;}
-  #c17121 {fill:#ffca75;}
+  #c17121 {fill:#ffc974;}
   #c17127 {fill:#ffd57f;}
-  #c17125 {fill:#ffd781;}
+  #c17125 {fill:#ffd47e;}
   #c17057 {fill:#ffdf8a;}
   #c17055 {fill:#ffd47e;}
   #c17053 {fill:#ffd57f;}
   #c17051 {fill:#ffd27c;}
   #c17059 {fill:#ffdd87;}
-  #c17203 {fill:#ffd37d;}
-  #c17201 {fill:#ffa054;}
-  #c17117 {fill:#ffcd78;}
+  #c17203 {fill:#ffd27c;}
+  #c17201 {fill:#ff9f53;}
+  #c17117 {fill:#ffce78;}
   #c17115 {fill:#ffb765;}
-  #c17113 {fill:#ffc36f;}
+  #c17113 {fill:#ffc36e;}
   #c17111 {fill:#ff9b50;}
   #c17063 {fill:#ffc470;}
-  #c17061 {fill:#ffdf8a;}
-  #c17067 {fill:#ffdc87;}
-  #c17065 {fill:#ffde88;}
+  #c17061 {fill:#ffdd88;}
+  #c17067 {fill:#ffdd87;}
+  #c17065 {fill:#ffde89;}
   #c17069 {fill:#ffdd87;}
   #c17101 {fill:#ffdb85;}
-  #c17103 {fill:#ffd07a;}
+  #c17103 {fill:#ffcf79;}
   #c17105 {fill:#ffd47e;}
-  #c17107 {fill:#ffdc86;}
-  #c17109 {fill:#ffd882;}
-  #c17145 {fill:#ffd37d;}
-  #c17141 {fill:#ffbb68;}
-  #c17143 {fill:#ffbe6a;}
-  #c17079 {fill:#ffc26e;}
-  #c17075 {fill:#ffd57f;}
-  #c17077 {fill:#ffbd6a;}
+  #c17107 {fill:#ffd882;}
+  #c17109 {fill:#ffd37d;}
+  #c17145 {fill:#ffcf7a;}
+  #c17141 {fill:#ffba67;}
+  #c17143 {fill:#ffbc69;}
+  #c17079 {fill:#ffc16d;}
+  #c17075 {fill:#ffd57e;}
+  #c17077 {fill:#ffbc69;}
   #c17071 {fill:#ffd983;}
-  #c17073 {fill:#ffcb75;}
-  #c17001 {fill:#ffcc77;}
-  #c17003 {fill:#ffd781;}
+  #c17073 {fill:#ffca75;}
+  #c17001 {fill:#ffca74;}
+  #c17003 {fill:#ffd882;}
   #c17005 {fill:#ffd781;}
-  #c17007 {fill:#ffb05f;}
-  #c17019 {fill:#ffbf6b;}
+  #c17007 {fill:#ffaf5f;}
+  #c17019 {fill:#ffbe6a;}
   #c17013 {fill:#ffdf89;}
   #c17011 {fill:#ffd882;}
-  #c17017 {fill:#ffc570;}
+  #c17017 {fill:#ffc470;}
   #c17015 {fill:#ffd37d;}
-  #c17167 {fill:#ffbc68;}
-  #c17027 {fill:#ffb765;}
-  #c17025 {fill:#ffde89;}
-  #c17023 {fill:#ffdb85;}
+  #c17167 {fill:#ffb764;}
+  #c17027 {fill:#ffb664;}
+  #c17025 {fill:#ffdf89;}
+  #c17023 {fill:#ffd984;}
   #c17021 {fill:#ffcc76;}
   #c17029 {fill:#ffcb75;}
-  #c17119 {fill:#ffa85a;}
+  #c17119 {fill:#ffa859;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -235,7 +235,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">530</tspan></text>
+           sodipodi:role="line">536</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -375,7 +375,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">27 Apr 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">28 Apr 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
