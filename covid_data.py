@@ -371,6 +371,9 @@ class CovidData:
 
 		with open('data/dpc-covid19-ita-andamento-nazionale.csv') as fp:
 			for line in fp:
+				line = line.strip()
+				if line == '':
+					continue
 				# data,stato,ricoverati_con_sintomi,terapia_intensiva,totale_ospedalizzati,isolamento_domiciliare,totale_positivi,variazione_totale_positivi,nuovi_positivi,dimessi_guariti,deceduti,totale_casi,tamponi,casi_testati,note_it,note_en
 				# data = date and time: yyyy-mm-dd hh:mm:ss
 				# stato = state (always ITA)
@@ -393,7 +396,7 @@ class CovidData:
 				# note_en = note english
 				# 31 Mar 2020 - Added totale_attualmente_positivi,nuovi_attualmente_positivi split into totale_positivi,variazione_totale_positivi,nuovi_positivi
 				# 20 Apr 2020 - Added casi_testati
-				(datetime,state,hos,ic,hos_total,home,total_pos,delta_pos,new_pos,discharged,deaths,total,swabs,ct,nita,neng) = line.strip().split(',')
+				(datetime,state,hos,ic,hos_total,home,total_pos,delta_pos,new_pos,discharged,deaths,total,swabs,ct,nita,neng) = line.split(',')
 				if datetime == 'data':
 					continue
 				
