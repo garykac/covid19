@@ -69,7 +69,7 @@ class C19TestsNorm:
 
 # Graph parameters for Reported Positive Cases
 class C19Cases:
-	num_days = 70
+	num_days = 75
 	threshold = 100
 	y_min = threshold
 	y_max = 1200000
@@ -84,7 +84,7 @@ class C19Cases:
 	units = ''
 	
 class C19CasesNorm:
-	num_days = 65
+	num_days = 70
 	threshold = 10
 	y_min = threshold
 	y_max = 20000
@@ -111,7 +111,7 @@ class C19Deaths:
 	num_days = 70
 	threshold = 10
 	y_min = threshold
-	y_max = 60000
+	y_max = 70000
 	title = 'COVID-19 US reported deaths'
 	subtitle = 'Since first day with %d deaths' % threshold
 	output_dir = 'deaths'
@@ -123,7 +123,7 @@ class C19Deaths:
 	units = ''
 
 class C19DeathsNorm:
-	num_days = 60
+	num_days = 65
 	threshold = 1
 	y_min = threshold
 	y_max = 1000
@@ -831,7 +831,7 @@ class CovidCases:
 	def export_anim(self):
 		print('Exporting animations')
 		cmd = 'convert'
-		args_base = ['-delay', '8' ,'-loop', '0']
+		args_base = ['-delay', '7' ,'-loop', '0']
 
 		templates = []
 		for dir in ['tests', 'tests-norm']:
