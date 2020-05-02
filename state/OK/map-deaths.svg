@@ -76,20 +76,21 @@
   #legend-3 {fill:#ffb866;}
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
-  #c40145 {fill:#ffbf6b;}
+  #c40145 {fill:#ffbe6a;}
   #c40147 {fill:#ffb462;}
   #c40143 {fill:#ffb05f;}
-  #c40027 {fill:#ffb260;}
+  #c40027 {fill:#ffb261;}
   #c40083 {fill:#ffe996;}
+  #c40087 {fill:#ffdd88;}
   #c40021 {fill:#ffe996;}
   #c40001 {fill:#ffd882;}
   #c40093 {fill:#ffec99;}
-  #c40097 {fill:#ffda84;}
-  #c40119 {fill:#ffe894;}
+  #c40097 {fill:#ffd680;}
+  #c40119 {fill:#ffe895;}
   #c40115 {fill:#ffe48f;}
   #c40049 {fill:#ffea97;}
   #c40047 {fill:#ffed9b;}
-  #c40041 {fill:#ffc873;}
+  #c40041 {fill:#ffc570;}
   #c40139 {fill:#fff3a4;}
   #c40131 {fill:#ffda84;}
   #c40133 {fill:#ffe793;}
@@ -97,20 +98,20 @@
   #c40137 {fill:#ffeb98;}
   #c40121 {fill:#ffe894;}
   #c40117 {fill:#ffdd88;}
-  #c40113 {fill:#ffdd87;}
+  #c40113 {fill:#ffdd88;}
   #c40013 {fill:#ffeb99;}
   #c40017 {fill:#ffde88;}
   #c40015 {fill:#ffd781;}
-  #c40109 {fill:#ffb663;}
-  #c40101 {fill:#ffd67f;}
+  #c40109 {fill:#ffb563;}
+  #c40101 {fill:#ffd680;}
   #c40077 {fill:#ffe995;}
-  #c40071 {fill:#ffd27c;}
+  #c40071 {fill:#ffd37d;}
   #c40031 {fill:#ffed9b;}
   #c40033 {fill:#ffe793;}
   #c40019 {fill:#ffea97;}
   #c40037 {fill:#ffd57f;}
-  #c40051 {fill:#ffed9b;}
-  #c40055 {fill:#ffcf79;}
+  #c40051 {fill:#ffe691;}
+  #c40055 {fill:#ffcf7a;}
   #c40123 {fill:#ffe995;}
   #c40125 {fill:#ffd882;}
  </style>
@@ -316,7 +317,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">29 Apr 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">30 Apr 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"

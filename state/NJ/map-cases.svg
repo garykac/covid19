@@ -76,25 +76,25 @@
   #legend-3 {fill:#ffb866;}
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
-  #c34041 {fill:#ff8744;}
-  #c34039 {fill:#ff2b13;}
+  #c34041 {fill:#ff8743;}
+  #c34039 {fill:#ff2a13;}
   #c34019 {fill:#ff924b;}
   #c34011 {fill:#ff914a;}
   #c34013 {fill:#ff2e14;}
   #c34015 {fill:#ff7e3e;}
   #c34017 {fill:#ff0f06;}
   #c34009 {fill:#ff944c;}
-  #c34003 {fill:#ff3a1a;}
-  #c34001 {fill:#ff8f49;}
-  #c34007 {fill:#ff5f2d;}
+  #c34003 {fill:#ff3b1a;}
+  #c34001 {fill:#ff8e48;}
+  #c34007 {fill:#ff5e2c;}
   #c34005 {fill:#ff8140;}
-  #c34021 {fill:#ff5d2c;}
+  #c34021 {fill:#ff5c2b;}
   #c34025 {fill:#ff632f;}
   #c34037 {fill:#ff8e48;}
   #c34035 {fill:#ff6631;}
-  #c34033 {fill:#ff9e53;}
-  #c34031 {fill:#ff3b1a;}
-  #c34023 {fill:#ff4922;}
+  #c34033 {fill:#ff9f53;}
+  #c34031 {fill:#ff3a1a;}
+  #c34023 {fill:#ff4921;}
   #c34027 {fill:#ff6631;}
   #c34029 {fill:#ff6932;}
  </style>
@@ -160,7 +160,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">545</tspan></text>
+           sodipodi:role="line">553</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -184,7 +184,7 @@
            y="441.23941"
            x="897.33807"
            id="tspan10466"
-           sodipodi:role="line">0.17</tspan></text>
+           sodipodi:role="line">0.18</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -300,7 +300,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">29 Apr 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">30 Apr 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
