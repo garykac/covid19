@@ -17,7 +17,9 @@ nyt_data = 'data/nyt/us-counties.csv'
 census_map = 'data/state-maps/us-all.svg'
 anim_us_map = 'data/state-maps/us-anim.svg'
 us_map_cases = 'us-cases.svg'
+us_map_cases_rel = 'us-cases-rel.svg'
 us_map_deaths = 'us-deaths.svg'
+us_map_deaths_rel = 'us-deaths-rel.svg'
 
 FIPS_NEW_YORK_CITY = '36998'
 FIPS_KANSAS_CITY_MO = '29998'
@@ -51,8 +53,6 @@ class MapData:
 		]
 		
 		self.use_fixed_max_pnsm = fixed
-
-		self.color_map_relative_to_us_avg = False
 
 	def load_census(self):
 		self.names = {}
@@ -379,27 +379,42 @@ class MapData:
 				print 'Unable to find', fips, 'on map.'
 
 	def generate_map_cases(self):
-		self.generate_map('Cases', us_map_cases, self.cases, self.max_cases_per_Nsqmi, self.us_cases_per_Nsqmi)
+		self.generate_map('Cases', us_map_cases, self.cases, self.max_cases_per_Nsqmi, self.us_cases_per_Nsqmi, False)
+
+		# Relative to US average.
+		self.generate_map('Cases', us_map_cases_rel, self.cases, self.max_cases_per_Nsqmi, self.us_cases_per_Nsqmi, True)
 		
 	def generate_map_deaths(self):
-		self.generate_map('Deaths', us_map_deaths, self.deaths, self.max_deaths_per_Nsqmi, self.us_deaths_per_Nsqmi)
+		self.generate_map('Deaths', us_map_deaths, self.deaths, self.max_deaths_per_Nsqmi, self.us_deaths_per_Nsqmi, False)
+
+		# Relative to US average.
+		self.generate_map('Deaths', us_map_deaths_rel, self.deaths, self.max_deaths_per_Nsqmi, self.us_deaths_per_Nsqmi, True)
 		
-	def generate_map(self, type, out_svg, data, max_per_Nsqmi, us_per_Nsqmi):
+	def generate_map(self, type, out_svg, data, max_per_Nsqmi, us_per_Nsqmi, relative):
 		val_log_max = math.log10(max_per_Nsqmi)
 		us_avg_log = math.log10(us_per_Nsqmi)
 
 		tags = {}
 		tags['%%DATE%%'] = self.calc_date_str()
 		tags['%%TYPE%%'] = type
-		tags['%%TITLE%%'] = '%s Reported in US by County' % type
-		tags['%%SUBTITLE%%'] = 'Colored relative to most-impacted region'
 		tags['%%URL%%'] = 'garykac.github.io/covid19'
 		tags['%%UNITS%%'] = 'per sq mile'
-		tags['%%LEGEND1%%'] = self.format_val(1.0, val_log_max)
-		tags['%%LEGEND2%%'] = self.format_val(0.8, val_log_max)
-		tags['%%LEGEND3%%'] = self.format_val(0.6, val_log_max)
-		tags['%%LEGEND4%%'] = self.format_val(0.4, val_log_max)
-		tags['%%LEGEND5%%'] = self.format_val(0.2, val_log_max)
+		if relative:
+			tags['%%TITLE%%'] = 'Most Impacted Regions in US (%s)' % type
+			tags['%%SUBTITLE%%'] = 'Relative to US National Average'
+			tags['%%LEGEND1%%'] = self.format_val(1.0, val_log_max)
+			tags['%%LEGEND2%%'] = self.format_val(0.833, val_log_max)
+			tags['%%LEGEND3%%'] = self.format_val(0.666, val_log_max)
+			tags['%%LEGEND4%%'] = self.format_val(0.5, val_log_max)
+			tags['%%LEGEND5%%'] = '&lt; US avg'
+		else:
+			tags['%%TITLE%%'] = '%s Reported in US by County' % type
+			tags['%%SUBTITLE%%'] = 'Colored relative to most-impacted region'
+			tags['%%LEGEND1%%'] = self.format_val(1.0, val_log_max)
+			tags['%%LEGEND2%%'] = self.format_val(0.8, val_log_max)
+			tags['%%LEGEND3%%'] = self.format_val(0.6, val_log_max)
+			tags['%%LEGEND4%%'] = self.format_val(0.4, val_log_max)
+			tags['%%LEGEND5%%'] = self.format_val(0.2, val_log_max)
 
 		map = census_map
 		output = out_svg
@@ -420,7 +435,7 @@ class MapData:
 			with open(output, 'w') as fpout:
 				for line in fpin:
 					if line.startswith('  #INSERT_STYLES'):
-						self.write_css_styles('all', fpout, data, val_log_max, us_avg_log)
+						self.write_css_styles('all', fpout, data, val_log_max, us_avg_log, relative)
 					else:
 						line = self.replace_tags(line, tags)
 						fpout.write(line)
@@ -456,7 +471,7 @@ class MapData:
 			with open(out_svg, 'w') as fpout:
 				for line in fpin:
 					if line.startswith('  #INSERT_STYLES'):
-						self.write_css_styles(s, fpout, data, val_log_max, us_avg_log)
+						self.write_css_styles(s, fpout, data, val_log_max, us_avg_log, False)
 					else:
 						tags['%%STATE%%'] = state_name
 						tags['%%URL%%'] = 'garykac.github.io/covid19/state/%s' % s
@@ -469,16 +484,23 @@ class MapData:
 		months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 		return d[8:10] + ' ' + months[int(d[5:7])-1] + ' ' + d[0:4]
 
-	def write_css_styles(self, state, fpout, data, val_log_max, us_avg_log):
+	def write_css_styles(self, state, fpout, data, val_log_max, us_avg_log, color_map_relative_to_us_avg):
 		state_fips = None
 		if state != 'all':
 			state_fips = self.state2fips[USInfo.state_name[state]][0:2]
 
-		self.write_color_style(fpout, 'legend-1', 1.0)
-		self.write_color_style(fpout, 'legend-2', 0.8)
-		self.write_color_style(fpout, 'legend-3', 0.6)
-		self.write_color_style(fpout, 'legend-4', 0.4)
-		self.write_color_style(fpout, 'legend-5', 0.2)
+		if color_map_relative_to_us_avg:
+			self.write_color_style(fpout, 'legend-1', 1.0, color_map_relative_to_us_avg)
+			self.write_color_style(fpout, 'legend-2', 0.833, color_map_relative_to_us_avg)
+			self.write_color_style(fpout, 'legend-3', 0.666, color_map_relative_to_us_avg)
+			self.write_color_style(fpout, 'legend-4', 0.5, color_map_relative_to_us_avg)
+			self.write_color_style(fpout, 'legend-5', 0.0, color_map_relative_to_us_avg)
+		else:
+			self.write_color_style(fpout, 'legend-1', 1.0, color_map_relative_to_us_avg)
+			self.write_color_style(fpout, 'legend-2', 0.8, color_map_relative_to_us_avg)
+			self.write_color_style(fpout, 'legend-3', 0.6, color_map_relative_to_us_avg)
+			self.write_color_style(fpout, 'legend-4', 0.4, color_map_relative_to_us_avg)
+			self.write_color_style(fpout, 'legend-5', 0.2, color_map_relative_to_us_avg)
 		for fips in data.keys():
 			# Ignore other states if we're writing data for a single state.
 			if state_fips != None and fips[0:2] != state_fips:
@@ -502,7 +524,7 @@ class MapData:
 					print 'Bad', type, 'log:', fips, val_log
 
 				# Scale the values to be from 0.0 - 1.0
-				if self.color_map_relative_to_us_avg:
+				if color_map_relative_to_us_avg:
 					# Scale the log values to be 0.0 - 0.5 (below US avg) and 0.5 - 1.0
 					# (above US average)
 					if val_log > us_avg_log:
@@ -519,7 +541,7 @@ class MapData:
 					print 'data[fips]', data[fips], 'area', self.area[fips]
 					print 'val_log', val_log, 'val_log_max', val_log_max
 					scaled_log = 1.0
-				self.write_color_style(fpout, 'c'+fips_style_id, scaled_log)
+				self.write_color_style(fpout, 'c'+fips_style_id, scaled_log, color_map_relative_to_us_avg)
 	
 	def replace_tags(self, line, tags):
 		for t in tags:
@@ -542,8 +564,8 @@ class MapData:
 			return '%.5f' % val
 		return '%.2e' % val
 
-	def write_color_style(self, fp, name, value):
-		if self.color_map_relative_to_us_avg:
+	def write_color_style(self, fp, name, value, color_map_relative_to_us_avg):
+		if color_map_relative_to_us_avg:
 			# Only color areas that are above the US average
 			# US average = 0.5
 			rgb = [1,1,1]

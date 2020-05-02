@@ -77,12 +77,31 @@ reflect the actual situation.
 <h2 id="map-cases">Positive Cases Reported in US by County</h2>
 <div class="h2subheading">Normalized for size of county (in sq miles)</div>
 
-<div class="map"><img src="us-cases.svg" width='80%'/></div>
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="map"><a href="us-cases.svg"><img src="us-cases.svg" width='550px'/></a></div>
+	<div class="graph">All Regions</div>
+</div>
+<div class="graphbox">
+	<div class="map"><a href="us-cases-rel.svg"><img src="us-cases-rel.svg" width='550px'/></a></div>
+	<div class="graph">Regions Above National Average</div>
+</div>
+</div><!-- graphcontainer -->
 
 <h2 id="map-deaths">Deaths Reported in US by County</h2>
 <div class="h2subheading">Normalized for size of county (in sq miles)</div>
 
-<div class="map"><img src="us-deaths.svg" width='80%'/></div>
+
+<div class="graphcontainer">
+<div class="graphbox">
+	<div class="map"><a href="us-deaths.svg"><img src="us-deaths.svg" width='550px'/></a></div>
+	<div class="graph">All Regions</div>
+</div>
+<div class="graphbox">
+	<div class="map"><a href="us-deaths-rel.svg"><img src="us-deaths-rel.svg" width='550px'/></a></div>
+	<div class="graph">Regions Above National Average</div>
+</div>
+</div><!-- graphcontainer -->
 
 <!--
 	=================
