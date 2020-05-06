@@ -117,6 +117,8 @@ class CovidData:
 		us_cases = 0
 		us_deaths = 0
 		
+		# 4 May 2020: date,state,positive,negative,pending,hospitalizedCurrently,hospitalizedCumulative,inIcuCurrently,inIcuCumulative,onVentilatorCurrently,onVentilatorCumulative,recovered,hash,dateChecked,death,hospitalized,total,totalTestResults,posNeg,fips,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
+		# 5 May 2020: date,state,positive,negative,pending,hospitalizedCurrently,hospitalizedCumulative,inIcuCurrently,inIcuCumulative,onVentilatorCurrently,onVentilatorCumulative,recovered,dataQualityGrade,lastUpdateEt,hash,dateChecked,death,hospitalized,total,totalTestResults,posNeg,fips,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
 		fields = [
 			'date',
 			'state',
@@ -130,6 +132,8 @@ class CovidData:
 			'onVentilatorCurrently',
 			'onVentilatorCumulative',
 			'recovered',
+			'dataQualityGrade',  # Added 5 May 2020
+			'lastUpdateEt',  # Added 5 May 2020
 			'hash',
 			'dateChecked',
 			'death',
@@ -154,13 +158,14 @@ class CovidData:
 				# 25Mar2020: New fields: totalTestResults,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
 				# 27Mar2020: New field: fips
 				# 28Mar2020: New field: hash
-				# 02Apr2020: 
+				# 02Apr2020:
 				data = line.strip().split(',')
 				if data[0] == 'date':
 					# Verify that fields match expected values.
 					for i in range(0, len(fields)):
 						if data[i] != fields[i]:
 							print('ERROR - changed fields:', fields[i])
+							exit(1)
 					continue
 				date = data[index['date']]
 				state = data[index['state']]
