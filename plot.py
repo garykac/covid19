@@ -945,6 +945,7 @@ class CovidCases:
 			
 			if type in ['cases-norm', 'deaths-norm', 'tests-norm']:
 				rank_states = self.rank_states[type]
+				print(state, type, rank_states)
 				curr_rank = ranking_ord
 				prev_rank = rank_states[state][1]
 				if curr_rank == prev_rank:
