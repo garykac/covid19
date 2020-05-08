@@ -80,11 +80,11 @@ reflect the actual situation.
 <div class="graphcontainer">
 <div class="graphbox">
 	<div class="map"><a href="us-cases.svg"><img src="us-cases.svg" width='550px'/></a></div>
-	<div class="graph">All Regions</div>
+	<div class="graph">All Regions</br>(Reported Cases)</div>
 </div>
 <div class="graphbox">
 	<div class="map"><a href="us-cases-rel.svg"><img src="us-cases-rel.svg" width='550px'/></a></div>
-	<div class="graph">Regions Above National Average</div>
+	<div class="graph">Most Impacted Regions</br>Regions Above National Average (Reported Cases)</div>
 </div>
 </div><!-- graphcontainer -->
 
@@ -95,11 +95,11 @@ reflect the actual situation.
 <div class="graphcontainer">
 <div class="graphbox">
 	<div class="map"><a href="us-deaths.svg"><img src="us-deaths.svg" width='550px'/></a></div>
-	<div class="graph">All Regions</div>
+	<div class="graph">All Regions</br>(Reported Deaths)</div>
 </div>
 <div class="graphbox">
 	<div class="map"><a href="us-deaths-rel.svg"><img src="us-deaths-rel.svg" width='550px'/></a></div>
-	<div class="graph">Regions Above National Average</div>
+	<div class="graph">Most Impacted Regions</br>Regions Above National Average (Reported Deaths)</div>
 </div>
 </div><!-- graphcontainer -->
 
