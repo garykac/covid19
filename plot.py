@@ -111,7 +111,7 @@ class C19Deaths:
 	num_days = 75
 	threshold = 10
 	y_min = threshold
-	y_max = 70000
+	y_max = 80000
 	title = 'COVID-19 US reported deaths'
 	subtitle = 'Since first day with %d deaths' % threshold
 	output_dir = 'deaths'
