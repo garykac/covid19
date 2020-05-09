@@ -28,7 +28,7 @@ class Options(object):
 
 # Graph parameters for Reported Tests
 class C19Tests:
-	num_days = 75
+	num_days = 80
 	threshold = 150
 	y_min = threshold
 	y_max = 9000000
@@ -43,10 +43,10 @@ class C19Tests:
 	units = ''
 
 class C19TestsNorm:
-	num_days = 75
+	num_days = 80
 	threshold = 10
 	y_min = threshold
-	y_max = 80000
+	y_max = 90000
 	title = 'COVID-19 US States Reported Tests (Pos + Neg) per Million'
 	subtitle = 'Since first day with %d tests/million' % threshold
 	output_dir = 'tests-norm'
