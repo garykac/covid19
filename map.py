@@ -65,7 +65,7 @@ class MapData:
 		self.us_area = 0
 		
 		# Load data for states and Puerto Rico.
-		with open(census_data) as fp:
+		with open(census_data, encoding = "ISO-8859-1") as fp:
 			for line in fp:
 				#  0: GEO.id - geo id, e.g., "0100000US"
 				#  1: GEO.id2 - geo id, part 2, e.g., ""
@@ -93,7 +93,7 @@ class MapData:
 				
 				if fips == '':
 					if not label == 'United States':
-						print 'ERROR: Blank fips for', label, ' fips=', fips
+						print('ERROR: Blank fips for', label, ' fips=', fips)
 					continue
 
 				# Handle states.
@@ -113,7 +113,7 @@ class MapData:
 				for f in self.updated_fips:
 					if fips == f[0]:
 						fips = f[1]
-						print 'Updating fips from', f[0], 'to', f[1], 'for', label, state
+						print('Updating fips from', f[0], 'to', f[1], 'for', label, state)
 				
 				self.names[fips] = label
 				self.area[fips] = area
@@ -208,7 +208,7 @@ class MapData:
 					fips = FIPS_KANSAS_CITY_MO
 					
 				if fips in self.nyc_fips:
-					print 'ERROR: data for NYC in', fips
+					print('ERROR: data for NYC in', fips)
 				
 				if fips == '':
 					if state in self.state2fips:
@@ -217,11 +217,11 @@ class MapData:
 						if deaths != 0:
 							unknown_state_deaths[self.state2fips[state]] = deaths
 					else:
-						print 'ERROR: Blank fips:', line.strip()
+						print('ERROR: Blank fips:', line.strip())
 					continue
 
 				if not fips in self.names:
-					print 'Unknown fips:', line.strip()
+					print('Unknown fips:', line.strip())
 					continue
 
 				self.cases[fips] = cases
@@ -246,7 +246,7 @@ class MapData:
 				self.update_max_per_Nsqmi(cases, deaths, fips)
 
 		if process_date and not found_date:
-			print 'ERROR: Unable to find data for', process_date
+			print('ERROR: Unable to find data for', process_date)
 			exit(1)
 			
 		# Equally distribute the data amongst the 5 boroughs based on size (sq mi)
@@ -280,7 +280,7 @@ class MapData:
 				target_fips = state_fips_with_cases[state_fips]
 			else:
 				# If all cases in a state are 'Unknown', then distribute to entire state
-				print 'Distributing Unknowns cases for', self.fips2state[state_fips], 'to entire state'
+				print('Distributing Unknowns cases for', self.fips2state[state_fips], 'to entire state')
 				target_fips = self.state_fips_list[state_fips]
 				for f in target_fips:
 					self.cases[f] = 0
@@ -306,7 +306,7 @@ class MapData:
 				target_fips = state_fips_with_deaths[state_fips]
 			else:
 				# If all cases in a state are 'Unknown', then distribute to entire state
-				print 'Distributing Unknowns deaths for', self.fips2state[state_fips], 'to entire state'
+				print('Distributing Unknowns deaths for', self.fips2state[state_fips], 'to entire state')
 				target_fips = self.state_fips_list[state_fips]
 				for f in target_fips:
 					self.deaths[f] = 0
@@ -323,21 +323,21 @@ class MapData:
 		# Overwrite calculated max per square mile values so that we use the same
 		# value when plotting historical graphs.
 		if self.use_fixed_max_pnsm:
-			print 'Using specified max values'
+			print('Using specified max values')
 			self.max_cases_per_Nsqmi = MAX_CASES_PNSM
 			self.max_deaths_per_Nsqmi = MAX_DEATHS_PNSM
 		else:
-			print 'Using calculated max values'
-		print 'Max cases psm', self.max_cases_per_Nsqmi
-		print 'Max deaths psm', self.max_deaths_per_Nsqmi
+			print('Using calculated max values')
+		print('Max cases psm', self.max_cases_per_Nsqmi)
+		print('Max deaths psm', self.max_deaths_per_Nsqmi)
 		
 		#print fips, self.names['53061'], self.cases['53061'], self.deaths['53061']
 
-		print 'US total: cases', self.us_cases, 'deaths', self.us_deaths
+		print('US total: cases', self.us_cases, 'deaths', self.us_deaths)
 		self.us_cases_per_Nsqmi = self.us_cases * AREA_SCALE / self.us_area
 		self.us_deaths_per_Nsqmi = self.us_deaths * AREA_SCALE / self.us_area
-		print 'US avg cases psm', self.us_cases_per_Nsqmi
-		print 'US avg deaths psm', self.us_deaths_per_Nsqmi
+		print('US avg cases psm', self.us_cases_per_Nsqmi)
+		print('US avg deaths psm', self.us_deaths_per_Nsqmi)
 		
 	def update_max_per_Nsqmi(self, cases, deaths, fips):
 		cases_per_Nsqmi = cases * AREA_SCALE / self.area[fips]
@@ -362,9 +362,9 @@ class MapData:
 				m = re.search(r'id="c(\d\d\d\d\d)"', line)
 				if m:
 					if not m.group(1).startswith(curr_state):
-						print 'County in wrong state: c%s in %s (%s) instead of %s' % (
+						print('County in wrong state: c%s in %s (%s) instead of %s' % (
 							m.group(1), self.fips2state[curr_state + '999'], curr_state,
-							self.fips2state[m.group(1)[0:2] + '999'])
+							self.fips2state[m.group(1)[0:2] + '999']))
 					self.map_ids[m.group(1)] = True
 	
 	def check_data(self):
@@ -376,7 +376,7 @@ class MapData:
 				if fips[2:] == '998':
 					# Special region
 					continue
-				print 'Unable to find', fips, 'on map.'
+				print('Unable to find', fips, 'on map.')
 
 	def generate_map_cases(self):
 		self.generate_map('Cases', us_map_cases, self.cases, self.max_cases_per_Nsqmi, self.us_cases_per_Nsqmi, False)
@@ -521,7 +521,7 @@ class MapData:
 			if data[fips] != 0:
 				val_log = math.log10(data[fips] * AREA_SCALE / self.area[fips])
 				if val_log < 0:
-					print 'Bad', type, 'log:', fips, val_log
+					print('Bad', type, 'log:', fips, val_log)
 
 				# Scale the values to be from 0.0 - 1.0
 				if color_map_relative_to_us_avg:
@@ -537,9 +537,9 @@ class MapData:
 					# Scale the log values to be 0.0 - 1.0
 					scaled_log = val_log / val_log_max
 				if scaled_log > 1.0:
-					print 'WARNING: clamping scaled value that exceeds max:', scaled_log, 'for', fips, self.names[fips]
-					print 'data[fips]', data[fips], 'area', self.area[fips]
-					print 'val_log', val_log, 'val_log_max', val_log_max
+					print('WARNING: clamping scaled value that exceeds max:', scaled_log, 'for', fips, self.names[fips])
+					print('data[fips]', data[fips], 'area', self.area[fips])
+					print('val_log', val_log, 'val_log_max', val_log_max)
 					scaled_log = 1.0
 				self.write_color_style(fpout, 'c'+fips_style_id, scaled_log, color_map_relative_to_us_avg)
 	
@@ -587,7 +587,7 @@ class MapData:
 	def animate_data(self, dir, filebase):
 		files = os.listdir(dir)
 		last_file = ''
-		print '  Converting svg files'
+		print('  Converting svg files')
 		for f in sorted(files):
 			(name, suffix) = f.split('.')
 			if suffix != 'svg':
@@ -599,19 +599,19 @@ class MapData:
 				last_file = png_file
 			if os.path.exists(png_file):
 				continue
-			print '    ', name
+			print('    ', name)
 			subprocess.call(['svg2png', svg_file, '-o', png_file])
 
 		#print '  Combining images'
 		#subprocess.call(['convert', '-morph', '1', '-delay', '15', '%s/*.png' % dir, '-delay', '240', last_file, '%s.gif' % filebase])
 
 def usage():
-	print 'map.py [options]'
-	print 'where options are:'
-	print '  --help'
-	print '  --anim'
-	print '  --date yyyy-mm-dd'
-	print '  --fixed  Generate US map with fixed legend'
+	print('map.py [options]')
+	print('where options are:')
+	print('  --help')
+	print('  --anim')
+	print('  --date yyyy-mm-dd')
+	print('  --fixed  Generate US map with fixed legend')
 	sys.exit(1)
 
 def main(argv):
