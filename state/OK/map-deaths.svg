@@ -76,10 +76,10 @@
   #legend-3 {fill:#ffb866;}
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
-  #c40145 {fill:#ffc26e;}
-  #c40147 {fill:#ffb563;}
+  #c40145 {fill:#ffc06c;}
+  #c40147 {fill:#ffb362;}
   #c40143 {fill:#ffb362;}
-  #c40027 {fill:#ffb563;}
+  #c40027 {fill:#ffb462;}
   #c40081 {fill:#ffe692;}
   #c40083 {fill:#ffeb98;}
   #c40087 {fill:#ffe08b;}
@@ -90,13 +90,12 @@
   #c40115 {fill:#ffe692;}
   #c40049 {fill:#ffec99;}
   #c40047 {fill:#ffee9d;}
-  #c40041 {fill:#ffc873;}
+  #c40041 {fill:#ffc772;}
   #c40139 {fill:#ffea97;}
   #c40131 {fill:#ffd983;}
   #c40133 {fill:#ffe18c;}
   #c40135 {fill:#ffdd87;}
   #c40137 {fill:#ffed9a;}
-  #c40121 {fill:#ffea96;}
   #c40021 {fill:#ffeb98;}
   #c40117 {fill:#ffe08b;}
   #c40113 {fill:#ffe08a;}
@@ -115,6 +114,7 @@
   #c40055 {fill:#ffd37d;}
   #c40123 {fill:#ffe38e;}
   #c40125 {fill:#ffdb85;}
+  #c40121 {fill:#ffea96;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -318,7 +318,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">06 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">07 May 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
