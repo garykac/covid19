@@ -82,11 +82,11 @@
   #c40017 {fill:#ffe18b;}
   #c40019 {fill:#ffec9a;}
   #c40021 {fill:#ffeb98;}
-  #c40027 {fill:#ffb462;}
+  #c40027 {fill:#ffb463;}
   #c40031 {fill:#ffe794;}
   #c40033 {fill:#ffe18c;}
   #c40037 {fill:#ffd680;}
-  #c40041 {fill:#ffc772;}
+  #c40041 {fill:#ffc671;}
   #c40047 {fill:#ffee9d;}
   #c40049 {fill:#ffec99;}
   #c40051 {fill:#ffe894;}
@@ -100,22 +100,22 @@
   #c40097 {fill:#ffd983;}
   #c40087 {fill:#ffe08b;}
   #c40101 {fill:#ffd680;}
-  #c40109 {fill:#ffb563;}
+  #c40109 {fill:#ffb463;}
   #c40113 {fill:#ffe08a;}
   #c40115 {fill:#ffe692;}
   #c40117 {fill:#ffe08b;}
   #c40119 {fill:#ffea97;}
-  #c40121 {fill:#ffea96;}
+  #c40121 {fill:#ffe591;}
   #c40123 {fill:#ffe38e;}
   #c40125 {fill:#ffdb85;}
   #c40131 {fill:#ffd680;}
   #c40133 {fill:#ffe18c;}
   #c40135 {fill:#ffdd87;}
-  #c40137 {fill:#ffed9a;}
+  #c40137 {fill:#ffed9b;}
   #c40139 {fill:#ffea97;}
   #c40143 {fill:#ffb362;}
   #c40145 {fill:#ffc06c;}
-  #c40147 {fill:#ffb361;}
+  #c40147 {fill:#ffb261;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -179,7 +179,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">63</tspan></text>
+           sodipodi:role="line">64</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -191,7 +191,7 @@
            id="tspan10462"
            x="897.33807"
            y="427.23941"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">1.7</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">1.8</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text10464"
@@ -319,7 +319,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">08 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">09 May 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"

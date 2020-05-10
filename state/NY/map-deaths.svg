@@ -81,7 +81,7 @@
   #c36081 {fill:#ff0000;}
   #c36005 {fill:#ff0000;}
   #c36085 {fill:#ff0000;}
-  #c36001 {fill:#ff9d51;}
+  #c36001 {fill:#ff9c51;}
   #c36007 {fill:#ffbe6a;}
   #c36009 {fill:#fff0a0;}
   #c36011 {fill:#ffea97;}
@@ -89,27 +89,27 @@
   #c36015 {fill:#ffcf79;}
   #c36017 {fill:#ffe591;}
   #c36019 {fill:#ffdf89;}
-  #c36021 {fill:#ffbf6b;}
-  #c36027 {fill:#ffa658;}
-  #c36029 {fill:#ff914a;}
-  #c36035 {fill:#ffd27c;}
+  #c36021 {fill:#ffbd6a;}
+  #c36027 {fill:#ffa557;}
+  #c36029 {fill:#ff9049;}
+  #c36035 {fill:#ffcf79;}
   #c36037 {fill:#ffd983;}
   #c36039 {fill:#ffe28c;}
   #c36043 {fill:#fff1a1;}
   #c36051 {fill:#ffdc86;}
   #c36053 {fill:#ffdd87;}
-  #c36055 {fill:#ff9c51;}
+  #c36055 {fill:#ff9b51;}
   #c36057 {fill:#ffdc86;}
   #c36059 {fill:#ff3f1c;}
   #c36998 {fill:#ff0000;}
   #c36063 {fill:#ffb462;}
-  #c36065 {fill:#ffc873;}
-  #c36067 {fill:#ffb060;}
+  #c36065 {fill:#ffc772;}
+  #c36067 {fill:#ffaf5f;}
   #c36069 {fill:#ffd17b;}
   #c36071 {fill:#ff8e48;}
   #c36073 {fill:#ffbd6a;}
-  #c36077 {fill:#ffdb86;}
-  #c36079 {fill:#ff984e;}
+  #c36077 {fill:#ffdc86;}
+  #c36079 {fill:#ff984f;}
   #c36083 {fill:#ffba67;}
   #c36087 {fill:#ff622e;}
   #c36091 {fill:#ffdf8a;}
@@ -117,16 +117,16 @@
   #c36089 {fill:#fff1a1;}
   #c36101 {fill:#ffd07a;}
   #c36103 {fill:#ff6932;}
-  #c36105 {fill:#ffc771;}
+  #c36105 {fill:#ffc772;}
   #c36107 {fill:#ffc570;}
   #c36109 {fill:#ffde88;}
-  #c36111 {fill:#ffc36f;}
+  #c36111 {fill:#ffc36e;}
   #c36113 {fill:#ffc36f;}
   #c36115 {fill:#ffd17b;}
   #c36117 {fill:#ffe995;}
-  #c36119 {fill:#ff5b2b;}
+  #c36119 {fill:#ff5b2a;}
   #c36121 {fill:#ffdb85;}
-  #c36123 {fill:#ffd47d;}
+  #c36123 {fill:#ffd47e;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -190,7 +190,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">63</tspan></text>
+           sodipodi:role="line">64</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -202,7 +202,7 @@
            id="tspan10462"
            x="897.33807"
            y="427.23941"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">1.7</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Arial;-inkscape-font-specification:Arial">1.8</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text10464"
@@ -330,7 +330,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">08 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">09 May 2020</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text4238"
