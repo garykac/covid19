@@ -31,7 +31,7 @@ class C19Tests:
 	num_days = 80
 	threshold = 150
 	y_min = threshold
-	y_max = 9000000
+	y_max = 10000000
 	title = 'COVID-19 US reported tests'
 	subtitle = 'Since first day with %d tests' % threshold
 	output_dir = 'tests'
@@ -46,7 +46,7 @@ class C19TestsNorm:
 	num_days = 80
 	threshold = 10
 	y_min = threshold
-	y_max = 90000
+	y_max = 100000
 	title = 'COVID-19 US States Reported Tests (Pos + Neg) per Million'
 	subtitle = 'Since first day with %d tests/million' % threshold
 	output_dir = 'tests-norm'
@@ -108,7 +108,7 @@ class C19CasesNorm:
 
 # Graph parameters for Reported Deaths
 class C19Deaths:
-	num_days = 75
+	num_days = 80
 	threshold = 10
 	y_min = threshold
 	y_max = 80000
