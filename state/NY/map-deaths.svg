@@ -82,10 +82,10 @@
   #c36005 {fill:#ff0000;}
   #c36085 {fill:#ff0000;}
   #c36001 {fill:#ff9c51;}
-  #c36007 {fill:#ffbe6a;}
-  #c36009 {fill:#fff0a0;}
+  #c36007 {fill:#ffbc68;}
+  #c36009 {fill:#fff1a0;}
   #c36011 {fill:#ffea97;}
-  #c36013 {fill:#ffe793;}
+  #c36013 {fill:#ffe794;}
   #c36015 {fill:#ffcf79;}
   #c36017 {fill:#ffe591;}
   #c36019 {fill:#ffdf89;}
@@ -94,22 +94,22 @@
   #c36029 {fill:#ff9049;}
   #c36035 {fill:#ffcf79;}
   #c36037 {fill:#ffd983;}
-  #c36039 {fill:#ffe28c;}
+  #c36039 {fill:#ffe28d;}
   #c36043 {fill:#fff1a1;}
   #c36051 {fill:#ffdc86;}
   #c36053 {fill:#ffdd87;}
-  #c36055 {fill:#ff9b51;}
+  #c36055 {fill:#ff9b50;}
   #c36057 {fill:#ffdc86;}
   #c36059 {fill:#ff3f1c;}
   #c36998 {fill:#ff0000;}
-  #c36063 {fill:#ffb462;}
+  #c36063 {fill:#ffb362;}
   #c36065 {fill:#ffc772;}
-  #c36067 {fill:#ffaf5f;}
+  #c36067 {fill:#ffae5e;}
   #c36069 {fill:#ffd17b;}
   #c36071 {fill:#ff8e48;}
-  #c36073 {fill:#ffbd6a;}
+  #c36073 {fill:#ffbc69;}
   #c36077 {fill:#ffdc86;}
-  #c36079 {fill:#ff984f;}
+  #c36079 {fill:#ff984e;}
   #c36083 {fill:#ffba67;}
   #c36087 {fill:#ff622e;}
   #c36091 {fill:#ffdf8a;}
@@ -117,15 +117,15 @@
   #c36089 {fill:#fff1a1;}
   #c36101 {fill:#ffd07a;}
   #c36103 {fill:#ff6932;}
-  #c36105 {fill:#ffc772;}
-  #c36107 {fill:#ffc570;}
+  #c36105 {fill:#ffc570;}
+  #c36107 {fill:#ffc26e;}
   #c36109 {fill:#ffde88;}
-  #c36111 {fill:#ffc36e;}
+  #c36111 {fill:#ffc26e;}
   #c36113 {fill:#ffc36f;}
   #c36115 {fill:#ffd17b;}
   #c36117 {fill:#ffe995;}
   #c36119 {fill:#ff5b2a;}
-  #c36121 {fill:#ffdb85;}
+  #c36121 {fill:#ffdb86;}
   #c36123 {fill:#ffd47e;}
  </style>
   <g
@@ -330,7 +330,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">09 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">10 May 2020</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text4238"
