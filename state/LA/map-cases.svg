@@ -79,8 +79,8 @@
   #c22001 {fill:#ffb563;}
   #c22003 {fill:#ffbf6b;}
   #c22005 {fill:#ff8a46;}
-  #c22007 {fill:#ffa256;}
-  #c22009 {fill:#ffc46f;}
+  #c22007 {fill:#ffa356;}
+  #c22009 {fill:#ffc36f;}
   #c22011 {fill:#ffcf79;}
   #c22013 {fill:#ffc36e;}
   #c22015 {fill:#ffad5d;}
@@ -93,14 +93,14 @@
   #c22029 {fill:#ffc973;}
   #c22031 {fill:#ffb462;}
   #c22033 {fill:#ff7a3c;}
-  #c22035 {fill:#ffce79;}
+  #c22035 {fill:#ffca75;}
   #c22037 {fill:#ffb160;}
   #c22039 {fill:#ffc26d;}
   #c22041 {fill:#ffaf5e;}
   #c22043 {fill:#ffd37d;}
   #c22045 {fill:#ffa859;}
   #c22047 {fill:#ff9f53;}
-  #c22049 {fill:#ffc06c;}
+  #c22049 {fill:#ffbf6b;}
   #c22051 {fill:#ff5829;}
   #c22053 {fill:#ffc16d;}
   #c22059 {fill:#ffcb75;}
@@ -108,17 +108,17 @@
   #c22057 {fill:#ffa356;}
   #c22061 {fill:#ffb563;}
   #c22063 {fill:#ffaa5b;}
-  #c22065 {fill:#ffd781;}
+  #c22065 {fill:#ffd780;}
   #c22067 {fill:#ffc570;}
   #c22069 {fill:#ffc570;}
   #c22071 {fill:#ff4b22;}
   #c22073 {fill:#ff954d;}
   #c22075 {fill:#ffb462;}
-  #c22077 {fill:#ffb563;}
+  #c22077 {fill:#ffb462;}
   #c22079 {fill:#ffb261;}
   #c22081 {fill:#ffc36e;}
   #c22083 {fill:#ffb966;}
-  #c22085 {fill:#ffd781;}
+  #c22085 {fill:#ffd680;}
   #c22087 {fill:#ff954d;}
   #c22089 {fill:#ff8d47;}
   #c22091 {fill:#ffc46f;}
@@ -128,16 +128,16 @@
   #c22099 {fill:#ffae5e;}
   #c22101 {fill:#ffaa5b;}
   #c22103 {fill:#ff914a;}
-  #c22105 {fill:#ff9f53;}
+  #c22105 {fill:#ff9e53;}
   #c22107 {fill:#ffde89;}
   #c22109 {fill:#ffab5b;}
-  #c22111 {fill:#ffb866;}
+  #c22111 {fill:#ffb865;}
   #c22113 {fill:#ffd07a;}
   #c22115 {fill:#ffdb85;}
-  #c22117 {fill:#ffa859;}
+  #c22117 {fill:#ffa759;}
   #c22119 {fill:#ffba67;}
   #c22121 {fill:#ffa356;}
-  #c22123 {fill:#ffdd88;}
+  #c22123 {fill:#ffdb85;}
   #c22125 {fill:#ffa95a;}
   #c22127 {fill:#ffca75;}
  </style>
@@ -203,7 +203,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">627</tspan></text>
+           sodipodi:role="line">630</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -343,7 +343,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">10 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">11 May 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"

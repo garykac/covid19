@@ -77,7 +77,7 @@
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
   #c05011 {fill:#ffea96;}
-  #c05023 {fill:#ffd780;}
+  #c05023 {fill:#ffd781;}
   #c05027 {fill:#ffe48f;}
   #c05029 {fill:#ffe894;}
   #c05035 {fill:#ffd07a;}
@@ -86,7 +86,7 @@
   #c05051 {fill:#ffea97;}
   #c05057 {fill:#ffeb98;}
   #c05069 {fill:#ffc671;}
-  #c05073 {fill:#ffe793;}
+  #c05073 {fill:#ffe794;}
   #c05075 {fill:#ffd781;}
   #c05077 {fill:#ffe995;}
   #c05079 {fill:#ffcf79;}
@@ -96,12 +96,12 @@
   #c05119 {fill:#ffc06c;}
   #c05125 {fill:#ffeb98;}
   #c05133 {fill:#ffe894;}
-  #c05135 {fill:#ffe995;}
-  #c05139 {fill:#ffe793;}
+  #c05135 {fill:#ffe18c;}
+  #c05139 {fill:#ffdf89;}
   #c05141 {fill:#ffe38e;}
   #c05143 {fill:#ffe18c;}
   #c05145 {fill:#ffee9d;}
-  #c05149 {fill:#ffed9b;}
+  #c05149 {fill:#ffed9c;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -165,7 +165,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">64</tspan></text>
+           sodipodi:role="line">65</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -305,7 +305,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">10 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">11 May 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"

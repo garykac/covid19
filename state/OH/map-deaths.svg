@@ -77,27 +77,27 @@
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
   #c39003 {fill:#ffb160;}
-  #c39007 {fill:#ffc36f;}
+  #c39007 {fill:#ffc26e;}
   #c39009 {fill:#ffe793;}
   #c39011 {fill:#ffd680;}
   #c39013 {fill:#ffce78;}
-  #c39015 {fill:#ffe692;}
+  #c39015 {fill:#ffe792;}
   #c39017 {fill:#ffc26d;}
   #c39019 {fill:#ffe48f;}
   #c39021 {fill:#ffe591;}
   #c39023 {fill:#ffd680;}
   #c39025 {fill:#ffd882;}
-  #c39029 {fill:#ffb261;}
+  #c39029 {fill:#ffb260;}
   #c39033 {fill:#ffe490;}
   #c39035 {fill:#ff924b;}
   #c39037 {fill:#ffc570;}
-  #c39039 {fill:#ffe490;}
+  #c39039 {fill:#ffe590;}
   #c39041 {fill:#ffd37d;}
   #c39043 {fill:#ffcf79;}
-  #c39045 {fill:#ffdf89;}
-  #c39049 {fill:#ff9a50;}
+  #c39045 {fill:#ffd983;}
+  #c39049 {fill:#ff994f;}
   #c39053 {fill:#ffe692;}
-  #c39055 {fill:#ffb866;}
+  #c39055 {fill:#ffb966;}
   #c39057 {fill:#ffcf79;}
   #c39061 {fill:#ff984e;}
   #c39063 {fill:#ffe794;}
@@ -108,15 +108,15 @@
   #c39081 {fill:#ffdc86;}
   #c39083 {fill:#ffe793;}
   #c39085 {fill:#ffbe6a;}
-  #c39089 {fill:#ffd17c;}
-  #c39093 {fill:#ffad5d;}
+  #c39089 {fill:#ffd27c;}
+  #c39093 {fill:#ffac5c;}
   #c39095 {fill:#ff8945;}
   #c39097 {fill:#ffd882;}
   #c39099 {fill:#ff944c;}
-  #c39101 {fill:#ffbf6b;}
+  #c39101 {fill:#ffbe6a;}
   #c39103 {fill:#ffbb68;}
   #c39107 {fill:#ffe692;}
-  #c39109 {fill:#ffb260;}
+  #c39109 {fill:#ffb261;}
   #c39113 {fill:#ffc671;}
   #c39117 {fill:#ffe490;}
   #c39123 {fill:#ffd57f;}
@@ -127,13 +127,13 @@
   #c39137 {fill:#ffc26e;}
   #c39139 {fill:#ffde89;}
   #c39141 {fill:#ffea97;}
-  #c39143 {fill:#ffca74;}
+  #c39143 {fill:#ffc872;}
   #c39147 {fill:#ffe894;}
   #c39149 {fill:#ffe490;}
-  #c39151 {fill:#ffa759;}
+  #c39151 {fill:#ffa859;}
   #c39153 {fill:#ff9e52;}
   #c39155 {fill:#ffb563;}
-  #c39157 {fill:#ffe894;}
+  #c39157 {fill:#ffe895;}
   #c39165 {fill:#ffbf6b;}
   #c39167 {fill:#ffc26e;}
   #c39169 {fill:#ffb05f;}
@@ -203,7 +203,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">64</tspan></text>
+           sodipodi:role="line">65</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -343,7 +343,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">10 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">11 May 2020</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text4264"
