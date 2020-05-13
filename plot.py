@@ -72,7 +72,7 @@ class C19Cases:
 	num_days = 85
 	threshold = 100
 	y_min = threshold
-	y_max = 1400000
+	y_max = 1500000
 	title = 'COVID-19 US reported positive cases'
 	subtitle = 'Since first day with %d cases' % threshold
 	output_dir = 'cases'
