@@ -831,7 +831,7 @@ class CovidCases:
 	def export_anim(self):
 		print('Exporting animations')
 		cmd = 'convert'
-		args_base = ['-delay', '6' ,'-loop', '0']
+		args_base = ['-delay', '5' ,'-loop', '0']
 
 		templates = []
 		for dir in ['tests', 'tests-norm']:
