@@ -126,7 +126,7 @@ class C19DeathsNorm:
 	num_days = 80
 	threshold = 1
 	y_min = threshold
-	y_max = 1200
+	y_max = 1300
 	title = 'COVID-19 US States Reported Deaths per Million'
 	subtitle = 'Since first day with %d death/million' % threshold
 	output_dir = 'deaths-norm'
