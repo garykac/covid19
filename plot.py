@@ -28,7 +28,7 @@ class Options(object):
 
 # Graph parameters for Reported Tests
 class C19Tests:
-	num_days = 85
+	num_days = 90
 	threshold = 150
 	y_min = threshold
 	y_max = 12000000
@@ -43,7 +43,7 @@ class C19Tests:
 	units = ''
 
 class C19TestsNorm:
-	num_days = 85
+	num_days = 90
 	threshold = 10
 	y_min = threshold
 	y_max = 120000
@@ -108,7 +108,7 @@ class C19CasesNorm:
 
 # Graph parameters for Reported Deaths
 class C19Deaths:
-	num_days = 85
+	num_days = 90
 	threshold = 10
 	y_min = threshold
 	y_max = 90000
