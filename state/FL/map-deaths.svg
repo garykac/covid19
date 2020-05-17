@@ -76,51 +76,51 @@
   #legend-3 {fill:#ffb866;}
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
-  #c12001 {fill:#ffd781;}
+  #c12001 {fill:#ffd57f;}
   #c12003 {fill:#ffdb86;}
   #c12005 {fill:#ffdf89;}
   #c12007 {fill:#ffd882;}
-  #c12009 {fill:#ffd47e;}
+  #c12009 {fill:#ffd27c;}
   #c12011 {fill:#ff9a50;}
   #c12013 {fill:#ffe895;}
-  #c12015 {fill:#ffb563;}
+  #c12015 {fill:#ffb463;}
   #c12017 {fill:#ffc873;}
-  #c12019 {fill:#ffbd69;}
+  #c12019 {fill:#ffbb68;}
   #c12021 {fill:#ffc973;}
   #c12023 {fill:#ffe490;}
   #c12027 {fill:#ffd37d;}
-  #c12031 {fill:#ffbb68;}
-  #c12033 {fill:#ffc06c;}
+  #c12031 {fill:#ffba67;}
+  #c12033 {fill:#ffc16c;}
   #c12035 {fill:#ffd57f;}
   #c12039 {fill:#ffe793;}
   #c12043 {fill:#ffec9a;}
-  #c12051 {fill:#ffd37d;}
+  #c12051 {fill:#ffd27c;}
   #c12053 {fill:#ffd17b;}
   #c12055 {fill:#ffd67f;}
-  #c12057 {fill:#ffb966;}
+  #c12057 {fill:#ffb865;}
   #c12061 {fill:#ffc974;}
   #c12065 {fill:#ffe18c;}
   #c12069 {fill:#ffcc76;}
-  #c12071 {fill:#ffac5c;}
+  #c12071 {fill:#ffab5b;}
   #c12073 {fill:#ffd47e;}
   #c12079 {fill:#ffde88;}
-  #c12081 {fill:#ffaa5b;}
+  #c12081 {fill:#ffa95a;}
   #c12083 {fill:#ffe28c;}
   #c12085 {fill:#ffd17b;}
   #c12086 {fill:#ff954c;}
   #c12087 {fill:#ffe28d;}
   #c12089 {fill:#ffea97;}
   #c12091 {fill:#ffdb85;}
-  #c12095 {fill:#ffbc69;}
-  #c12097 {fill:#ffcf79;}
+  #c12095 {fill:#ffbb68;}
+  #c12097 {fill:#ffce79;}
   #c12099 {fill:#ffa457;}
   #c12101 {fill:#ffcf79;}
   #c12103 {fill:#ff994f;}
-  #c12105 {fill:#ffc671;}
+  #c12105 {fill:#ffc570;}
   #c12107 {fill:#ffde89;}
   #c12113 {fill:#ffd47e;}
   #c12115 {fill:#ffaa5b;}
-  #c12117 {fill:#ffbe6a;}
+  #c12117 {fill:#ffbc69;}
   #c12109 {fill:#ffd57f;}
   #c12111 {fill:#ffb966;}
   #c12119 {fill:#ffc16d;}
@@ -128,6 +128,7 @@
   #c12127 {fill:#ffc26e;}
   #c12129 {fill:#ffe996;}
   #c12131 {fill:#ffe793;}
+  #c12133 {fill:#ffe995;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -331,7 +332,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">15 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">16 May 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
