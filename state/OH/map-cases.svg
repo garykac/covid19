@@ -77,27 +77,27 @@
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
   #c39001 {fill:#ffdd87;}
-  #c39003 {fill:#ffac5c;}
+  #c39003 {fill:#ffab5c;}
   #c39005 {fill:#ffd17b;}
   #c39007 {fill:#ffaf5f;}
-  #c39009 {fill:#ffdb85;}
+  #c39009 {fill:#ffd984;}
   #c39011 {fill:#ffbe6a;}
-  #c39013 {fill:#ffa557;}
-  #c39015 {fill:#ffce78;}
+  #c39013 {fill:#ffa457;}
+  #c39015 {fill:#ffcd77;}
   #c39017 {fill:#ff974e;}
-  #c39019 {fill:#ffc974;}
+  #c39019 {fill:#ffc873;}
   #c39021 {fill:#ffcb76;}
-  #c39023 {fill:#ffae5e;}
+  #c39023 {fill:#ffad5d;}
   #c39025 {fill:#ffaf5f;}
   #c39027 {fill:#ffc36e;}
   #c39029 {fill:#ffa054;}
-  #c39031 {fill:#ffd27c;}
+  #c39031 {fill:#ffd17b;}
   #c39033 {fill:#ffb563;}
   #c39035 {fill:#ff7338;}
   #c39037 {fill:#ffb865;}
-  #c39039 {fill:#ffc974;}
-  #c39041 {fill:#ffa658;}
-  #c39043 {fill:#ffac5c;}
+  #c39039 {fill:#ffc873;}
+  #c39041 {fill:#ffa558;}
+  #c39043 {fill:#ffa95a;}
   #c39045 {fill:#ffac5c;}
   #c39047 {fill:#ffc671;}
   #c39049 {fill:#ff7036;}
@@ -105,37 +105,37 @@
   #c39053 {fill:#ffdc86;}
   #c39055 {fill:#ffa758;}
   #c39057 {fill:#ffb966;}
-  #c39059 {fill:#ffcd78;}
-  #c39061 {fill:#ff7b3d;}
+  #c39059 {fill:#ffcd77;}
+  #c39061 {fill:#ff7b3c;}
   #c39063 {fill:#ffc570;}
   #c39065 {fill:#ffc974;}
   #c39067 {fill:#ffd781;}
   #c39069 {fill:#ffd680;}
-  #c39071 {fill:#ffd37d;}
+  #c39071 {fill:#ffd47e;}
   #c39073 {fill:#ffbd69;}
-  #c39075 {fill:#ffd57f;}
+  #c39075 {fill:#ffd37d;}
   #c39077 {fill:#ffc570;}
   #c39079 {fill:#ffd57f;}
   #c39081 {fill:#ffbc69;}
   #c39083 {fill:#ffcf79;}
   #c39085 {fill:#ff9c51;}
   #c39087 {fill:#ffca74;}
-  #c39089 {fill:#ffb361;}
-  #c39091 {fill:#ffcc77;}
-  #c39093 {fill:#ff984f;}
+  #c39089 {fill:#ffb261;}
+  #c39091 {fill:#ffcc76;}
+  #c39093 {fill:#ff984e;}
   #c39095 {fill:#ff783b;}
-  #c39097 {fill:#ffb765;}
-  #c39099 {fill:#ff8743;}
+  #c39097 {fill:#ffb764;}
+  #c39099 {fill:#ff8643;}
   #c39101 {fill:#ff773a;}
-  #c39103 {fill:#ffa859;}
+  #c39103 {fill:#ffa759;}
   #c39105 {fill:#ffe48f;}
-  #c39107 {fill:#ffb261;}
+  #c39107 {fill:#ffb160;}
   #c39109 {fill:#ffa053;}
-  #c39111 {fill:#ffc06b;}
-  #c39113 {fill:#ff9a50;}
-  #c39115 {fill:#ffde88;}
+  #c39111 {fill:#ffbf6b;}
+  #c39113 {fill:#ff9a4f;}
+  #c39115 {fill:#ffde89;}
   #c39117 {fill:#ffb563;}
-  #c39119 {fill:#ffcc76;}
+  #c39119 {fill:#ffcb76;}
   #c39121 {fill:#ffdb86;}
   #c39123 {fill:#ffb462;}
   #c39125 {fill:#ffd57f;}
@@ -143,22 +143,22 @@
   #c39129 {fill:#ff803f;}
   #c39131 {fill:#ffdf89;}
   #c39133 {fill:#ffa557;}
-  #c39135 {fill:#ffc873;}
+  #c39135 {fill:#ffc772;}
   #c39137 {fill:#ffba67;}
   #c39139 {fill:#ffb05f;}
   #c39141 {fill:#ffc570;}
-  #c39143 {fill:#ffbe6a;}
+  #c39143 {fill:#ffbd6a;}
   #c39145 {fill:#ffd680;}
   #c39147 {fill:#ffd47e;}
   #c39149 {fill:#ffc570;}
-  #c39151 {fill:#ff9c51;}
-  #c39153 {fill:#ff8a46;}
-  #c39155 {fill:#ffa255;}
-  #c39157 {fill:#ffaa5b;}
+  #c39151 {fill:#ff9b51;}
+  #c39153 {fill:#ff8a45;}
+  #c39155 {fill:#ffa155;}
+  #c39157 {fill:#ffa95a;}
   #c39159 {fill:#ffc570;}
-  #c39161 {fill:#ffe08b;}
+  #c39161 {fill:#ffde88;}
   #c39163 {fill:#ffd07a;}
-  #c39165 {fill:#ffa356;}
+  #c39165 {fill:#ffa255;}
   #c39167 {fill:#ffb966;}
   #c39169 {fill:#ffae5e;}
   #c39171 {fill:#ffc16c;}
@@ -227,7 +227,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">653</tspan></text>
+           sodipodi:role="line">655</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -367,7 +367,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">17 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">18 May 2020</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text4264"
