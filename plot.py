@@ -31,7 +31,7 @@ class C19Tests:
 	num_days = 90
 	threshold = 150
 	y_min = threshold
-	y_max = 13000000
+	y_max = 14000000
 	title = 'COVID-19 US reported tests'
 	subtitle = 'Since first day with %d tests' % threshold
 	output_dir = 'tests'
@@ -72,7 +72,7 @@ class C19Cases:
 	num_days = 95
 	threshold = 100
 	y_min = threshold
-	y_max = 1600000
+	y_max = 1700000
 	title = 'COVID-19 US reported positive cases'
 	subtitle = 'Since first day with %d cases' % threshold
 	output_dir = 'cases'
@@ -111,7 +111,7 @@ class C19Deaths:
 	num_days = 90
 	threshold = 10
 	y_min = threshold
-	y_max = 90000
+	y_max = 100000
 	title = 'COVID-19 US reported deaths'
 	subtitle = 'Since first day with %d deaths' % threshold
 	output_dir = 'deaths'
