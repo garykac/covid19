@@ -1017,7 +1017,7 @@ def main(argv):
 		if opt in ("-?", "-h", "--?", "--help"):
 			usage()
 		if opt in ("-a", "--all"):
-			gen_animated = True
+			#gen_animated = True
 			gen_combined = True
 			gen_individual = True
 			gen_top_n = True
