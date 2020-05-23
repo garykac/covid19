@@ -754,7 +754,7 @@ class CovidCases:
 		print()
 			
 	def calc_ranking_plot_type(self, type, raw_data):
-		print(type, end='')
+		print(type, end=' ')
 		sys.stdout.flush()
 		for s in USInfo.states:
 			self.calc_ranking_plot_type_state(type, s, raw_data)
