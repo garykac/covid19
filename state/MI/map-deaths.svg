@@ -81,8 +81,8 @@
   #c26007 {fill:#ffca74;}
   #c26011 {fill:#ffdd88;}
   #c26015 {fill:#ffdb85;}
-  #c26017 {fill:#ffba67;}
-  #c26021 {fill:#ffb160;}
+  #c26017 {fill:#ffb865;}
+  #c26021 {fill:#ffae5e;}
   #c26023 {fill:#ffda84;}
   #c26025 {fill:#ffc06c;}
   #c26027 {fill:#ffda84;}
@@ -94,24 +94,24 @@
   #c26041 {fill:#ffe18b;}
   #c26043 {fill:#ffde88;}
   #c26045 {fill:#ffcf7a;}
-  #c26047 {fill:#ffd983;}
+  #c26047 {fill:#ffd984;}
   #c26049 {fill:#ff8f49;}
   #c26051 {fill:#ffe08a;}
   #c26053 {fill:#ffe48f;}
   #c26055 {fill:#ffcf79;}
-  #c26057 {fill:#ffcf79;}
+  #c26057 {fill:#ffcc76;}
   #c26059 {fill:#ffbb68;}
-  #c26063 {fill:#ffe28e;}
-  #c26065 {fill:#ffb967;}
-  #c26067 {fill:#ffd781;}
+  #c26063 {fill:#ffe38e;}
+  #c26065 {fill:#ffba67;}
+  #c26067 {fill:#ffd47e;}
   #c26069 {fill:#ffc974;}
   #c26073 {fill:#ffcd78;}
-  #c26075 {fill:#ffbd69;}
-  #c26077 {fill:#ffae5d;}
+  #c26075 {fill:#ffbc69;}
+  #c26077 {fill:#ffac5c;}
   #c26079 {fill:#ffdb85;}
-  #c26081 {fill:#ffaf5f;}
+  #c26081 {fill:#ffac5d;}
   #c26087 {fill:#ffb966;}
-  #c26091 {fill:#ffda84;}
+  #c26091 {fill:#ffd781;}
   #c26093 {fill:#ffb966;}
   #c26099 {fill:#ff6d34;}
   #c26103 {fill:#ffd781;}
@@ -120,22 +120,23 @@
   #c26113 {fill:#ffe08b;}
   #c26115 {fill:#ffbe6a;}
   #c26117 {fill:#ffe28d;}
-  #c26121 {fill:#ffb462;}
-  #c26125 {fill:#ff773a;}
+  #c26121 {fill:#ffb160;}
+  #c26125 {fill:#ff763a;}
   #c26127 {fill:#ffda84;}
+  #c26129 {fill:#ffe08b;}
   #c26135 {fill:#ffe08b;}
   #c26137 {fill:#ffc772;}
-  #c26139 {fill:#ffb866;}
-  #c26145 {fill:#ffa558;}
-  #c26151 {fill:#ffd781;}
-  #c26155 {fill:#ffb966;}
-  #c26147 {fill:#ffb866;}
+  #c26139 {fill:#ffb664;}
+  #c26145 {fill:#ffa557;}
+  #c26151 {fill:#ffd882;}
+  #c26155 {fill:#ffb865;}
+  #c26147 {fill:#ffb765;}
   #c26149 {fill:#ffda84;}
   #c26157 {fill:#ffc16d;}
   #c26159 {fill:#ffd07a;}
-  #c26161 {fill:#ffa557;}
+  #c26161 {fill:#ffa457;}
   #c26163 {fill:#ff5628;}
-  #c26165 {fill:#ffdb85;}
+  #c26165 {fill:#ffd781;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -339,7 +340,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">25 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">28 May 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
