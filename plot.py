@@ -31,7 +31,7 @@ class C19Tests:
 	num_days = 100
 	threshold = 150
 	y_min = threshold
-	y_max = 16000000
+	y_max = 17000000
 	title = 'COVID-19 US reported tests'
 	subtitle = 'Since first day with %d tests' % threshold
 	output_dir = 'tests'
@@ -46,7 +46,7 @@ class C19TestsNorm:
 	num_days = 100
 	threshold = 10
 	y_min = threshold
-	y_max = 140000
+	y_max = 150000
 	title = 'COVID-19 US States Reported Tests (Pos + Neg) per Million'
 	subtitle = 'Since first day with %d tests/million' % threshold
 	output_dir = 'tests-norm'
@@ -69,7 +69,7 @@ class C19TestsNorm:
 
 # Graph parameters for Reported Positive Cases
 class C19Cases:
-	num_days = 100
+	num_days = 105
 	threshold = 100
 	y_min = threshold
 	y_max = 1800000
@@ -84,7 +84,7 @@ class C19Cases:
 	units = ''
 	
 class C19CasesNorm:
-	num_days = 95
+	num_days = 100
 	threshold = 10
 	y_min = threshold
 	y_max = 20000
@@ -108,7 +108,7 @@ class C19CasesNorm:
 
 # Graph parameters for Reported Deaths
 class C19Deaths:
-	num_days = 95
+	num_days = 100
 	threshold = 10
 	y_min = threshold
 	y_max = 100000
@@ -123,7 +123,7 @@ class C19Deaths:
 	units = ''
 
 class C19DeathsNorm:
-	num_days = 90
+	num_days = 95
 	threshold = 1
 	y_min = threshold
 	y_max = 1400
