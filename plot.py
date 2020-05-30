@@ -441,6 +441,10 @@ class CovidCases:
 		filename = '%s/%s-%s-%s.png' % (outdir, options.output_filebase, suffix, self.date)
 		plt.savefig(filename, bbox_inches='tight')
 
+		# Make copies of the latest version in the top level dir.
+		filename2 = '%s/%s-%s.png' % (options.output_dir, options.output_filebase, suffix)
+		shutil.copy(filename, filename2)
+
 	def add_footer(self, plt, has_pending):
 		# Left side
 		y = -40
@@ -864,8 +868,8 @@ class CovidCases:
 			subprocess.call([cmd] + args)
 
 			# Make copies of the latest version in the top level dir.
-			shutil.copy(out_gif, '%s.gif' % (filebase))
-			shutil.copy(last_frame, '%s.png' % (filebase))
+			#shutil.copy(out_gif, '%s.gif' % (filebase))
+			#shutil.copy(last_frame, '%s.png' % (filebase))
 		
 	def create_test_page_html(self):
 		print('Generating test page html files')
