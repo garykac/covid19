@@ -78,58 +78,61 @@
   #legend-5 {fill:#faffcc;}
   #c12001 {fill:#ffd680;}
   #c12003 {fill:#ffdc86;}
-  #c12005 {fill:#ffdf89;}
+  #c12005 {fill:#ffdf8a;}
   #c12007 {fill:#ffd882;}
   #c12009 {fill:#ffd07a;}
-  #c12011 {fill:#ff984f;}
-  #c12013 {fill:#ffdb85;}
+  #c12011 {fill:#ff984e;}
+  #c12013 {fill:#ffd781;}
   #c12015 {fill:#ffad5d;}
   #c12017 {fill:#ffc772;}
   #c12019 {fill:#ffba67;}
   #c12021 {fill:#ffc570;}
   #c12023 {fill:#ffe490;}
-  #c12027 {fill:#ffcf79;}
+  #c12027 {fill:#ffd17b;}
   #c12029 {fill:#ffe38e;}
-  #c12031 {fill:#ffb563;}
-  #c12033 {fill:#ffbb67;}
+  #c12031 {fill:#ffb462;}
+  #c12033 {fill:#ffb866;}
   #c12035 {fill:#ffd57f;}
-  #c12039 {fill:#ffe794;}
+  #c12039 {fill:#ffdf8a;}
   #c12043 {fill:#ffec9a;}
-  #c12051 {fill:#ffd17b;}
+  #c12051 {fill:#ffd07a;}
   #c12053 {fill:#ffd27c;}
-  #c12055 {fill:#ffd680;}
-  #c12057 {fill:#ffb160;}
-  #c12061 {fill:#ffca74;}
+  #c12055 {fill:#ffd47e;}
+  #c12057 {fill:#ffb05f;}
+  #c12061 {fill:#ffc873;}
+  #c12063 {fill:#ffed9c;}
   #c12065 {fill:#ffdc86;}
   #c12069 {fill:#ffcb76;}
-  #c12071 {fill:#ffa758;}
+  #c12071 {fill:#ffa658;}
   #c12073 {fill:#ffd47e;}
+  #c12075 {fill:#ffef9f;}
   #c12079 {fill:#ffda84;}
-  #c12081 {fill:#ffa758;}
-  #c12083 {fill:#ffe28d;}
+  #c12081 {fill:#ffa658;}
+  #c12083 {fill:#ffde88;}
   #c12085 {fill:#ffcb75;}
-  #c12086 {fill:#ff914a;}
+  #c12086 {fill:#ff9049;}
   #c12087 {fill:#ffdf89;}
   #c12089 {fill:#ffea97;}
   #c12091 {fill:#ffd983;}
-  #c12095 {fill:#ffbb68;}
+  #c12095 {fill:#ffbb67;}
   #c12097 {fill:#ffcd77;}
-  #c12099 {fill:#ffa155;}
+  #c12099 {fill:#ffa154;}
   #c12101 {fill:#ffca75;}
-  #c12103 {fill:#ff954d;}
+  #c12103 {fill:#ff954c;}
   #c12105 {fill:#ffc16d;}
   #c12107 {fill:#ffd882;}
   #c12113 {fill:#ffd47e;}
   #c12115 {fill:#ffa557;}
   #c12117 {fill:#ffbd69;}
-  #c12109 {fill:#ffd57f;}
+  #c12109 {fill:#ffd27c;}
   #c12111 {fill:#ffb765;}
   #c12119 {fill:#ffc16c;}
-  #c12121 {fill:#ffc36f;}
+  #c12121 {fill:#ffc46f;}
+  #c12125 {fill:#ffdf89;}
   #c12127 {fill:#ffbf6b;}
   #c12129 {fill:#ffe996;}
   #c12131 {fill:#ffd47e;}
-  #c12133 {fill:#ffdc86;}
+  #c12133 {fill:#ffd882;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -333,7 +336,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">28 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">30 May 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
