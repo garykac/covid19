@@ -80,10 +80,10 @@
   #c01005 {fill:#ffed9b;}
   #c01007 {fill:#ffe996;}
   #c01009 {fill:#ffea97;}
-  #c01011 {fill:#ffd983;}
+  #c01011 {fill:#ffd680;}
   #c01013 {fill:#ffc671;}
   #c01015 {fill:#ffdc86;}
-  #c01017 {fill:#ffbb68;}
+  #c01017 {fill:#ffbc68;}
   #c01019 {fill:#ffdb85;}
   #c01021 {fill:#ffeb98;}
   #c01023 {fill:#ffd47e;}
@@ -103,7 +103,7 @@
   #c01055 {fill:#ffc772;}
   #c01059 {fill:#ffd17b;}
   #c01063 {fill:#ffd983;}
-  #c01065 {fill:#ffcf79;}
+  #c01065 {fill:#ffcd78;}
   #c01067 {fill:#ffe08b;}
   #c01069 {fill:#ffd882;}
   #c01071 {fill:#ffe894;}
@@ -115,19 +115,19 @@
   #c01089 {fill:#ffdc86;}
   #c01091 {fill:#ffd983;}
   #c01093 {fill:#ffcd77;}
-  #c01095 {fill:#ffcb76;}
+  #c01095 {fill:#ffcc76;}
   #c01097 {fill:#ffad5d;}
   #c01099 {fill:#ffe794;}
-  #c01101 {fill:#ffb966;}
+  #c01101 {fill:#ffb865;}
   #c01103 {fill:#ffe995;}
   #c01107 {fill:#ffdd88;}
   #c01111 {fill:#ffd07a;}
-  #c01117 {fill:#ffc570;}
+  #c01117 {fill:#ffc46f;}
   #c01115 {fill:#ffea96;}
-  #c01119 {fill:#ffd882;}
-  #c01121 {fill:#ffdf89;}
-  #c01123 {fill:#ffae5d;}
-  #c01125 {fill:#ffd27c;}
+  #c01119 {fill:#ffd680;}
+  #c01121 {fill:#ffd882;}
+  #c01123 {fill:#ffad5d;}
+  #c01125 {fill:#ffd17b;}
   #c01127 {fill:#ffe490;}
   #c01129 {fill:#ffdb85;}
   #c01131 {fill:#ffd680;}
@@ -194,7 +194,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">69</tspan></text>
+           sodipodi:role="line">70</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -334,7 +334,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">30 May 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">31 May 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
