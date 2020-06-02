@@ -119,6 +119,7 @@ class CovidData:
 		
 		# 4 May 2020: date,state,positive,negative,pending,hospitalizedCurrently,hospitalizedCumulative,inIcuCurrently,inIcuCumulative,onVentilatorCurrently,onVentilatorCumulative,recovered,hash,dateChecked,death,hospitalized,total,totalTestResults,posNeg,fips,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
 		# 5 May 2020: date,state,positive,negative,pending,hospitalizedCurrently,hospitalizedCumulative,inIcuCurrently,inIcuCumulative,onVentilatorCurrently,onVentilatorCumulative,recovered,dataQualityGrade,lastUpdateEt,hash,dateChecked,death,hospitalized,total,totalTestResults,posNeg,fips,deathIncrease,hospitalizedIncrease,negativeIncrease,positiveIncrease,totalTestResultsIncrease
+		# 2 Jun 2020: date,state,positive,negative,pending,hospitalizedCurrently,hospitalizedCumulative,inIcuCurrently,inIcuCumulative,onVentilatorCurrently,onVentilatorCumulative,recovered,dataQualityGrade,lastUpdateEt,dateModified,checkTimeEt,death,hospitalized,dateChecked,fips,positiveIncrease,negativeIncrease,total,totalTestResults,totalTestResultsIncrease,posNeg,deathIncrease,hospitalizedIncrease,hash,commercialScore,negativeRegularScore,negativeScore,positiveScore,score,grade
 		fields = [
 			'date',
 			'state',
@@ -134,20 +135,29 @@ class CovidData:
 			'recovered',
 			'dataQualityGrade',  # Added 5 May 2020
 			'lastUpdateEt',  # Added 5 May 2020
-			'hash',
-			'dateChecked',
+			'dateModified',  # Added 2 Jun 2020
+			'checkTimeEt',  # Added 2 Jun 2020
+			# Many fields after this point were moved around on 2 Jun 2020
 			'death',
 			'hospitalized',
+			'dateChecked',
+			'fips',
+			'positiveIncrease',
+			'negativeIncrease',
 			'total',  # deprecated (= positive + negative + pending)
 			          # Will be removed at some point because |pending| is not consistent between states.
 			'totalTestResults',
+			'totalTestResultsIncrease',
 			'posNeg',
-			'fips',
 			'deathIncrease',
 			'hospitalizedIncrease',
-			'negativeIncrease',
-			'positiveIncrease',
-			'totalTestResultsIncrease',
+			'hash',
+			'commercialScore',  # Added 2 Jun 2020
+			'negativeRegularScore',  # Added 2 Jun 2020
+			'negativeScore',  # Added 2 Jun 2020
+			'positiveScore',  # Added 2 Jun 2020
+			'score',  # Added 2 Jun 2020
+			'grade',  # Added 2 Jun 2020
 		]
 		index = {}
 		for i in range(0, len(fields)):
