@@ -69,7 +69,7 @@ class C19TestsNorm:
 
 # Graph parameters for Reported Positive Cases
 class C19Cases:
-	num_days = 105
+	num_days = 110
 	threshold = 100
 	y_min = threshold
 	y_max = 2000000
@@ -84,7 +84,7 @@ class C19Cases:
 	units = ''
 	
 class C19CasesNorm:
-	num_days = 100
+	num_days = 105
 	threshold = 10
 	y_min = threshold
 	y_max = 20000
@@ -123,7 +123,7 @@ class C19Deaths:
 	units = ''
 
 class C19DeathsNorm:
-	num_days = 95
+	num_days = 100
 	threshold = 1
 	y_min = threshold
 	y_max = 1500
