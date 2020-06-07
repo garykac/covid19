@@ -9,5 +9,6 @@ US_FILE=data/states-daily.csv
 curl -o $ITALY_FILE $ITALY_URL
 curl -o $US_FILE $US_URL
 
-git commit -a -m "Snapshot US data for $1"
+git commit -a -m "Snapshot US/Italy data for $1"
 
+python plot.py --top
