@@ -1,4 +1,6 @@
-echo "Downloading US/Italy data for $1 $2 $3"
+#!/bin/bash
+
+echo "Downloading NYT data for $1 $2 $3"
 
 NYT_URL=https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv
 NYT_FILE=data/nyt/us-counties.csv
