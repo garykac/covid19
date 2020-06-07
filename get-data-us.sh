@@ -14,3 +14,5 @@ curl -o $US_FILE $US_URL
 git commit -a -m "Snapshot US/Italy data for $1 $2 $3"
 
 python plot.py --top
+
+# Verify graphs in test_page.html before running gen-data-us.sh

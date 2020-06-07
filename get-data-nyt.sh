@@ -12,3 +12,5 @@ git commit -a -m "Snapshot NYT data for $1 $2 $3"
 python map.py
 
 git commit -a -m "Generate maps for $1 $2 $3"
+
+git push
