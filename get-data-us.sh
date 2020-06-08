@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 echo "Downloading US/Italy data for $1 $2 $3"
 
 ITALY_URL=https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-andamento-nazionale/dpc-covid19-ita-andamento-nazionale.csv
