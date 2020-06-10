@@ -69,10 +69,10 @@ class C19TestsNorm:
 
 # Graph parameters for Reported Positive Cases
 class C19Cases:
-	num_days = 110
+	num_days = 115
 	threshold = 100
 	y_min = threshold
-	y_max = 2000000
+	y_max = 2250000
 	title = 'COVID-19 US reported positive cases'
 	subtitle = 'Since first day with %d cases' % threshold
 	output_dir = 'cases'
@@ -84,7 +84,7 @@ class C19Cases:
 	units = ''
 	
 class C19CasesNorm:
-	num_days = 105
+	num_days = 110
 	threshold = 10
 	y_min = threshold
 	y_max = 20000
