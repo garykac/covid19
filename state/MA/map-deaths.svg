@@ -78,9 +78,9 @@
   #legend-5 {fill:#faffcc;}
   #c25001 {fill:#ff944c;}
   #c25003 {fill:#ffba67;}
-  #c25005 {fill:#ff7d3e;}
+  #c25005 {fill:#ff7d3d;}
   #c25007 {fill:#ffd17b;}
-  #c25009 {fill:#ff6831;}
+  #c25009 {fill:#ff6731;}
   #c25011 {fill:#ffb261;}
   #c25013 {fill:#ff793b;}
   #c25015 {fill:#ff9f53;}
@@ -88,7 +88,7 @@
   #c25021 {fill:#ff6630;}
   #c25023 {fill:#ff7c3d;}
   #c25025 {fill:#ff2e14;}
-  #c25027 {fill:#ff8844;}
+  #c25027 {fill:#ff8744;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -291,7 +291,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">09 Jun 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">10 Jun 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
