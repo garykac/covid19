@@ -78,10 +78,10 @@
   #legend-5 {fill:#faffcc;}
   #c51001 {fill:#ffc26e;}
   #c51003 {fill:#ffd17b;}
-  #c51510 {fill:#ff5d2c;}
+  #c51510 {fill:#ff5c2b;}
   #c51005 {fill:#ffdd88;}
   #c51007 {fill:#ffe38e;}
-  #c51013 {fill:#ff5226;}
+  #c51013 {fill:#ff5126;}
   #c51015 {fill:#ffe793;}
   #c51019 {fill:#ffe48f;}
   #c51023 {fill:#ffd781;}
@@ -107,7 +107,7 @@
   #c51067 {fill:#ffea97;}
   #c51620 {fill:#ff9a50;}
   #c51069 {fill:#ffd37d;}
-  #c51640 {fill:#ff8140;}
+  #c51640 {fill:#ff7e3e;}
   #c51073 {fill:#ffdd87;}
   #c51075 {fill:#ffc772;}
   #c51077 {fill:#ffdd88;}
@@ -124,14 +124,14 @@
   #c51095 {fill:#ffab5b;}
   #c51099 {fill:#ffc671;}
   #c51097 {fill:#ffe28d;}
-  #c51107 {fill:#ffa758;}
+  #c51107 {fill:#ffa658;}
   #c51109 {fill:#ffe793;}
   #c51680 {fill:#ffc873;}
   #c51113 {fill:#ffe28d;}
   #c51685 {fill:#ff642f;}
   #c51683 {fill:#ff7539;}
   #c51117 {fill:#ffbd6a;}
-  #c51121 {fill:#ffe48f;}
+  #c51121 {fill:#ffdc86;}
   #c51127 {fill:#ffdd87;}
   #c51700 {fill:#ffa457;}
   #c51710 {fill:#ffa758;}
@@ -149,12 +149,12 @@
   #c51760 {fill:#ff8d47;}
   #c51161 {fill:#ffc873;}
   #c51770 {fill:#ff9a50;}
-  #c51165 {fill:#ffd781;}
+  #c51165 {fill:#ffd57f;}
   #c51775 {fill:#ff9d52;}
   #c51169 {fill:#ffe08a;}
   #c51171 {fill:#ffb966;}
   #c51175 {fill:#ffe18c;}
-  #c51177 {fill:#ffc470;}
+  #c51177 {fill:#ffc36e;}
   #c51179 {fill:#ffc974;}
   #c51800 {fill:#ffaf5f;}
   #c51181 {fill:#ffe08b;}
@@ -371,7 +371,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">10 Jun 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">11 Jun 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
