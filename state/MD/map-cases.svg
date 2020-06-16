@@ -78,17 +78,17 @@
   #legend-5 {fill:#faffcc;}
   #c24001 {fill:#ffab5c;}
   #c24003 {fill:#ff6b33;}
-  #c24005 {fill:#ff6a33;}
+  #c24005 {fill:#ff6a32;}
   #c24510 {fill:#ff3b1a;}
   #c24009 {fill:#ff924b;}
   #c24011 {fill:#ff9f53;}
-  #c24013 {fill:#ff8e48;}
-  #c24015 {fill:#ff984f;}
+  #c24013 {fill:#ff8d48;}
+  #c24015 {fill:#ff984e;}
   #c24017 {fill:#ff8945;}
-  #c24019 {fill:#ffb261;}
-  #c24021 {fill:#ff8542;}
+  #c24019 {fill:#ffb260;}
+  #c24021 {fill:#ff8442;}
   #c24023 {fill:#ffdc86;}
-  #c24025 {fill:#ff8d47;}
+  #c24025 {fill:#ff8c47;}
   #c24027 {fill:#ff6f36;}
   #c24029 {fill:#ffa356;}
   #c24031 {fill:#ff5628;}
@@ -97,9 +97,9 @@
   #c24039 {fill:#ffb563;}
   #c24037 {fill:#ff944c;}
   #c24041 {fill:#ffad5d;}
-  #c24043 {fill:#ff994f;}
+  #c24043 {fill:#ff984f;}
   #c24045 {fill:#ff8945;}
-  #c24047 {fill:#ffa859;}
+  #c24047 {fill:#ffa759;}
  </style>
   <g
      inkscape:groupmode="layer"
@@ -163,7 +163,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">709</tspan></text>
+           sodipodi:role="line">710</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -303,7 +303,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">14 Jun 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">15 Jun 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"

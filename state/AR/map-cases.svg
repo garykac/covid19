@@ -77,78 +77,78 @@
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
   #c05001 {fill:#ffdc86;}
-  #c05003 {fill:#ffcd77;}
+  #c05003 {fill:#ffcb76;}
   #c05005 {fill:#ffd37d;}
-  #c05007 {fill:#ff934b;}
+  #c05007 {fill:#ff924b;}
   #c05009 {fill:#ffd781;}
-  #c05011 {fill:#ffcb75;}
-  #c05015 {fill:#ffbf6b;}
-  #c05017 {fill:#ffc671;}
-  #c05019 {fill:#ffcb75;}
+  #c05011 {fill:#ffca75;}
+  #c05015 {fill:#ffbd6a;}
+  #c05017 {fill:#ffc570;}
+  #c05019 {fill:#ffca74;}
   #c05021 {fill:#ffd17b;}
   #c05023 {fill:#ffbe6a;}
   #c05025 {fill:#ffd07a;}
   #c05027 {fill:#ffcf79;}
-  #c05029 {fill:#ffce79;}
+  #c05029 {fill:#ffcd77;}
   #c05031 {fill:#ffa95a;}
-  #c05033 {fill:#ffc36e;}
-  #c05035 {fill:#ffa053;}
+  #c05033 {fill:#ffc26d;}
+  #c05035 {fill:#ff9f53;}
   #c05037 {fill:#ffbf6b;}
   #c05039 {fill:#ffdf8a;}
   #c05041 {fill:#ffd17b;}
-  #c05043 {fill:#ffd17b;}
-  #c05045 {fill:#ffb563;}
+  #c05043 {fill:#ffd07b;}
+  #c05045 {fill:#ffb462;}
   #c05047 {fill:#ffdb85;}
   #c05049 {fill:#ffd882;}
   #c05051 {fill:#ffb563;}
   #c05053 {fill:#ffce79;}
   #c05055 {fill:#ffbf6b;}
-  #c05057 {fill:#ffcb76;}
+  #c05057 {fill:#ffca75;}
   #c05059 {fill:#ffc772;}
-  #c05061 {fill:#ffc873;}
+  #c05061 {fill:#ffc772;}
   #c05063 {fill:#ffca75;}
   #c05065 {fill:#ffcf7a;}
   #c05067 {fill:#ffd37d;}
-  #c05069 {fill:#ffa356;}
-  #c05071 {fill:#ffbe6a;}
+  #c05069 {fill:#ffa256;}
+  #c05071 {fill:#ffbd6a;}
   #c05073 {fill:#ffd57f;}
   #c05075 {fill:#ffbc68;}
   #c05077 {fill:#ff9f53;}
   #c05079 {fill:#ff924a;}
   #c05081 {fill:#ffc873;}
   #c05083 {fill:#ffd27c;}
-  #c05085 {fill:#ffc36f;}
-  #c05087 {fill:#ffbe6a;}
-  #c05089 {fill:#ffe18b;}
-  #c05091 {fill:#ffc16c;}
+  #c05085 {fill:#ffc36e;}
+  #c05087 {fill:#ffbd69;}
+  #c05089 {fill:#ffe08b;}
+  #c05091 {fill:#ffc06c;}
   #c05093 {fill:#ffc16d;}
   #c05095 {fill:#ffda84;}
   #c05097 {fill:#ffe18c;}
-  #c05099 {fill:#ffbe6b;}
+  #c05099 {fill:#ffbe6a;}
   #c05101 {fill:#ffe08b;}
   #c05103 {fill:#ffd57f;}
   #c05105 {fill:#ffd17b;}
-  #c05107 {fill:#ffca74;}
+  #c05107 {fill:#ffc772;}
   #c05109 {fill:#ffda84;}
-  #c05111 {fill:#ffc872;}
-  #c05113 {fill:#ffc973;}
-  #c05115 {fill:#ffb160;}
+  #c05111 {fill:#ffc772;}
+  #c05113 {fill:#ffc873;}
+  #c05115 {fill:#ffaf5f;}
   #c05117 {fill:#ffda84;}
   #c05119 {fill:#ff934b;}
   #c05121 {fill:#ffcd77;}
-  #c05125 {fill:#ffb563;}
-  #c05127 {fill:#ffe18b;}
-  #c05129 {fill:#ffda85;}
-  #c05131 {fill:#ffb361;}
-  #c05133 {fill:#ffa154;}
+  #c05125 {fill:#ffb463;}
+  #c05127 {fill:#ffde89;}
+  #c05129 {fill:#ffda84;}
+  #c05131 {fill:#ffb160;}
+  #c05133 {fill:#ffa054;}
   #c05135 {fill:#ffc570;}
   #c05123 {fill:#ff994f;}
   #c05137 {fill:#ffd680;}
-  #c05139 {fill:#ffb866;}
+  #c05139 {fill:#ffb865;}
   #c05141 {fill:#ffcd77;}
-  #c05143 {fill:#ff9049;}
+  #c05143 {fill:#ff8f49;}
   #c05145 {fill:#ffca74;}
-  #c05147 {fill:#ffdd88;}
+  #c05147 {fill:#ffdc86;}
   #c05149 {fill:#ffb05f;}
  </style>
   <g
@@ -213,7 +213,7 @@
            y="413.23941"
            x="897.33807"
            id="tspan10458"
-           sodipodi:role="line">709</tspan></text>
+           sodipodi:role="line">710</tspan></text>
       <text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:7.5px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -353,7 +353,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">14 Jun 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">15 Jun 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
