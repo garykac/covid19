@@ -28,7 +28,7 @@ class Options(object):
 
 # Graph parameters for Reported Tests
 class C19Tests:
-	num_days = 120
+	num_days = 125
 	threshold = 150
 	y_min = threshold
 	y_max = 30000000
