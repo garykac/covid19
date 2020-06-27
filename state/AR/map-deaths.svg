@@ -77,44 +77,46 @@
   #legend-4 {fill:#ffeb99;}
   #legend-5 {fill:#faffcc;}
   #c05003 {fill:#ffee9c;}
-  #c05007 {fill:#ffcb76;}
+  #c05007 {fill:#ffca75;}
   #c05009 {fill:#ffe996;}
   #c05011 {fill:#ffe28d;}
   #c05015 {fill:#ffd983;}
-  #c05017 {fill:#ffe28d;}
+  #c05017 {fill:#ffdd87;}
   #c05021 {fill:#ffdd87;}
   #c05023 {fill:#ffd781;}
   #c05027 {fill:#ffdf8a;}
   #c05029 {fill:#ffdb85;}
   #c05031 {fill:#ffd57f;}
-  #c05035 {fill:#ffcb76;}
+  #c05035 {fill:#ffca74;}
   #c05037 {fill:#ffea96;}
-  #c05043 {fill:#ffed9a;}
+  #c05043 {fill:#ffed9b;}
   #c05045 {fill:#ffdd88;}
   #c05051 {fill:#ffeb98;}
   #c05057 {fill:#ffeb99;}
-  #c05065 {fill:#ffe995;}
+  #c05061 {fill:#ffe996;}
+  #c05065 {fill:#ffe996;}
   #c05069 {fill:#ffc06c;}
   #c05073 {fill:#ffe894;}
   #c05075 {fill:#ffcc77;}
   #c05077 {fill:#ffe996;}
   #c05079 {fill:#ffc973;}
+  #c05085 {fill:#ffec99;}
   #c05091 {fill:#ffe28d;}
   #c05093 {fill:#ffe18c;}
   #c05099 {fill:#ffe28d;}
   #c05107 {fill:#ffde89;}
   #c05111 {fill:#ffdf8a;}
-  #c05115 {fill:#ffe590;}
-  #c05119 {fill:#ffb361;}
+  #c05115 {fill:#ffe08b;}
+  #c05119 {fill:#ffb261;}
   #c05121 {fill:#ffea97;}
   #c05125 {fill:#ffe48f;}
-  #c05131 {fill:#ffe08a;}
-  #c05133 {fill:#ffd27c;}
+  #c05131 {fill:#ffe08b;}
+  #c05133 {fill:#ffd07a;}
   #c05135 {fill:#ffd983;}
   #c05123 {fill:#ffdd87;}
   #c05139 {fill:#ffcf7a;}
   #c05141 {fill:#ffe38f;}
-  #c05143 {fill:#ffc671;}
+  #c05143 {fill:#ffc470;}
   #c05145 {fill:#ffef9e;}
   #c05149 {fill:#ffe28d;}
  </style>
@@ -320,7 +322,7 @@
            id="tspan10538"
            x="661.57031"
            y="592.64032"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">23 Jun 2020</tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.5px;font-family:Arial;-inkscape-font-specification:'Arial Bold';text-align:center;text-anchor:middle">26 Jun 2020</tspan></text>
     </g>
     <text
        sodipodi:linespacing="125%"
