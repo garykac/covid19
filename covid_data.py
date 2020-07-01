@@ -409,14 +409,18 @@ class CovidData:
 					# nuovi_attualmente_positivi = new currently positive
 				# dimessi_guariti = discharged healed
 				# deceduti = deceased
+				# casi_da_sospetto_diagnostico - added 1 Jul 2020
+				# casi_da_screening - added 1 Jul 2020
 				# totale_casi = total cases
 				# tamponi = swabs
 				# casi_testati = cases tested
-				# note_it = note italian
-				# note_en = note english
+				# note - added 1 Jul 2020, formerly separate
+					# note_it = note italian
+					# note_en = note english
 				# 31 Mar 2020 - Added totale_attualmente_positivi,nuovi_attualmente_positivi split into totale_positivi,variazione_totale_positivi,nuovi_positivi
 				# 20 Apr 2020 - Added casi_testati
-				(datetime,state,hos,ic,hos_total,home,total_pos,delta_pos,new_pos,discharged,deaths,total,swabs,ct,nita,neng) = line.split(',')
+				# 1 Jul 2020 - 
+				(datetime,state,hos,ic,hos_total,home,total_pos,delta_pos,new_pos,discharged,deaths,case_diag,case_screen,total,swabs,ct,notes) = line.split(',')
 				if datetime == 'data':
 					continue
 				
